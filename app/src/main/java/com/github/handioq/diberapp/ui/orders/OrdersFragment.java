@@ -1,4 +1,4 @@
-package com.github.handioq.diberapp;
+package com.github.handioq.diberapp.ui.orders;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +9,10 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.base.BaseFragment;
 
-public class MainFragment extends BaseFragment {
+public class OrdersFragment extends BaseFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public android.view.View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_orders, container, false);
     }
 
     @Override
