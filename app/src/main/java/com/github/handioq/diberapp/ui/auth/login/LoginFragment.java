@@ -18,6 +18,7 @@ import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.ui.orders.OrdersActivity;
 import com.github.handioq.diberapp.util.AuthPreferences;
+import com.github.handioq.diberapp.util.ErrorUtils;
 
 import javax.inject.Inject;
 
@@ -75,17 +76,21 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
 
     @Override
     public void loginFailure(Throwable e) {
-
+        Toast.makeText(getContext(), ErrorUtils.getMessage(e), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgress() {
-
+        // todo rework layout
+        //loginForm.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        // todo rework layout
+        //loginForm.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.GONE);
     }
 
     @Override
