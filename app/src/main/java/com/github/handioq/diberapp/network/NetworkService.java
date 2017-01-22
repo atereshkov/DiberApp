@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
 
 public class NetworkService {
 
-    private static final String USER_AGENT_HEADER = "Retrofit-FanShop-App";
+    private static final String USER_AGENT_HEADER = "Retrofit-Diber-App";
     private static final String HEADER_USER_AGENT = "User-Agent";
     private static final String HEADER_AUTHORIZATION = "Authorization";
     public static final int READ_TIMEOUT = 60;
