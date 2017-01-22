@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.di.component;
 import com.github.handioq.diberapp.di.module.AppModule;
 import com.github.handioq.diberapp.di.module.NetModule;
 import com.github.handioq.diberapp.network.NetworkService;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import javax.inject.Singleton;
 
@@ -14,6 +15,6 @@ public interface NetComponent {
 
     NetworkService networkService();
 
-    //AuthPreferences authPreferences();
+    AuthPreferences authPreferences();
 
 }

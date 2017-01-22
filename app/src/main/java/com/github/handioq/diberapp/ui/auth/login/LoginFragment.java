@@ -17,6 +17,7 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.ui.orders.OrdersActivity;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import javax.inject.Inject;
 
@@ -45,6 +46,9 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
     @Inject
     LoginMvp.Presenter loginPresenter;
 
+    @Inject
+    AuthPreferences authPreferences;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +68,9 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
     }
 
     @Override
-    public void loginSuccess(AuthResponseDto authResponseDto) {
-
+    public void loginSuccess() {
+        Intent intent = new Intent(getContext(), OrdersActivity.class);
+        startActivity(intent);
     }
 
     @Override

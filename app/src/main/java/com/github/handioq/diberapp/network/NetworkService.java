@@ -1,5 +1,7 @@
 package com.github.handioq.diberapp.network;
 
+import com.github.handioq.diberapp.util.AuthPreferences;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -10,10 +12,11 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static com.github.handioq.diberapp.network.NetworkConstants.HEADER_AUTHORIZATION;
 
 public class NetworkService {
 
@@ -43,7 +46,7 @@ public class NetworkService {
             public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException {
                 Request newRequest = chain.request()
                         .newBuilder()
-                        .addHeader(NetworkConstants.HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUHTORIZATION_VALUE)
+                        .addHeader(HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUHTORIZATION_VALUE)
                         .addHeader(HEADER_USER_AGENT, USER_AGENT_HEADER).build();
                 return chain.proceed(newRequest);
             }
@@ -61,12 +64,11 @@ public class NetworkService {
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder();
-                /*
-                if (AuthPreferences.getUserToken() != null) {
+
+                if (AuthPreferences.token != null) {
                     requestBuilder = original.newBuilder()
-                            .header(HEADER_AUTHORIZATION, AuthPreferences.getUserToken());
+                            .header(HEADER_AUTHORIZATION, "Bearer " + AuthPreferences.getUserToken());
                 }
-                */
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);

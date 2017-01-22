@@ -15,7 +15,7 @@ public class AuthPreferences {
     private static final String REFRESH_TOKEN = "refresh_token";
     private static final String TOKEN_NULL = "null";
     private static final String USER_ID = "userId";
-    private static final int USER_ID_NULL = -1;
+    private static final long USER_ID_NULL = -1;
 
     private static SharedPreferences sharedPreferences;
     private Context context;
@@ -26,9 +26,8 @@ public class AuthPreferences {
     }
 
     public void setUserToken(String token) {
-        sharedPreferences.edit()
-                .putString(TOKEN, token)
-                .apply();
+        sharedPreferences.edit().putString(TOKEN, token).apply();
+
         AuthPreferences.token = token;
     }
 
@@ -43,9 +42,8 @@ public class AuthPreferences {
     }
 
     public void setUserRefreshToken(String refreshToken) {
-        sharedPreferences.edit()
-                .putString(REFRESH_TOKEN, refreshToken)
-                .apply();
+        sharedPreferences.edit().putString(REFRESH_TOKEN, refreshToken).apply();
+
         AuthPreferences.refreshToken = refreshToken;
     }
 
@@ -59,17 +57,15 @@ public class AuthPreferences {
         return refreshToken;
     }
 
-    public void setUserId(int id) {
-        sharedPreferences.edit()
-                .putInt(USER_ID, id)
-                .apply();
+    public void setUserId(long id) {
+        sharedPreferences.edit().putLong(USER_ID, id).apply();
     }
 
-    public int getUserId() {
-        int userId = USER_ID_NULL;
+    public static long getUserId() {
+        long userId = USER_ID_NULL;
 
         if (sharedPreferences.contains(USER_ID)) {
-            userId = sharedPreferences.getInt(USER_ID, USER_ID_NULL);
+            userId = sharedPreferences.getLong(USER_ID, USER_ID_NULL);
         }
 
         return userId;
@@ -89,7 +85,6 @@ public class AuthPreferences {
         Log.i(TAG, "logout");
         sharedPreferences.edit()
                 .putString(TOKEN, TOKEN_NULL)
-                .putInt(USER_ID, USER_ID_NULL)
-                .apply();
+                .putLong(USER_ID, USER_ID_NULL).apply();
     }
 }

@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.di.module;
 import android.content.Context;
 
 import com.github.handioq.diberapp.network.NetworkService;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import javax.inject.Singleton;
 
@@ -24,12 +25,12 @@ public class NetModule {
         return new NetworkService();
     }
 
-    /*
+
     @Provides
     @Singleton
     AuthPreferences providesAuthPreferences() {
         return new AuthPreferences(context);
     }
-    */
+
 
 }

@@ -2,6 +2,7 @@ package com.github.handioq.diberapp.ui.auth.login;
 
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.network.NetworkService;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import javax.inject.Inject;
 
@@ -10,12 +11,13 @@ public class LoginPresenter implements LoginMvp.Presenter, LoginMvp.Model.Callba
     private NetworkService networkService;
     private LoginMvp.View view;
     private LoginModel model;
+    private AuthPreferences authPreferences;
 
     private final static String TAG = "LoginPresenter";
 
     @Inject
-    public LoginPresenter(NetworkService networkService) {
-        model = new LoginModel(networkService);
+    public LoginPresenter(NetworkService networkService, AuthPreferences authPreferences) {
+        model = new LoginModel(networkService, authPreferences);
         model.setCallback(this);
     }
 
@@ -25,9 +27,9 @@ public class LoginPresenter implements LoginMvp.Presenter, LoginMvp.Model.Callba
     }
 
     @Override
-    public void onSuccess(AuthResponseDto authResponseDto) {
+    public void onSuccess() {
         if (view != null) {
-            view.loginSuccess(authResponseDto);
+            view.loginSuccess();
             view.hideProgress();
         }
     }

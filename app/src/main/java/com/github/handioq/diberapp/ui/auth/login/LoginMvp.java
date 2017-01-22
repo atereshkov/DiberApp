@@ -1,7 +1,6 @@
 package com.github.handioq.diberapp.ui.auth.login;
 
 import com.github.handioq.diberapp.base.BaseMvp;
-import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 
 public interface LoginMvp {
 
@@ -9,11 +8,13 @@ public interface LoginMvp {
 
         void login(String login, String password);
 
+        void loadUserInfo();
+
         void setCallback(Callback callback);
 
         interface Callback {
 
-            void onSuccess(AuthResponseDto authResponseDto);
+            void onSuccess();
 
             void onError(Throwable error);
 
@@ -23,7 +24,7 @@ public interface LoginMvp {
 
     interface View extends BaseMvp.View {
 
-        void loginSuccess(AuthResponseDto authResponseDto);
+        void loginSuccess();
 
         void loginFailure(Throwable e);
 

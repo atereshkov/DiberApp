@@ -1,7 +1,9 @@
 package com.github.handioq.diberapp.network;
 
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
+import com.github.handioq.diberapp.model.dto.UserInfoDto;
 
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -12,6 +14,7 @@ public interface ApiService {
     String SIGNUP_URL = "/api/user/signup";
     String CATALOG_URL = "/api/catalog";
     String USER_URL = "/api/user";
+    String USER_GET_INFO = "/api/v1/users/info";
 
     @POST(LOGIN_URL)
     Observable<AuthResponseDto> login(@Query("username") String login,
@@ -19,6 +22,7 @@ public interface ApiService {
                                       @Query(NetworkConstants.GRANT_TYPE) String grantType,
                                       @Query(NetworkConstants.CLIENT_ID) String clientId);
 
-
+    @GET(USER_GET_INFO)
+    Observable<UserInfoDto> getUserInfo();
 
 }
