@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.base.BaseFragment;
 
+import javax.inject.Inject;
+
 public class LoginFragment extends BaseFragment {
+
+    @Inject
+    LoginMvp.Presenter loginPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
