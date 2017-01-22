@@ -2,9 +2,9 @@ package com.github.handioq.diberapp.application;
 
 import android.app.Application;
 
-import com.github.handioq.diberapp.di.component.DaggerLoginComponent;
 import com.github.handioq.diberapp.di.component.DaggerNetComponent;
-import com.github.handioq.diberapp.di.component.LoginComponent;
+import com.github.handioq.diberapp.di.component.DaggerPresenterComponent;
+import com.github.handioq.diberapp.di.component.PresenterComponent;
 import com.github.handioq.diberapp.di.component.NetComponent;
 import com.github.handioq.diberapp.di.module.AppModule;
 import com.github.handioq.diberapp.di.module.NetModule;
@@ -12,7 +12,7 @@ import com.github.handioq.diberapp.di.module.NetModule;
 public class DiberApp extends Application {
 
     private NetComponent netComponent;
-    private LoginComponent loginComponent;
+    private PresenterComponent presenterComponent;
 
     @Override
     public void onCreate() {
@@ -23,7 +23,7 @@ public class DiberApp extends Application {
                 .netModule(new NetModule(this))
                 .build();
 
-        loginComponent = DaggerLoginComponent.builder()
+        presenterComponent = DaggerPresenterComponent.builder()
                 .netComponent(netComponent)
                 .build();
     }
@@ -36,7 +36,7 @@ public class DiberApp extends Application {
         this.netComponent = netComponent;
     }
 
-    public LoginComponent getLoginComponent() {
-        return loginComponent;
+    public PresenterComponent getPresenterComponent() {
+        return presenterComponent;
     }
 }

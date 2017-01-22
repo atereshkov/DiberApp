@@ -17,7 +17,6 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.ui.orders.OrdersActivity;
-import com.github.handioq.diberapp.util.Validation;
 
 import javax.inject.Inject;
 
@@ -60,7 +59,7 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
     @Override
     public void onViewCreated(android.view.View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((DiberApp) getContext().getApplicationContext()).getLoginComponent().inject(this);
+        ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
         loginPresenter.setView(this);
     }
 
