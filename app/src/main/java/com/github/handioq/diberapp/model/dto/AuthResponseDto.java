@@ -58,4 +58,15 @@ public class AuthResponseDto {
     public void setScope(String scope) {
         this.scope = scope;
     }
+
+    @Override
+    public String toString() {
+        return "AuthResponseDto{" +
+                "accessToken='" + accessToken + '\'' +
+                ", tokenType='" + tokenType + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", expiresInSeconds=" + expiresInSeconds +
+                ", scope='" + scope + '\'' +
+                '}';
+    }
 }

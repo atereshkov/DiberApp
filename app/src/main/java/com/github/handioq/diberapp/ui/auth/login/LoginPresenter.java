@@ -26,21 +26,33 @@ public class LoginPresenter implements LoginMvp.Presenter, LoginMvp.Model.Callba
 
     @Override
     public void onSuccess(AuthResponseDto authResponseDto) {
-
+        if (view != null) {
+            view.loginSuccess(authResponseDto);
+            view.hideProgress();
+        }
     }
 
     @Override
     public void onError(Throwable error) {
-
+        if (view != null) {
+            view.loginFailure(error);
+            view.hideProgress();
+        }
     }
 
     @Override
     public void onCompleted() {
-
+        if (view != null) {
+            view.onCompleted();
+        }
     }
 
     @Override
     public void loginValidate(String login, String password) {
+        if (view != null) {
+            view.showProgress();
+        }
 
+        model.login(login, password);
     }
 }

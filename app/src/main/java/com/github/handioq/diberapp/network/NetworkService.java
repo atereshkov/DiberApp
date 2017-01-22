@@ -19,7 +19,6 @@ public class NetworkService {
 
     private static final String USER_AGENT_HEADER = "Retrofit-Diber-App";
     private static final String HEADER_USER_AGENT = "User-Agent";
-    private static final String HEADER_AUTHORIZATION = "Authorization";
     public static final int READ_TIMEOUT = 60;
     public static final int CONNECT_TIMEOUT = 60;
 
@@ -44,6 +43,7 @@ public class NetworkService {
             public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException {
                 Request newRequest = chain.request()
                         .newBuilder()
+                        .addHeader(NetworkConstants.HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUTORIZATION_VALUE)
                         .addHeader(HEADER_USER_AGENT, USER_AGENT_HEADER).build();
                 return chain.proceed(newRequest);
             }

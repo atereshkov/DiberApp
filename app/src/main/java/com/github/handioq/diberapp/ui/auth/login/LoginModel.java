@@ -1,5 +1,7 @@
 package com.github.handioq.diberapp.ui.auth.login;
 
+import android.util.Log;
+
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.network.NetworkConstants;
 import com.github.handioq.diberapp.network.NetworkService;
@@ -7,6 +9,8 @@ import com.github.handioq.diberapp.network.NetworkService;
 import rx.Subscriber;
 
 public class LoginModel implements LoginMvp.Model {
+
+    private final static String TAG = "LoginModel";
 
     private final NetworkService networkService;
     private LoginModel.Callback callback;
@@ -30,11 +34,13 @@ public class LoginModel implements LoginMvp.Model {
                     @Override
                     public void onError(Throwable e) {
                         callback.onError(e);
+                        Log.e(TAG, "onError: " + e);
                     }
 
                     @Override
                     public void onNext(AuthResponseDto authResponse) {
                         callback.onSuccess(authResponse);
+                        Log.i(TAG, "onSuccess: " + authResponse);
                     }
                 });
     }
