@@ -43,7 +43,7 @@ public class NetworkService {
             public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException {
                 Request newRequest = chain.request()
                         .newBuilder()
-                        .addHeader(NetworkConstants.HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUTORIZATION_VALUE)
+                        .addHeader(NetworkConstants.HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUHTORIZATION_VALUE)
                         .addHeader(HEADER_USER_AGENT, USER_AGENT_HEADER).build();
                 return chain.proceed(newRequest);
             }
