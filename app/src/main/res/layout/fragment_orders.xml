@@ -1,17 +1,18 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/contentView"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
+            <com.github.handioq.diberapp.base.RecyclerViewEmptySupport
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -22,8 +23,33 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:backgroundTint="@color/colorFab"
+            android:src="@drawable/ic_add_white_24px"
+            />
+
+        <include
+            android:id="@+id/progress_view"
+            layout="@layout/progress_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
         <include layout="@layout/error_layout" />
 
     </FrameLayout>
+
+    <include
+        android:id="@+id/empty_recycler_view"
+        layout="@layout/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </android.support.design.widget.CoordinatorLayout>

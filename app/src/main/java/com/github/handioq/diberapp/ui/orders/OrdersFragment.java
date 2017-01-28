@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
+import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.ui.orders.adapter.OrdersRecyclerAdapter;
 import com.github.handioq.diberapp.util.ErrorUtils;
@@ -29,7 +31,14 @@ import butterknife.BindView;
 public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
     @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    RecyclerViewEmptySupport recyclerView;
+
+    @BindView(R.id.empty_recycler_view)
+    View emptyView;
+
+    @BindView(R.id.progress_view)
+    View progressView;
+
 
     private final String TAG = "OrdersFragment";
     private static final String USER_ID_KEY = "user";
@@ -87,24 +96,25 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.setEmptyView(emptyView);
 
         //recyclerView.addOnScrollListener(new PaginationOnScrollListener(this, layoutManager));
     }
 
     @Override
     public void showLoadOrdersProgress() {
-
+        progressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadOrdersProgress() {
-
+        progressView.setVisibility(View.GONE);
     }
 
     @Override
     public void setOrders(List<OrderDvo> orders) {
         if (getActivity() != null) { // check for attaching to activity
-            adapter.addItems(orders);
+            adapter.setItems(orders);
         }
     }
 
