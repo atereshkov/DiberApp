@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.ui.auth.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,12 +67,14 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
         loginPresenter.setView(this);
+
+        //startActivity(OrdersActivity.makeIntent(getContext(), authPreferences.getUserId()));
     }
 
     @Override
     public void loginSuccess() {
-        Intent intent = new Intent(getContext(), OrdersActivity.class);
-        startActivity(intent);
+        Log.i(TAG, "Login success. User ID: " + authPreferences.getUserId());
+        startActivity(OrdersActivity.makeIntent(getContext(), authPreferences.getUserId()));
     }
 
     @Override

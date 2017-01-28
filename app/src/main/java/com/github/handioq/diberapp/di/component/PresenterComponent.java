@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.di.component;
 import com.github.handioq.diberapp.di.module.PresenterModule;
 import com.github.handioq.diberapp.di.scope.PresenterScope;
 import com.github.handioq.diberapp.ui.auth.login.LoginFragment;
+import com.github.handioq.diberapp.ui.orders.OrdersFragment;
 
 import dagger.Component;
 
@@ -11,5 +12,7 @@ import dagger.Component;
 public interface PresenterComponent {
 
     void inject(LoginFragment loginFragment);
+
+    void inject(OrdersFragment ordersFragment);
 
 }

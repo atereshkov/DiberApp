@@ -7,7 +7,7 @@ public interface OrdersMvp {
 
     interface Model extends BaseMvp.Model {
 
-        void getOrders(int offset, int count);
+        void getOrders(long userId);
 
         void setCallback(Callback callback);
 
@@ -35,7 +35,7 @@ public interface OrdersMvp {
 
     interface Presenter extends BaseMvp.Presenter<OrdersMvp.View> {
 
-        void getOrders(int offset, int limit);
+        void getOrders(long userId);
 
     }
 }

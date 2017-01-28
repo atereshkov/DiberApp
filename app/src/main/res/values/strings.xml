@@ -19,4 +19,6 @@
 
     <string name="password_recovery_not_impl">Password recovery not implemented now</string>
 
+    <string name="order_price">$%1$.2f</string>
+
 </resources>

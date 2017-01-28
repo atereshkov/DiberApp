@@ -16,7 +16,7 @@ public class OrderDto {
     @SerializedName("description")
     private String description;
 
-    @SerializedName("description")
+    @SerializedName("price")
     private Double price;
 
     @SerializedName("status")

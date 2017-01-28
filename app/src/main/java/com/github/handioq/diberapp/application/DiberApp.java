@@ -6,8 +6,8 @@ import com.github.handioq.diberapp.di.component.DaggerNetComponent;
 import com.github.handioq.diberapp.di.component.DaggerPresenterComponent;
 import com.github.handioq.diberapp.di.component.PresenterComponent;
 import com.github.handioq.diberapp.di.component.NetComponent;
-import com.github.handioq.diberapp.di.module.AppModule;
 import com.github.handioq.diberapp.di.module.NetModule;
+import com.github.handioq.diberapp.di.module.PresenterModule;
 
 public class DiberApp extends Application {
 
@@ -19,21 +19,17 @@ public class DiberApp extends Application {
         super.onCreate();
 
         netComponent = DaggerNetComponent.builder()
-                .appModule(new AppModule(this))
                 .netModule(new NetModule(this))
                 .build();
 
         presenterComponent = DaggerPresenterComponent.builder()
                 .netComponent(netComponent)
+                //.presenterModule(new PresenterModule())
                 .build();
     }
 
     public NetComponent getNetComponent() {
         return netComponent;
-    }
-
-    public void setNetComponent(NetComponent netComponent) {
-        this.netComponent = netComponent;
     }
 
     public PresenterComponent getPresenterComponent() {
