@@ -1,8 +1,10 @@
 package com.github.handioq.diberapp.ui.orders;
 
-import com.github.handioq.diberapp.model.dvo.OrderListDvo;
+import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.network.NetworkService;
 import com.github.handioq.diberapp.util.Mapper;
+
+import java.util.List;
 
 import rx.Subscriber;
 
@@ -24,8 +26,8 @@ public class OrdersModel implements OrdersMvp.Model {
                 .getOrders(userId)
                 .map(Mapper::mapOrderListToDvo)
                 //.delay(3, TimeUnit.SECONDS)
-                .compose(NetworkService.<OrderListDvo>applyScheduler())
-                .subscribe(new Subscriber<OrderListDvo>() {
+                .compose(NetworkService.<List<OrderDvo>>applyScheduler())
+                .subscribe(new Subscriber<List<OrderDvo>>() {
                     @Override
                     public void onCompleted() {
                         callback.onLoadOrdersCompleted();
@@ -37,7 +39,7 @@ public class OrdersModel implements OrdersMvp.Model {
                     }
 
                     @Override
-                    public void onNext(OrderListDvo orders) {
+                    public void onNext(List<OrderDvo> orders) {
                         callback.onOrdersLoaded(orders);
                     }
                 });

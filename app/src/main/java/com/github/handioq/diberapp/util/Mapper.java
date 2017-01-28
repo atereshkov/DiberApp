@@ -1,17 +1,18 @@
 package com.github.handioq.diberapp.util;
 
 import com.github.handioq.diberapp.model.dto.OrderDto;
-import com.github.handioq.diberapp.model.dto.OrderListDto;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
-import com.github.handioq.diberapp.model.dvo.OrderListDvo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mapper {
 
-    public static OrderListDvo mapOrderListToDvo(OrderListDto orderListDto) {
-        OrderListDvo ordersDvo = new OrderListDvo();
+    public static List<OrderDvo> mapOrderListToDvo(List<OrderDto> orderListDto) {
+        List<OrderDvo> ordersDvo = new ArrayList<>();
 
-        for (OrderDto orderDto : orderListDto.getOrders()) {
-            ordersDvo.getOrders().add(mapOrderToDvo(orderDto));
+        for (OrderDto orderDto : orderListDto) {
+            ordersDvo.add(mapOrderToDvo(orderDto));
         }
 
         return ordersDvo;

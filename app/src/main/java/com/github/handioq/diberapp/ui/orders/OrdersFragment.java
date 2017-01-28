@@ -16,11 +16,11 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
-import com.github.handioq.diberapp.model.dvo.OrderListDvo;
 import com.github.handioq.diberapp.ui.orders.adapter.OrdersRecyclerAdapter;
 import com.github.handioq.diberapp.util.ErrorUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -74,14 +74,11 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
     @Override
     public void onViewCreated(android.view.View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
         adapter = new OrdersRecyclerAdapter(new ArrayList<OrderDvo>());
-
         ordersPresenter.setView(this);
         ordersPresenter.getOrders(userId);
-
         initRecycler();
     }
 
@@ -105,9 +102,9 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
     }
 
     @Override
-    public void setOrders(OrderListDvo orders) {
+    public void setOrders(List<OrderDvo> orders) {
         if (getActivity() != null) { // check for attaching to activity
-            adapter.addItems(orders.getOrders());
+            adapter.addItems(orders);
         }
     }
 

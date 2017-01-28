@@ -67,8 +67,6 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
         loginPresenter.setView(this);
-
-        //startActivity(OrdersActivity.makeIntent(getContext(), authPreferences.getUserId()));
     }
 
     @Override
