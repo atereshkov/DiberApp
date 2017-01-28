@@ -27,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
@@ -124,6 +125,11 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
         Toast.makeText(getContext(), ErrorUtils.getMessage(error), Toast.LENGTH_LONG).show();
     }
 
+    @OnClick(R.id.fab)
+    void newPost() {
+        Toast.makeText(getContext(), "Not implemented", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
@@ -135,7 +141,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Toast.makeText(getContext(), "Test!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Not implemented", Toast.LENGTH_SHORT).show();
             return true;
         }
 
