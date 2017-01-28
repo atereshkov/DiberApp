@@ -13,6 +13,17 @@ public class UserInfoDto {
     @SerializedName("fullname")
     private String fullname;
 
+    @SerializedName("email")
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public long getId() {
         return id;
     }
@@ -43,6 +54,7 @@ public class UserInfoDto {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", fullname='" + fullname + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

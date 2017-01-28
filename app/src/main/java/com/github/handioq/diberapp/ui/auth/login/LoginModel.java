@@ -76,6 +76,9 @@ public class LoginModel implements LoginMvp.Model {
                     public void onNext(UserInfoDto userInfoDto) {
                         Log.i(TAG, "get user info: " + userInfoDto.toString());
                         authPreferences.setUserId(userInfoDto.getId());
+                        authPreferences.setUserEmail(userInfoDto.getEmail());
+                        authPreferences.setUserFullname(userInfoDto.getFullname());
+
                         callback.onSuccess();
                     }
                 });

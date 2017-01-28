@@ -7,14 +7,18 @@ import android.util.Log;
 public class AuthPreferences {
 
     private static final String TAG = "AuthPreferences";
+
     public static String token;
     public static String refreshToken;
 
     private static final String AUTH_PREFERENCES = "auth";
     private static final String TOKEN = "token";
     private static final String REFRESH_TOKEN = "refresh_token";
-    private static final String TOKEN_NULL = "null";
     private static final String USER_ID = "userId";
+    private static final String USER_FULLNAME = "fullname";
+    private static final String USER_EMAIL = "email";
+
+    private static final String TOKEN_NULL = "null";
     private static final long USER_ID_NULL = -1;
 
     private static SharedPreferences sharedPreferences;
@@ -39,6 +43,34 @@ public class AuthPreferences {
         }
 
         return token;
+    }
+
+    public void setUserFullname(String fullname) {
+        sharedPreferences.edit().putString(USER_FULLNAME, fullname).apply();
+    }
+
+    public static String getUserFullname() {
+        String fullname = TOKEN_NULL;
+
+        if (sharedPreferences.contains(USER_FULLNAME)) {
+            fullname = sharedPreferences.getString(USER_FULLNAME, TOKEN_NULL);
+        }
+
+        return fullname;
+    }
+
+    public void setUserEmail(String email) {
+        sharedPreferences.edit().putString(USER_EMAIL, email).apply();
+    }
+
+    public static String getUserEmail() {
+        String email = TOKEN_NULL;
+
+        if (sharedPreferences.contains(USER_EMAIL)) {
+            email = sharedPreferences.getString(USER_EMAIL, TOKEN_NULL);
+        }
+
+        return  email;
     }
 
     public void setUserRefreshToken(String refreshToken) {

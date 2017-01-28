@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import butterknife.BindView;
 
@@ -27,6 +28,11 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ImageView userImageView;
     private TextView nameTextView;
+    private TextView emailTextView;
+
+    // TODO add logout button
+
+    private AuthPreferences authPreferences;
 
     @Override
     public void onContentChanged() {
@@ -37,8 +43,9 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
 
         View headerLayout = navigationView.getHeaderView(0);
 
-        //userImageView = (ImageView) headerLayout.findViewById(R.id.);
-        //nameTextView = (TextView) headerLayout.findViewById(R.id.);
+        userImageView = (ImageView) headerLayout.findViewById(R.id.imageView);
+        nameTextView = (TextView) headerLayout.findViewById(R.id.nameTextView);
+        emailTextView = (TextView) headerLayout.findViewById(R.id.emailTextView);
     }
 
     @Override
@@ -78,14 +85,15 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        authPreferences = new AuthPreferences(getApplicationContext());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        // set fields
+        nameTextView.setText(authPreferences.getUserFullname());
+        emailTextView.setText(authPreferences.getUserEmail());
     }
 
 }
