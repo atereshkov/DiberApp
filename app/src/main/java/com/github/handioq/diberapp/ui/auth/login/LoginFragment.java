@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,6 +46,12 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
     @BindView(R.id.forgot_password)
     TextView forgotPasswordView;
 
+    @BindView(R.id.sign_in)
+    Button signInButton;
+
+    @BindView(R.id.sign_up)
+    Button signUpButton;
+
     @Inject
     LoginMvp.Presenter loginPresenter;
 
@@ -72,7 +79,11 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
     @Override
     public void loginSuccess() {
         Log.i(TAG, "Login success. User ID: " + authPreferences.getUserId());
-        startActivity(OrdersActivity.makeIntent(getContext(), authPreferences.getUserId()));
+
+        Intent intent = OrdersActivity.makeIntent(getContext(), authPreferences.getUserId());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
@@ -82,16 +93,18 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
 
     @Override
     public void showProgress() {
-        // todo rework layout
-        //loginForm.setVisibility(View.GONE);
-        //progressBar.setVisibility(View.VISIBLE);
+        signInButton.setVisibility(View.GONE);
+        signUpButton.setEnabled(false);
+        forgotPasswordView.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        // todo rework layout
-        //loginForm.setVisibility(View.VISIBLE);
-        //progressBar.setVisibility(View.GONE);
+        signInButton.setVisibility(View.VISIBLE);
+        signUpButton.setEnabled(true);
+        forgotPasswordView.setEnabled(true);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
