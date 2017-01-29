@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.network;
 
+import com.github.handioq.diberapp.BuildConfig;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -41,38 +43,36 @@ public class NetworkService {
 
     public NetworkService() {
 
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException {
-                Request newRequest = chain.request()
-                        .newBuilder()
-                        .addHeader(HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUHTORIZATION_VALUE)
-                        .addHeader(HEADER_USER_AGENT, USER_AGENT_HEADER).build();
-                return chain.proceed(newRequest);
-            }
+        Interceptor interceptor = chain -> {
+            Request newRequest = chain.request()
+                    .newBuilder()
+                    .addHeader(HEADER_AUTHORIZATION, NetworkConstants.HEADER_AUHTORIZATION_VALUE)
+                    .addHeader(HEADER_USER_AGENT, USER_AGENT_HEADER).build();
+            return chain.proceed(newRequest);
         };
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS);
 
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.BODY);
+        builder.interceptors().add(loggingInterceptor);
+
         builder.interceptors().add(interceptor);
 
-        builder.interceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request original = chain.request();
+        builder.interceptors().add(chain -> {
+            Request original = chain.request();
 
-                Request.Builder requestBuilder = original.newBuilder();
+            Request.Builder requestBuilder = original.newBuilder();
 
-                if (AuthPreferences.token != null) {
-                    requestBuilder = original.newBuilder()
-                            .header(HEADER_AUTHORIZATION, "Bearer " + AuthPreferences.getUserToken());
-                }
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
+            if (AuthPreferences.token != null) {
+                requestBuilder = original.newBuilder()
+                        .header(HEADER_AUTHORIZATION, "Bearer " + AuthPreferences.getUserToken());
             }
+
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
         });
 
         OkHttpClient okHttpClient = builder.build();

@@ -37,8 +37,8 @@ public class LoginModel implements LoginMvp.Model {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onError(e);
                         Log.e(TAG, "onError: " + e.toString());
+                        callback.onError(e);
                     }
 
                     @Override
