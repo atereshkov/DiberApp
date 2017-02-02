@@ -18,6 +18,7 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
+import com.github.handioq.diberapp.ui.auth.registration.SignupActivity;
 import com.github.handioq.diberapp.ui.orders.OrdersActivity;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
@@ -132,7 +133,7 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
 
     @OnClick(R.id.sign_up)
     void signUp() {
-        Intent intent = new Intent(getContext(), OrdersActivity.class);
+        Intent intent = new Intent(getContext(), SignupActivity.class);
         startActivity(intent);
     }
 
