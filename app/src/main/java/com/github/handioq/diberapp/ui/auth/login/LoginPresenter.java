@@ -1,6 +1,5 @@
 package com.github.handioq.diberapp.ui.auth.login;
 
-import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.network.NetworkService;
 import com.github.handioq.diberapp.util.AuthPreferences;
 

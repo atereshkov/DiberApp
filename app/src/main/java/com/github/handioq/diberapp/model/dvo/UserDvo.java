@@ -1,30 +1,17 @@
-package com.github.handioq.diberapp.model.dto;
+package com.github.handioq.diberapp.model.dvo;
 
-import com.google.gson.annotations.SerializedName;
+public class UserDvo {
 
-public class UserDto {
-
-    @SerializedName("id")
-    private long id;
-
-    @SerializedName("email")
     private String email;
-
-    @SerializedName("username")
     private String username;
-
-    @SerializedName("enabled")
     private boolean enabled;
-
-    @SerializedName("fullname")
     private String fullname;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public UserDvo(String email, String username, boolean enabled, String fullname) {
+        this.email = email;
+        this.username = username;
+        this.enabled = enabled;
+        this.fullname = fullname;
     }
 
     public String getEmail() {
@@ -61,9 +48,8 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
+        return "UserDvo{" +
+                "email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", enabled=" + enabled +
                 ", fullname='" + fullname + '\'' +

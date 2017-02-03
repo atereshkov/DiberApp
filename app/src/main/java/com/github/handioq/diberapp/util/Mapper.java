@@ -1,7 +1,9 @@
 package com.github.handioq.diberapp.util;
 
 import com.github.handioq.diberapp.model.dto.OrderDto;
+import com.github.handioq.diberapp.model.dto.UserDto;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.UserDvo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,10 @@ public class Mapper {
     private static OrderDvo mapOrderToDvo(OrderDto orderDto) {
         return new OrderDvo(DateUtils.getStringDateFromTimestamp(orderDto.getDate()), orderDto.getDescription(),
                 orderDto.getPrice(), orderDto.getStatus(), orderDto.getAddressFrom(), orderDto.getAddressTo());
+    }
+
+    public static UserDvo mapUserToDvo(UserDto userDto) {
+        return new UserDvo(userDto.getEmail(), userDto.getUsername(), userDto.isEnabled(), userDto.getFullname());
     }
 
 }

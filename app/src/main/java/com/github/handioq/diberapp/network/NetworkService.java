@@ -28,17 +28,11 @@ public class NetworkService {
     public static final int CONNECT_TIMEOUT = 60;
 
     private ApiService apiService;
-    //private final static Scheduler NETWORK_SINGLE = Schedulers.from(Executors.newFixedThreadPool(3));
 
     public static <E> Observable.Transformer<E, E> applyScheduler() {
-        return new Observable.Transformer<E, E>() {
-            @Override
-            public Observable<E> call(Observable<E> observable) {
-                return observable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
+        return observable -> observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public NetworkService() {

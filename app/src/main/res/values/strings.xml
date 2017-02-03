@@ -21,5 +21,16 @@
 
     <string name="order_price">$%1$.2f</string>
     <string name="no_data_recycler_view">There\'s nothing here. Add something.</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="prompt_zipcode">Zipcode</string>
+    <string name="prompt_street">Street</string>
+    <string name="prompt_city">City</string>
+    <string name="personal_info">Personal info</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_fullname">Full Name</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_phone">Contact phone</string>
+    <string name="prompt_repeat_password">Repeat password</string>
+    <string name="activity_title_signup">Sign Up</string>
 
 </resources>

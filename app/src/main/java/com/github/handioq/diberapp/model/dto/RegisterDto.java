@@ -2,10 +2,7 @@ package com.github.handioq.diberapp.model.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserDto {
-
-    @SerializedName("id")
-    private long id;
+public class RegisterDto {
 
     @SerializedName("email")
     private String email;
@@ -19,12 +16,22 @@ public class UserDto {
     @SerializedName("fullname")
     private String fullname;
 
-    public long getId() {
-        return id;
+    @SerializedName("password")
+    private String password;
+
+    @SerializedName("customer")
+    private boolean customer;
+
+    public RegisterDto() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public RegisterDto(String email, String username, boolean enabled, String fullname, String password, boolean customer) {
+        this.email = email;
+        this.username = username;
+        this.enabled = enabled;
+        this.fullname = fullname;
+        this.password = password;
+        this.customer = customer;
     }
 
     public String getEmail() {
@@ -59,14 +66,19 @@ public class UserDto {
         this.fullname = fullname;
     }
 
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", enabled=" + enabled +
-                ", fullname='" + fullname + '\'' +
-                '}';
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(boolean customer) {
+        this.customer = customer;
     }
 }
