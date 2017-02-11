@@ -36,5 +36,10 @@
     <string name="prompt_description">Description</string>
     <string name="prompt_price">Price</string>
     <string name="action_create_order">Create</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="order_info">Order information</string>
+    <string name="delivery_address_from">Address from (Shop)</string>
+    <string name="prompt_address_from">Address from</string>
+    <string name="prompt_order_name">Short name</string>
 
 </resources>

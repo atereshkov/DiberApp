@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 
 import com.github.handioq.diberapp.R;
@@ -21,6 +22,9 @@ public class NewOrderFragment extends BaseFragment {
 
     @BindView(R.id.spinner_addresses)
     Spinner addrSpinnerView;
+
+    @BindView(R.id.address_from_edittext)
+    AutoCompleteTextView addressFromEditView;
 
     public static NewOrderFragment newInstance() {
         NewOrderFragment fragment = new NewOrderFragment();
@@ -44,15 +48,34 @@ public class NewOrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         //((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
+
+        initAddressesSpiner();
+        initShopsSpinner();
+    }
+
+    private void initAddressesSpiner() {
+        // stub
         ArrayList<String> addresses = new ArrayList<>();
         addresses.add("Home");
         addresses.add("Work");
+        //addresses.add("Some big big big name of address!!!");
 
         ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, addresses);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         addrSpinnerView.setAdapter(countryAdapter);
         //addrSpinnerView.setSelection(countryAdapter.getPosition();
+    }
+
+    private void initShopsSpinner() {
+        ArrayList<String> shops = new ArrayList<>();
+        shops.add("Shop number 1");
+        shops.add("Nemiga");
+        shops.add("Raduga");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice, shops);
+        addressFromEditView.setThreshold(2);
+        addressFromEditView.setAdapter(adapter);
     }
 
 
