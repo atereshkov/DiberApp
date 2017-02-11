@@ -31,6 +31,10 @@
             android:name=".ui.auth.registration.SignupActivity"
             android:label="@string/activity_title_signup" />
 
+        <activity
+            android:name=".ui.interaction.new_order.NewOrderActivity"
+            android:label="@string/activity_title_new_order" />
+
     </application>
 
 </manifest>

@@ -32,5 +32,9 @@
     <string name="prompt_phone">Contact phone</string>
     <string name="prompt_repeat_password">Repeat password</string>
     <string name="activity_title_signup">Sign Up</string>
+    <string name="activity_title_new_order">New order</string>
+    <string name="prompt_description">Description</string>
+    <string name="prompt_price">Price</string>
+    <string name="action_create_order">Create</string>
 
 </resources>

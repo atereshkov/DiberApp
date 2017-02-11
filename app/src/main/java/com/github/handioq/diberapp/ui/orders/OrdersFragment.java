@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.ui.orders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderActivity;
 import com.github.handioq.diberapp.ui.orders.adapter.OrdersRecyclerAdapter;
 import com.github.handioq.diberapp.util.ErrorUtils;
 
@@ -127,7 +129,8 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
     @OnClick(R.id.fab)
     void newPost() {
-        Toast.makeText(getContext(), "Not implemented", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), NewOrderActivity.class);
+        startActivity(intent);
     }
 
     @Override
