@@ -5,13 +5,22 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.base.BaseFragment;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
+
 public class NewOrderFragment extends BaseFragment {
 
     private final String TAG = this.getClass().getSimpleName();
+
+    @BindView(R.id.spinner_addresses)
+    Spinner addrSpinnerView;
 
     public static NewOrderFragment newInstance() {
         NewOrderFragment fragment = new NewOrderFragment();
@@ -35,9 +44,16 @@ public class NewOrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         //((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
+        ArrayList<String> addresses = new ArrayList<>();
+        addresses.add("Home");
+        addresses.add("Work");
 
+        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, addresses);
+        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        addrSpinnerView.setAdapter(countryAdapter);
+        //addrSpinnerView.setSelection(countryAdapter.getPosition();
     }
-
 
 
 }
