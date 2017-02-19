@@ -1,43 +1,43 @@
-/*
 package com.github.handioq.diberapp.ui.interaction.new_order;
 
 import com.github.handioq.diberapp.base.BaseMvp;
+import com.github.handioq.diberapp.model.dto.OrderDto;
+import com.github.handioq.diberapp.model.dvo.OrderDvo;
 
 public interface NewOrderMvp {
 
     interface Model extends BaseMvp.Model {
 
-        void addOrder();
+        void addOrder(OrderDto orderDto);
 
         void setCallback(Callback callback);
 
         interface Callback {
 
-            void onOrdersLoaded(List<OrderDvo> orders);
+            void onOrderAdded(OrderDvo orderDvo);
 
-            void onOrdersLoadError(Throwable error);
+            void onOrderAddError(Throwable error);
 
-            void onLoadOrdersCompleted();
+            void onAddOrderCompleted();
         }
     }
 
     interface View extends BaseMvp.View {
 
-        void showLoadOrdersProgress();
+        void showAddOrderProgress();
 
-        void hideLoadOrdersProgress();
+        void hideAddOrderProgress();
 
-        void setOrders(List<OrderDvo> orders);
+        void onOrderAdded(OrderDvo orderDvo);
 
-        void showLoadOrdersError(Throwable error);
+        void onAddOrderError(Throwable error);
 
     }
 
-    interface Presenter extends BaseMvp.Presenter<OrdersMvp.View> {
+    interface Presenter extends BaseMvp.Presenter<NewOrderMvp.View> {
 
-        void getOrders(long userId);
+        void addOrder(OrderDto orderDto);
 
     }
 
 }
-*/

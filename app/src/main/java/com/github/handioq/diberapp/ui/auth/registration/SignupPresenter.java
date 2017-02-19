@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 public class SignupPresenter implements SignupMvp.Presenter, SignupMvp.Model.Callback {
 
-
     private final static String TAG = "SignupPresenter";
 
     private NetworkService networkService;

@@ -38,6 +38,7 @@ public interface ApiService {
     @GET(USER_ORDERS)
     Observable<List<OrderDto>> getOrders(@Path("user_id") long userId);
 
-
+    @POST(USER_ORDERS)
+    Observable<OrderDto> addOrder(@Body OrderDto orderDto);
 
 }

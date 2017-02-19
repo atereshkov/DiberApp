@@ -2,6 +2,7 @@ package com.github.handioq.diberapp.ui.interaction.new_order;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,14 +13,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 
 import com.github.handioq.diberapp.R;
+import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
+import com.github.handioq.diberapp.model.dto.ShopDto;
+import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.ui.dialog.NewShopDialog;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class NewOrderFragment extends BaseFragment {
+public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener{
 
+    private static final String ADD_SHOP_DIALOG = "NewShopDialog";
     private final String TAG = this.getClass().getSimpleName();
 
     @BindView(R.id.spinner_addresses)
@@ -48,14 +55,13 @@ public class NewOrderFragment extends BaseFragment {
     @Override
     public void onViewCreated(android.view.View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
+        ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
-
-        initAddressesSpiner();
+        initAddressesSpinner();
         initShopsSpinner();
     }
 
-    private void initAddressesSpiner() {
+    private void initAddressesSpinner() {
         // stub
         ArrayList<String> addresses = new ArrayList<>();
         addresses.add("Home");
@@ -98,5 +104,40 @@ public class NewOrderFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void showAddOrderProgress() {
 
+    }
+
+    @Override
+    public void hideAddOrderProgress() {
+
+    }
+
+    @Override
+    public void onOrderAdded(OrderDvo orderDvo) {
+
+    }
+
+    @Override
+    public void onAddOrderError(Throwable error) {
+
+    }
+
+    @OnClick(R.id.addShopButton)
+    public void addShopClick() {
+        NewShopDialog dialog = new NewShopDialog();
+        dialog.attachListener(this);
+        dialog.show(getFragmentManager(), ADD_SHOP_DIALOG);
+    }
+
+    @Override
+    public void onNewShopDialogAddClick(DialogFragment dialog, ShopDto shopDto) {
+
+    }
+
+    @Override
+    public void onNewShopDialogCancelClick(DialogFragment dialog) {
+
+    }
 }

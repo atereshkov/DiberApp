@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.auth.login.LoginActivity"
-            android:label="@string/activity_title_login"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
