@@ -1,8 +1,10 @@
 package com.github.handioq.diberapp.network;
 
+import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.RegisterDto;
+import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dto.UserDto;
 import com.github.handioq.diberapp.model.dto.UserInfoDto;
 
@@ -22,6 +24,8 @@ public interface ApiService {
 
     String USER_GET_INFO = "/api/v1/users/info";
     String USER_ORDERS = "/api/v1/users/{user_id}/orders";
+    String USER_SHOPS = "/api/v1/users/{user_id}/shops";
+    String USER_ADDRESSES = "/api/v1/users/{user_id}/addresses";
 
     @POST(LOGIN_URL)
     Observable<AuthResponseDto> login(@Query("username") String login,
@@ -36,9 +40,15 @@ public interface ApiService {
     Observable<UserInfoDto> getUserInfo();
 
     @GET(USER_ORDERS)
-    Observable<List<OrderDto>> getOrders(@Path("user_id") long userId);
+    Observable<List<OrderDto>> getUserOrders(@Path("user_id") long userId);
 
     @POST(USER_ORDERS)
     Observable<OrderDto> addOrder(@Body OrderDto orderDto);
+
+    @GET(USER_SHOPS)
+    Observable<List<ShopDto>> getUserShops(@Path("user_id") long userId);
+
+    @GET(USER_ADDRESSES)
+    Observable<List<AddressDto>> getUserAddresses(@Path("user_id") long userId);
 
 }

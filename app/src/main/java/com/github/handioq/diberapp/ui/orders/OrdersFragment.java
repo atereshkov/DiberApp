@@ -88,7 +88,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
-        adapter = new OrdersRecyclerAdapter(new ArrayList<OrderDvo>());
+        adapter = new OrdersRecyclerAdapter(new ArrayList<>());
         ordersPresenter.setView(this);
         ordersPresenter.getOrders(userId);
         initRecycler();

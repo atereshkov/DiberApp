@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,24 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.ShopDto;
+import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.ShopDvo;
+import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
 import com.github.handioq.diberapp.ui.dialog.NewShopDialog;
+import com.github.handioq.diberapp.ui.shops.ShopsMvp;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener{
+public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener,
+    ShopsMvp.View, AddressesMvp.View {
 
     private static final String ADD_SHOP_DIALOG = "NewShopDialog";
     private final String TAG = this.getClass().getSimpleName();
@@ -34,6 +44,15 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @BindView(R.id.address_from_edittext)
     AutoCompleteTextView addressFromEditView;
+
+    @Inject
+    ShopsMvp.Presenter shopsPresenter;
+
+    @Inject
+    AddressesMvp.Presenter addressesPresenter;
+
+    @Inject
+    AuthPreferences authPreferences;
 
     public static NewOrderFragment newInstance() {
         NewOrderFragment fragment = new NewOrderFragment();
@@ -57,31 +76,35 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
-        initAddressesSpinner();
-        initShopsSpinner();
+        shopsPresenter.setView(this);
+        shopsPresenter.getUserShops(authPreferences.getUserId());
+
+        addressesPresenter.setView(this);
+        addressesPresenter.getUserAddresses(authPreferences.getUserId());
     }
 
-    private void initAddressesSpinner() {
-        // stub
-        ArrayList<String> addresses = new ArrayList<>();
-        addresses.add("Home");
-        addresses.add("Work");
-        //addresses.add("Some big big big name of address!!!");
+    private void initAddressesSpinner(List<AddressDvo> addresses) {
+        ArrayList<String> strAddresses = new ArrayList<>();
 
-        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, addresses);
+        for (AddressDvo addressDvo : addresses) {
+            strAddresses.add(addressDvo.getName());
+        }
+
+        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strAddresses);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         addrSpinnerView.setAdapter(countryAdapter);
         //addrSpinnerView.setSelection(countryAdapter.getPosition();
     }
 
-    private void initShopsSpinner() {
-        ArrayList<String> shops = new ArrayList<>();
-        shops.add("Shop number 1");
-        shops.add("Nemiga");
-        shops.add("Raduga");
+    private void initShopsSpinner(List<ShopDvo> shops) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice, shops);
+        ArrayList<String> strShops = new ArrayList<>();
+        for (ShopDvo shopDvo : shops) {
+            strShops.add(shopDvo.getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice, strShops);
         addressFromEditView.setThreshold(2);
         addressFromEditView.setAdapter(adapter);
 
@@ -103,6 +126,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
             }
         });
     }
+
+    // New order methods:
 
     @Override
     public void showAddOrderProgress() {
@@ -131,6 +156,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         dialog.show(getFragmentManager(), ADD_SHOP_DIALOG);
     }
 
+    // New shop dialog:
+
     @Override
     public void onNewShopDialogAddClick(DialogFragment dialog, ShopDto shopDto) {
 
@@ -140,4 +167,49 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     public void onNewShopDialogCancelClick(DialogFragment dialog) {
 
     }
+
+    // Shops methods:
+
+    @Override
+    public void showLoadShopsProgress() {
+
+    }
+
+    @Override
+    public void hideLoadShopsProgress() {
+
+    }
+
+    @Override
+    public void setShops(List<ShopDvo> shops) {
+        initShopsSpinner(shops);
+    }
+
+    @Override
+    public void showLoadShopsError(Throwable error) {
+        Log.e(TAG, error.toString());
+    }
+
+    // Addresses methods:
+
+    @Override
+    public void showLoadAddressesProgress() {
+
+    }
+
+    @Override
+    public void hideLoadAddressesProgress() {
+
+    }
+
+    @Override
+    public void setAddresses(List<AddressDvo> addresses) {
+        initAddressesSpinner(addresses);
+    }
+
+    @Override
+    public void showLoadAddressesError(Throwable error) {
+
+    }
+
 }

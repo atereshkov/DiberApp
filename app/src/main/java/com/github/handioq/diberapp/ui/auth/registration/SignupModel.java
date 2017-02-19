@@ -26,7 +26,7 @@ public class SignupModel implements SignupMvp.Model {
         networkService.getApiService()
                 .signup(registerDto)
                 .map(Mapper::mapUserToDvo)
-                .compose(NetworkService.<UserDvo>applyScheduler())
+                .compose(NetworkService.applyScheduler())
                 .subscribe(new Subscriber<UserDvo>() {
                     @Override
                     public void onCompleted() {

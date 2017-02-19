@@ -28,7 +28,7 @@ public class LoginModel implements LoginMvp.Model {
 
         networkService.getApiService()
                 .login(login, password, NetworkConstants.GRANT_TYPE_VALUE, NetworkConstants.CLIENT_ID_VALUE)
-                .compose(NetworkService.<AuthResponseDto>applyScheduler())
+                .compose(NetworkService.applyScheduler())
                 .subscribe(new Subscriber<AuthResponseDto>() {
                     @Override
                     public void onCompleted() {

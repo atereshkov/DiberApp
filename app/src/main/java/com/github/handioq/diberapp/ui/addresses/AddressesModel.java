@@ -1,6 +1,6 @@
-package com.github.handioq.diberapp.ui.orders;
+package com.github.handioq.diberapp.ui.addresses;
 
-import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.network.NetworkService;
 import com.github.handioq.diberapp.util.Mapper;
 
@@ -8,39 +8,38 @@ import java.util.List;
 
 import rx.Subscriber;
 
-public class OrdersModel implements OrdersMvp.Model {
+public class AddressesModel implements AddressesMvp.Model {
 
     private final NetworkService networkService;
-    private OrdersMvp.Model.Callback callback;
+    private AddressesMvp.Model.Callback callback;
 
-    private final static String TAG = "OrdersModel";
+    private final static String TAG = "AddressesModel";
 
-    public OrdersModel(NetworkService networkService) {
+    public AddressesModel(NetworkService networkService) {
         this.networkService = networkService;
     }
 
     @Override
-    public void getOrders(long userId) {
-
+    public void getUserAddresses(long userId) {
         networkService.getApiService()
-                .getUserOrders(userId)
-                .map(Mapper::mapOrderListToDvo)
+                .getUserAddresses(userId)
+                .map(Mapper::mapAddressListToDvo)
                 //.delay(3, TimeUnit.SECONDS)
                 .compose(NetworkService.applyScheduler())
-                .subscribe(new Subscriber<List<OrderDvo>>() {
+                .subscribe(new Subscriber<List<AddressDvo>>() {
                     @Override
                     public void onCompleted() {
-                        callback.onLoadOrdersCompleted();
+                        callback.onLoadAddressesCompleted();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onOrdersLoadError(e);
+                        callback.onAddressesLoadError(e);
                     }
 
                     @Override
-                    public void onNext(List<OrderDvo> orders) {
-                        callback.onOrdersLoaded(orders);
+                    public void onNext(List<AddressDvo> addresses) {
+                        callback.onAddressesLoaded(addresses);
                     }
                 });
     }

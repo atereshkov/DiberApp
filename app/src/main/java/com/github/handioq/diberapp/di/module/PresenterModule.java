@@ -2,12 +2,16 @@ package com.github.handioq.diberapp.di.module;
 
 import com.github.handioq.diberapp.di.scope.PresenterScope;
 import com.github.handioq.diberapp.network.NetworkService;
+import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
+import com.github.handioq.diberapp.ui.addresses.AddressesPresenter;
 import com.github.handioq.diberapp.ui.auth.login.LoginMvp;
 import com.github.handioq.diberapp.ui.auth.login.LoginPresenter;
 import com.github.handioq.diberapp.ui.auth.registration.SignupMvp;
 import com.github.handioq.diberapp.ui.auth.registration.SignupPresenter;
 import com.github.handioq.diberapp.ui.orders.OrdersMvp;
 import com.github.handioq.diberapp.ui.orders.OrdersPresenter;
+import com.github.handioq.diberapp.ui.shops.ShopsMvp;
+import com.github.handioq.diberapp.ui.shops.ShopsPresenter;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
 import dagger.Module;
@@ -32,5 +36,17 @@ public class PresenterModule {
     @PresenterScope
     public SignupMvp.Presenter providesSignupPresenter(NetworkService networkService) {
         return new SignupPresenter(networkService);
+    }
+
+    @Provides
+    @PresenterScope
+    public AddressesMvp.Presenter providesAddressesPresenter(NetworkService networkService) {
+        return new AddressesPresenter(networkService);
+    }
+
+    @Provides
+    @PresenterScope
+    public ShopsMvp.Presenter providesShopsPresenter(NetworkService networkService) {
+        return new ShopsPresenter(networkService);
     }
 }
