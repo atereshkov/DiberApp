@@ -28,6 +28,16 @@ public class AddressDto {
     @SerializedName("phone")
     private String phone;
 
+    public AddressDto(String name, int postalCode, String country, String city, String region, String address, String phone) {
+        this.name = name;
+        this.postalCode = postalCode;
+        this.country = country;
+        this.city = city;
+        this.region = region;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public int getId() {
         return id;
     }

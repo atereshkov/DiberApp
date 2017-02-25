@@ -2,6 +2,7 @@ package com.github.handioq.diberapp.network;
 
 import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
+import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.RegisterDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
@@ -43,7 +44,8 @@ public interface ApiService {
     Observable<List<OrderDto>> getUserOrders(@Path("user_id") long userId);
 
     @POST(USER_ORDERS)
-    Observable<OrderDto> addOrder(@Body OrderDto orderDto);
+    Observable<OrderDto> addOrder(@Path("user_id") long userId,
+                                  @Body NewOrderDto orderDto);
 
     @GET(USER_SHOPS)
     Observable<List<ShopDto>> getUserShops(@Path("user_id") long userId);

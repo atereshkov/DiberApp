@@ -1,6 +1,7 @@
 package com.github.handioq.diberapp.ui.interaction.new_order;
 
 import com.github.handioq.diberapp.base.BaseMvp;
+import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 
@@ -8,7 +9,7 @@ public interface NewOrderMvp {
 
     interface Model extends BaseMvp.Model {
 
-        void addOrder(OrderDto orderDto);
+        void addOrder(long userId, NewOrderDto orderDto);
 
         void setCallback(Callback callback);
 
@@ -36,7 +37,7 @@ public interface NewOrderMvp {
 
     interface Presenter extends BaseMvp.Presenter<NewOrderMvp.View> {
 
-        void addOrder(OrderDto orderDto);
+        void addOrder(long userId, NewOrderDto orderDto);
 
     }
 

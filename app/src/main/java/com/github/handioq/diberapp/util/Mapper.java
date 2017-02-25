@@ -24,9 +24,12 @@ public class Mapper {
         return ordersDvo;
     }
 
-    private static OrderDvo mapOrderToDvo(OrderDto orderDto) {
-        return new OrderDvo(DateUtils.getStringDateFromTimestamp(orderDto.getDate()), orderDto.getDescription(),
-                orderDto.getPrice(), orderDto.getStatus(), orderDto.getAddressFrom(), orderDto.getAddressTo());
+    public static OrderDvo mapOrderToDvo(OrderDto orderDto) {
+        String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
+        //String date = orderDto.getDate();
+
+        return new OrderDvo(date, orderDto.getDescription(),
+                orderDto.getPrice(), orderDto.getStatus());
     }
 
     public static UserDvo mapUserToDvo(UserDto userDto) {

@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
+import com.github.handioq.diberapp.model.dto.AddressDto;
+import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
@@ -52,6 +55,9 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     AddressesMvp.Presenter addressesPresenter;
 
     @Inject
+    NewOrderMvp.Presenter newOrderPresenter;
+
+    @Inject
     AuthPreferences authPreferences;
 
     public static NewOrderFragment newInstance() {
@@ -75,6 +81,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     public void onViewCreated(android.view.View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
+
+        newOrderPresenter.setView(this);
 
         shopsPresenter.setView(this);
         shopsPresenter.getUserShops(authPreferences.getUserId());
@@ -127,6 +135,23 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         });
     }
 
+    @OnClick(R.id.create_order_button)
+    public void onCreateOrderClick() {
+        NewOrderDto orderDto = new NewOrderDto();
+        orderDto.setDate("2018-03-22 15:10:19");
+        orderDto.setDescription("Description asdasd sjbfsdgnjdgdfg dfhj");
+        orderDto.setPrice(25.5);
+        orderDto.setStatus("New");
+
+        AddressDto addressDto = new AddressDto("New addr", 200311, "Russia", "Moscow", "Region 2", "Frolova 20-23", "375252156474");
+        ShopDto shopDto = new ShopDto("Colins2", "Sovetskaya 20");
+
+        orderDto.setAddress(addressDto);
+        orderDto.setShop(shopDto);
+
+        newOrderPresenter.addOrder(authPreferences.getUserId(), orderDto);
+    }
+
     // New order methods:
 
     @Override
@@ -141,12 +166,13 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @Override
     public void onOrderAdded(OrderDvo orderDvo) {
-
+        Log.i(TAG, "Order added: " + orderDvo.toString());
+        Toast.makeText(getContext(), "Order added!", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onAddOrderError(Throwable error) {
-
+        Log.e(TAG, error.toString());
     }
 
     @OnClick(R.id.addShopButton)

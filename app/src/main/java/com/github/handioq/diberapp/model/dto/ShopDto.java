@@ -10,6 +10,9 @@ public class ShopDto {
     @SerializedName("address")
     private String address;
 
+    public ShopDto() {
+    }
+
     public ShopDto(String name, String address) {
         this.name = name;
         this.address = address;
