@@ -156,10 +156,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
                             android:layout_toLeftOf="@+id/spinner_addresses"
                             android:layout_toStartOf="@+id/spinner_addresses"
-                            android:layout_alignParentTop="true"
                             android:maxLines="1" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_addresses_spinner"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/addAddressButton"
+                            android:layout_toStartOf="@+id/addAddressButton"
+                            android:visibility="gone" />
 
                     </RelativeLayout>
 
@@ -178,15 +188,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
-                            android:id="@+id/address_from_edittext"
+                        <Spinner
+                            android:id="@+id/spinner_delivery"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_toLeftOf="@+id/addShopButton"
-                            android:layout_toStartOf="@+id/addShopButton"
-                            android:hint="@string/prompt_address_from"
-                            android:inputType="text"
-                            android:maxLines="1" />
+                            android:layout_toStartOf="@+id/addShopButton" />
 
                         <ImageButton
                             android:id="@+id/addShopButton"
@@ -195,6 +202,16 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:src="@drawable/ic_add_white_24px" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_shops_spinner"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/addShopButton"
+                            android:layout_toStartOf="@+id/addShopButton"
+                            android:visibility="gone" />
 
                     </RelativeLayout>
 

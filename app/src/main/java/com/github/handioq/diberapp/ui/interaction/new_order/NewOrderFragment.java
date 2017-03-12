@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,8 +47,14 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     @BindView(R.id.spinner_addresses)
     Spinner addrSpinnerView;
 
-    @BindView(R.id.address_from_edittext)
-    AutoCompleteTextView addressFromEditView;
+    @BindView(R.id.spinner_delivery)
+    Spinner shopsSpinnerView;
+
+    @BindView(R.id.progress_addresses_spinner)
+    ProgressBar progressBarAddresses;
+
+    @BindView(R.id.progress_shops_spinner)
+    ProgressBar progressBarShops;
 
     @Inject
     ShopsMvp.Presenter shopsPresenter;
@@ -98,11 +106,20 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
             strAddresses.add(addressDvo.getName());
         }
 
-        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strAddresses);
-        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> addressesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strAddresses);
+        addressesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        addrSpinnerView.setAdapter(countryAdapter);
-        //addrSpinnerView.setSelection(countryAdapter.getPosition();
+        addrSpinnerView.setAdapter(addressesAdapter);
+
+        addrSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(), "onAddressSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
     }
 
     private void initShopsSpinner(List<ShopDvo> shops) {
@@ -112,26 +129,19 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
             strShops.add(shopDvo.getName());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice, strShops);
-        addressFromEditView.setThreshold(2);
-        addressFromEditView.setAdapter(adapter);
+        ArrayAdapter<String> shopsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strShops);
+        shopsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        addressFromEditView.addTextChangedListener(new TextWatcher() {
+        shopsSpinnerView.setAdapter(shopsAdapter);
 
+        shopsSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // todo send query to server or smth
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(), "onShopSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
 
@@ -198,12 +208,14 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @Override
     public void showLoadShopsProgress() {
-
+        progressBarShops.setVisibility(View.VISIBLE);
+        shopsSpinnerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoadShopsProgress() {
-
+        progressBarShops.setVisibility(View.GONE);
+        shopsSpinnerView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -220,12 +232,14 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @Override
     public void showLoadAddressesProgress() {
-
+        progressBarAddresses.setVisibility(View.VISIBLE);
+        addrSpinnerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoadAddressesProgress() {
-
+        progressBarAddresses.setVisibility(View.GONE);
+        addrSpinnerView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -235,7 +249,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @Override
     public void showLoadAddressesError(Throwable error) {
-
+        Log.e(TAG, "Load addresses error: " + error.toString());
     }
 
 }
