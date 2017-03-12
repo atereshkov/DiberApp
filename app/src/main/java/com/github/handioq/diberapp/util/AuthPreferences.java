@@ -18,8 +18,8 @@ public class AuthPreferences {
     private static final String USER_FULLNAME = "fullname";
     private static final String USER_EMAIL = "email";
 
-    private static final String TOKEN_NULL = "null";
-    private static final long USER_ID_NULL = -1;
+    public  static final String TOKEN_NULL = "null";
+    public static final long USER_ID_NULL = -1;
 
     private static SharedPreferences sharedPreferences;
     private Context context;
@@ -33,6 +33,7 @@ public class AuthPreferences {
         sharedPreferences.edit().putString(TOKEN, token).apply();
 
         AuthPreferences.token = token;
+        //Log.i(TAG, "setUserToken: " + token);
     }
 
     public static String getUserToken() {
@@ -41,6 +42,8 @@ public class AuthPreferences {
         if (sharedPreferences.contains(TOKEN)) {
             token = sharedPreferences.getString(TOKEN, TOKEN_NULL);
         }
+
+        //Log.i(TAG, "getUserToken" + token);
 
         return token;
     }
@@ -107,6 +110,14 @@ public class AuthPreferences {
         boolean isLogged = true;
 
         if (sharedPreferences.getString(TOKEN, TOKEN_NULL).equals(TOKEN_NULL)) {
+            isLogged = false;
+        }
+
+        if (getUserToken().equals(TOKEN_NULL) || getUserToken().equals("") || getUserToken().isEmpty()) {
+            isLogged = false;
+        }
+
+        if (getUserId() == USER_ID_NULL) {
             isLogged = false;
         }
 

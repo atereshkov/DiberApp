@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.base;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
+import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
+import com.github.handioq.diberapp.ui.orders.OrdersActivity;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
 import butterknife.BindView;
@@ -72,6 +75,15 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
 
         }
         */
+
+        if (id == R.id.nav_logout) {
+            authPreferences.logout();
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            this.finish();
+        }
 
         return true;
     }

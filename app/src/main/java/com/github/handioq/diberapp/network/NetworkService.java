@@ -1,5 +1,7 @@
 package com.github.handioq.diberapp.network;
 
+import android.util.Log;
+
 import com.github.handioq.diberapp.BuildConfig;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
@@ -60,9 +62,10 @@ public class NetworkService {
 
             Request.Builder requestBuilder = original.newBuilder();
 
-            if (AuthPreferences.token != null) {
+            if (!AuthPreferences.getUserToken().equals(AuthPreferences.TOKEN_NULL)) {
                 requestBuilder = original.newBuilder()
                         .header(HEADER_AUTHORIZATION, "Bearer " + AuthPreferences.getUserToken());
+                Log.e("NetworkService", "Token not null, add Bearer header: " + AuthPreferences.getUserToken());
             }
 
             Request request = requestBuilder.build();

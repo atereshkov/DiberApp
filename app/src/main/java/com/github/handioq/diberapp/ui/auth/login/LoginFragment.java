@@ -75,6 +75,8 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
         loginPresenter.setView(this);
+
+        checkAuth();
     }
 
     @Override
@@ -141,5 +143,18 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
     void onRestoreClick() {
         // TODO make restore activity
         Toast.makeText(getContext(), R.string.password_recovery_not_impl, Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkAuth() {
+        Log.i(TAG, "checkAuth: ");
+        Log.i(TAG, authPreferences.getUserToken());
+        Log.i(TAG, authPreferences.getUserFullname());
+
+        if (authPreferences.isUserLoggedIn()) {
+            Intent intent = OrdersActivity.makeIntent(getContext(), authPreferences.getUserId());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
 }
