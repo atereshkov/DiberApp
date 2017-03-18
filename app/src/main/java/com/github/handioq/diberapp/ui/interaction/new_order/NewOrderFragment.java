@@ -26,6 +26,8 @@ import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
 import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
+import com.github.handioq.diberapp.ui.dialog.CustomDatePickerDialog;
+import com.github.handioq.diberapp.ui.dialog.CustomTimePickerDialog;
 import com.github.handioq.diberapp.ui.dialog.NewShopDialog;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
@@ -40,9 +42,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener,
-    ShopsMvp.View, AddressesMvp.View {
+    ShopsMvp.View, AddressesMvp.View, CustomDatePickerDialog.DialogListener, CustomTimePickerDialog.DialogListener {
 
     private static final String ADD_SHOP_DIALOG = "NewShopDialog";
+    private static final String DATE_PICKER_DIALOG = "DatePickerDialog";
+    private static final String TIME_PICKER_DIALOG = "TimePickerDialog";
     private final String TAG = this.getClass().getSimpleName();
 
     @BindView(R.id.spinner_addresses)
@@ -255,14 +259,28 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     // Date & Time
 
+    @Override
+    public void onDateSetClick(DialogFragment dialog, int year, int month, int day) {
+        Log.e(TAG, year + " " + month + " " + day);
+    }
+
+    @Override
+    public void onTimeSetClick(DialogFragment dialog, int hourOfDay, int minute) {
+        Log.e(TAG, hourOfDay + " " + minute);
+    }
+
     @OnClick(R.id.set_date_button)
     void setDateButtonClick() {
-
+        CustomDatePickerDialog dialog = new CustomDatePickerDialog();
+        dialog.attachListener(this);
+        dialog.show(getFragmentManager(), DATE_PICKER_DIALOG);
     }
 
     @OnClick(R.id.set_time_button)
     void setTimeButtonClick() {
-        
+        CustomTimePickerDialog dialog = new CustomTimePickerDialog();
+        dialog.attachListener(this);
+        dialog.show(getFragmentManager(), TIME_PICKER_DIALOG);
     }
 
 }
