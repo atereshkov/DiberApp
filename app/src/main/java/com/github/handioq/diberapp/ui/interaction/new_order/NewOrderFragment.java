@@ -29,6 +29,7 @@ import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
 import com.github.handioq.diberapp.ui.dialog.NewShopDialog;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
+import com.github.handioq.diberapp.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +152,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         orderDto.setDate("2018-03-22 15:10:19");
         orderDto.setDescription("Description asdasd sjbfsdgnjdgdfg dfhj");
         orderDto.setPrice(25.5);
-        orderDto.setStatus("New");
+        orderDto.setStatus(Constants.STATUS_NEW);
 
         AddressDto addressDto = new AddressDto("New addr", 200311, "Russia", "Moscow", "Region 2", "Frolova 20-23", "375252156474");
         ShopDto shopDto = new ShopDto("Colins2", "Sovetskaya 20");
@@ -250,6 +251,18 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     @Override
     public void showLoadAddressesError(Throwable error) {
         Log.e(TAG, "Load addresses error: " + error.toString());
+    }
+
+    // Date & Time
+
+    @OnClick(R.id.set_date_button)
+    void setDateButtonClick() {
+
+    }
+
+    @OnClick(R.id.set_time_button)
+    void setTimeButtonClick() {
+        
     }
 
 }

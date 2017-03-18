@@ -44,6 +44,22 @@ public class ErrorUtils {
         return error;
     }
 
+    public static boolean isUnauthorizedError(Throwable t) {
+        boolean unathorized = false;
+
+        if (t instanceof HttpException) {
+            try {
+                if (((HttpException) t).code() == 401) {
+                    unathorized = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return unathorized;
+    }
+
     private static String handleError(String errorBody) {
         String error = "";
 

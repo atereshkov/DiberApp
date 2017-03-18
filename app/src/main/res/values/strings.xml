@@ -45,5 +45,7 @@
     <string name="dialog_new_shop_create">Add</string>
     <string name="dialog_new_shop_cancel">Cancel</string>
     <string name="prompt_address">Address</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 
 </resources>

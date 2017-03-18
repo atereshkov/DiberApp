@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,8 +18,10 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderActivity;
 import com.github.handioq.diberapp.ui.orders.adapter.OrdersRecyclerAdapter;
+import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
 
 import java.util.ArrayList;
@@ -52,6 +53,9 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
     @Inject
     OrdersMvp.Presenter ordersPresenter;
+
+    @Inject
+    AuthPreferences authPreferences;
 
     public static OrdersFragment newInstance(long userId) {
         OrdersFragment fragment = new OrdersFragment();
@@ -123,8 +127,14 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
     @Override
     public void showLoadOrdersError(Throwable error) {
-        Log.e(TAG, error.toString());
-        Toast.makeText(getContext(), ErrorUtils.getMessage(error), Toast.LENGTH_LONG).show();
+        if (ErrorUtils.isUnauthorizedError(error)) {
+            authPreferences.setUserToken("null");
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Log.e(TAG, error.toString());
+            Toast.makeText(getContext(), ErrorUtils.getMessage(error), Toast.LENGTH_LONG).show();
+        }
     }
 
     @OnClick(R.id.fab)
