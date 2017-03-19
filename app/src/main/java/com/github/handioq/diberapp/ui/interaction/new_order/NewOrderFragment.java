@@ -167,7 +167,10 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         orderDto.setPrice(25.5);
         orderDto.setStatus(Constants.STATUS_NEW);
 
+        // todo add new activity
         AddressDto addressDto = new AddressDto("New addr", 200311, "Russia", "Moscow", "Region 2", "Frolova 20-23", "375252156474");
+
+        // todo get this from spinner or dialog?
         ShopDto shopDto = new ShopDto("Colins2", "Sovetskaya 20");
 
         orderDto.setAddress(addressDto);

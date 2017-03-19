@@ -25,7 +25,6 @@ public class NetModule {
         return new NetworkService();
     }
 
-
     @Provides
     @Singleton
     AuthPreferences providesAuthPreferences() {

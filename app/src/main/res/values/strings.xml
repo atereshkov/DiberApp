@@ -47,5 +47,6 @@
     <string name="prompt_address">Address</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="drawer_logout">Logout</string>
 
 </resources>
