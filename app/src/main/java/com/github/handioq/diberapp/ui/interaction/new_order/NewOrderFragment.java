@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.NewOrderDto;
+import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
@@ -49,6 +51,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     private static final String TIME_PICKER_DIALOG = "TimePickerDialog";
     private final String TAG = this.getClass().getSimpleName();
 
+    private NewOrderDto orderDto = new NewOrderDto();
+
     @BindView(R.id.spinner_addresses)
     Spinner addrSpinnerView;
 
@@ -60,6 +64,12 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @BindView(R.id.progress_shops_spinner)
     ProgressBar progressBarShops;
+
+    @BindView(R.id.description_edit)
+    EditText descriptionEditView;
+
+    @BindView(R.id.price)
+    AutoCompleteTextView priceEditView;
 
     @Inject
     ShopsMvp.Presenter shopsPresenter;
@@ -119,7 +129,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         addrSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(), "onAddressSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(parent.getContext(), "onAddressSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -142,7 +152,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         shopsSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(), "onShopSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(parent.getContext(), "onShopSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -152,9 +162,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @OnClick(R.id.create_order_button)
     public void onCreateOrderClick() {
-        NewOrderDto orderDto = new NewOrderDto();
         orderDto.setDate("2018-03-22 15:10:19");
-        orderDto.setDescription("Description asdasd sjbfsdgnjdgdfg dfhj");
+        orderDto.setDescription(descriptionEditView.getText().toString());
         orderDto.setPrice(25.5);
         orderDto.setStatus(Constants.STATUS_NEW);
 
@@ -163,6 +172,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
         orderDto.setAddress(addressDto);
         orderDto.setShop(shopDto);
+
+        // todo add all checks for validity of order
 
         newOrderPresenter.addOrder(authPreferences.getUserId(), orderDto);
     }

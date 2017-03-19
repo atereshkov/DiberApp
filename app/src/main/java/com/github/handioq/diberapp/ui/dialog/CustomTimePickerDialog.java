@@ -8,6 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
+import com.github.handioq.diberapp.R;
+
 import java.util.Calendar;
 
 public class CustomTimePickerDialog extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
@@ -27,7 +29,7 @@ public class CustomTimePickerDialog extends DialogFragment implements TimePicker
         int minute = c.get(Calendar.MINUTE);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+        return new TimePickerDialog(getActivity(), R.style.DialogTheme, this, hour, minute, DateFormat.is24HourFormat(getActivity()));
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

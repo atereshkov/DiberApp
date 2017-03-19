@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
+import com.github.handioq.diberapp.R;
+
 import java.util.Calendar;
 
 public class CustomDatePickerDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -28,7 +30,7 @@ public class CustomDatePickerDialog extends DialogFragment implements DatePicker
         // todo zone, etc..
 
         // Create a new instance of CustomDatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return new DatePickerDialog(getActivity(), R.style.DialogTheme, this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
