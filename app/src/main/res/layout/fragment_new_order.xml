@@ -48,9 +48,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingStart="@dimen/padding_normal"
                         android:text="@string/order_info"
                         android:textStyle="bold" />
 
@@ -65,8 +64,8 @@
                             android:enabled="false"
                             android:hint="@string/prompt_order_name"
                             android:inputType="text"
-                            android:visibility="gone"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:visibility="gone" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -93,9 +92,9 @@
                             android:id="@+id/price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits="0123456789."
                             android:hint="@string/prompt_price"
                             android:inputType="numberDecimal"
-                            android:digits="0123456789."
                             android:maxLines="1" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -129,9 +128,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingStart="@dimen/padding_normal"
                         android:text="@string/delivery_address"
                         android:textStyle="bold" />
 
@@ -141,7 +139,7 @@
 
                         <Spinner
                             android:id="@+id/spinner_addresses"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_toLeftOf="@+id/addAddressButton"
                             android:layout_toStartOf="@+id/addAddressButton" />
@@ -154,6 +152,7 @@
                             android:layout_alignParentRight="true"
                             android:src="@drawable/ic_add_white_24px" />
 
+                        <!--
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -163,6 +162,7 @@
                             android:layout_toLeftOf="@+id/spinner_addresses"
                             android:layout_toStartOf="@+id/spinner_addresses"
                             android:maxLines="1" />
+                        -->
 
                         <ProgressBar
                             android:id="@+id/progress_addresses_spinner"
@@ -181,9 +181,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingStart="@dimen/padding_normal"
                         android:text="@string/delivery_address_from"
                         android:textStyle="bold" />
 
@@ -247,9 +246,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingStart="@dimen/padding_normal"
                         android:text="@string/date"
                         android:textStyle="bold" />
 
@@ -265,17 +263,19 @@
                             android:layout_alignParentRight="true"
                             android:src="@drawable/ic_date_range_white_24px" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/date_edit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_normal"
                             android:layout_toLeftOf="@+id/set_date_button"
                             android:layout_toStartOf="@+id/set_date_button"
                             android:ems="10"
-                            android:inputType="date" />
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
 
@@ -284,9 +284,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:paddingLeft="@dimen/padding_normal"
-                        android:paddingStart="@dimen/padding_normal"
                         android:text="@string/time"
                         android:textStyle="bold" />
 
@@ -294,25 +293,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <TextView
                             android:id="@+id/time_edit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_normal"
                             android:layout_toLeftOf="@+id/set_time_button"
                             android:layout_toStartOf="@+id/set_time_button"
                             android:ems="10"
-                            android:inputType="time" />
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
 
                         <ImageButton
                             android:id="@+id/set_time_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_access_time_white_24px"
+                            android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true" />
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/ic_access_time_white_24px" />
 
                     </RelativeLayout>
 

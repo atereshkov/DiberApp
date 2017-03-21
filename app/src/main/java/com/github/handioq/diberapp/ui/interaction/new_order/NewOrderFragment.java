@@ -3,8 +3,6 @@ package com.github.handioq.diberapp.ui.interaction.new_order;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.handioq.diberapp.R;
@@ -22,7 +21,6 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.NewOrderDto;
-import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
@@ -34,6 +32,7 @@ import com.github.handioq.diberapp.ui.dialog.NewShopDialog;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.Constants;
+import com.github.handioq.diberapp.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +69,12 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @BindView(R.id.price)
     AutoCompleteTextView priceEditView;
+
+    @BindView(R.id.date_edit_text)
+    TextView dateTextView;
+
+    @BindView(R.id.time_edit_text)
+    TextView timeTextView;
 
     @Inject
     ShopsMvp.Presenter shopsPresenter;
@@ -138,7 +143,6 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     }
 
     private void initShopsSpinner(List<ShopDvo> shops) {
-
         ArrayList<String> strShops = new ArrayList<>();
         for (ShopDvo shopDvo : shops) {
             strShops.add(shopDvo.getName());
@@ -162,9 +166,10 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @OnClick(R.id.create_order_button)
     public void onCreateOrderClick() {
-        orderDto.setDate("2018-03-22 15:10:19");
+        //orderDto.setDate("2018-03-22 15:10:19");
+        orderDto.setDate(dateTextView.getText().toString() + " " + timeTextView.getText().toString());
         orderDto.setDescription(descriptionEditView.getText().toString());
-        orderDto.setPrice(25.5);
+        orderDto.setPrice(Double.parseDouble(priceEditView.getText().toString()));
         orderDto.setStatus(Constants.STATUS_NEW);
 
         // todo add new activity
@@ -275,12 +280,12 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @Override
     public void onDateSetClick(DialogFragment dialog, int year, int month, int day) {
-        Log.e(TAG, year + " " + month + " " + day);
+        dateTextView.setText(DateUtils.getStringDate(year, month, day));
     }
 
     @Override
     public void onTimeSetClick(DialogFragment dialog, int hourOfDay, int minute) {
-        Log.e(TAG, hourOfDay + " " + minute);
+        timeTextView.setText(DateUtils.getStringTime(hourOfDay, minute));
     }
 
     @OnClick(R.id.set_date_button)
