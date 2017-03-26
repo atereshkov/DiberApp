@@ -34,6 +34,10 @@
             android:name=".ui.interaction.new_order.NewOrderActivity"
             android:label="@string/activity_title_new_order" />
 
+        <activity
+            android:name=".ui.addresses.AddressesActivity"
+            android:label="@string/activity_title_addresses" />
+
     </application>
 
 </manifest>

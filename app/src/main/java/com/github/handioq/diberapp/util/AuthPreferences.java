@@ -18,7 +18,7 @@ public class AuthPreferences {
     private static final String USER_FULLNAME = "fullname";
     private static final String USER_EMAIL = "email";
 
-    public  static final String TOKEN_NULL = "null";
+    public static final String TOKEN_NULL = "null";
     public static final long USER_ID_NULL = -1;
 
     private static SharedPreferences sharedPreferences;

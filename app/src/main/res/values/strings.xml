@@ -48,5 +48,6 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="drawer_logout">Logout</string>
+    <string name="activity_title_addresses">Addresses</string>
 
 </resources>

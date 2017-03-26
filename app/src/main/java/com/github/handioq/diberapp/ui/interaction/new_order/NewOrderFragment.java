@@ -202,6 +202,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     public void onOrderAdded(OrderDvo orderDvo) {
         Log.i(TAG, "Order added: " + orderDvo.toString());
         Toast.makeText(getContext(), "Order added!", Toast.LENGTH_LONG).show();
+        // todo close this activity and send eventbus event
     }
 
     @Override
