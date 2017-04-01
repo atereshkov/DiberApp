@@ -15,7 +15,7 @@ public class OrdersPresenter implements OrdersMvp.Presenter, OrdersMvp.Model.Cal
     private OrdersMvp.Model ordersModel;
     private NetworkService networkService;
 
-    private final static String TAG = "CatalogPresenter";
+    private final static String TAG = "OrderPresenter";
 
     @Inject
     public OrdersPresenter(NetworkService networkService) {

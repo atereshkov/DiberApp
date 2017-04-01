@@ -45,6 +45,11 @@
             android:launchMode="singleTask"
             android:label="@string/activity_title_shops" />
 
+        <activity
+            android:name=".ui.order.OrderActivity"
+            android:launchMode="singleTask"
+            android:label="@string/activity_title_order" />
+
     </application>
 
 </manifest>

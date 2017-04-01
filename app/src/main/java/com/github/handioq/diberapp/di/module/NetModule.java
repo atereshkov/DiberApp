@@ -31,5 +31,4 @@ public class NetModule {
         return new AuthPreferences(context);
     }
 
-
 }

@@ -52,5 +52,6 @@
     <string name="activity_title_shops">Shops</string>
     <string name="activity_title_orders">Orders</string>
     <string name="activity_title_profile">Profile</string>
+    <string name="activity_title_order">Order</string>
 
 </resources>

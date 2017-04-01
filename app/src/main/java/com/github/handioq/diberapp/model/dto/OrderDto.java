@@ -8,10 +8,10 @@ import java.util.List;
 public class OrderDto {
 
     @SerializedName("id")
-    private int id;
+    private long id;
 
     @SerializedName("date")
-    private long date;
+    private String date;
 
     @SerializedName("description")
     private String description;
@@ -22,19 +22,19 @@ public class OrderDto {
     @SerializedName("status")
     private String status;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

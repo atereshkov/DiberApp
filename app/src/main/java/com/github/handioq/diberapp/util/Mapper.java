@@ -25,10 +25,10 @@ public class Mapper {
     }
 
     public static OrderDvo mapOrderToDvo(OrderDto orderDto) {
-        String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
+        //String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
         //String date = orderDto.getDate();
 
-        return new OrderDvo(date, orderDto.getDescription(),
+        return new OrderDvo(orderDto.getId(), orderDto.getDate(), orderDto.getDescription(),
                 orderDto.getPrice(), orderDto.getStatus());
     }
 

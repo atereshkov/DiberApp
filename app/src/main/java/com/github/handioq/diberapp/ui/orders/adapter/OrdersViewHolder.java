@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.ui.orders.adapter;
 
+import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.ui.order.OrderActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,8 +42,8 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if (orderDvo != null) {
-                    // Context context = itemView.getContext();
-                    // context.startActivity(ProductActivity.makeIntent(context, orderDvo.getId()));
+                    Context context = itemView.getContext();
+                    context.startActivity(OrderActivity.makeIntent(context, orderDvo.getId()));
                 }
             }
         });

@@ -20,13 +20,16 @@ import rx.Observable;
 
 public interface ApiService {
 
-    String LOGIN_URL = "/oauth/token";
-    String SIGNUP_URL = "/api/v1/auth/register";
+    String API_BASE_URL = "/api/v1";
 
-    String USER_GET_INFO = "/api/v1/users/info";
-    String USER_ORDERS = "/api/v1/users/{user_id}/orders";
-    String USER_SHOPS = "/api/v1/users/{user_id}/shops";
-    String USER_ADDRESSES = "/api/v1/users/{user_id}/addresses";
+    String LOGIN_URL = "/oauth/token";
+    String SIGNUP_URL = API_BASE_URL + "/auth/register";
+
+    String USER_GET_INFO = API_BASE_URL + "/users/info";
+    String USER_ORDERS = API_BASE_URL + "/users/{user_id}/orders";
+    String USER_SHOPS = API_BASE_URL + "/users/{user_id}/shops";
+    String USER_ADDRESSES = API_BASE_URL + "/users/{user_id}/addresses";
+    String ORDER_INFO = API_BASE_URL + "/orders/{order_id}";
 
     @POST(LOGIN_URL)
     Observable<AuthResponseDto> login(@Query("username") String login,
@@ -52,5 +55,8 @@ public interface ApiService {
 
     @GET(USER_ADDRESSES)
     Observable<List<AddressDto>> getUserAddresses(@Path("user_id") long userId);
+
+    @GET(ORDER_INFO)
+    Observable<OrderDto> getOrder(@Path("order_id") long orderId);
 
 }

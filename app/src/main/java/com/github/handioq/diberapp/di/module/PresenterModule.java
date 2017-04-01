@@ -10,6 +10,8 @@ import com.github.handioq.diberapp.ui.auth.registration.SignupMvp;
 import com.github.handioq.diberapp.ui.auth.registration.SignupPresenter;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderMvp;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderPresenter;
+import com.github.handioq.diberapp.ui.order.OrderMvp;
+import com.github.handioq.diberapp.ui.order.OrderPresenter;
 import com.github.handioq.diberapp.ui.orders.OrdersMvp;
 import com.github.handioq.diberapp.ui.orders.OrdersPresenter;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
@@ -54,8 +56,16 @@ public class PresenterModule {
 
     @Provides
     @PresenterScope
-    public NewOrderMvp.Presenter providesNewShopPresenter(NetworkService networkService) {
+    public NewOrderMvp.Presenter providesNewOrderPresenter(NetworkService networkService) {
         return new NewOrderPresenter(networkService);
     }
+
+    @Provides
+    @PresenterScope
+    public OrderMvp.Presenter providesOrderPresenter(NetworkService networkService) {
+        return new OrderPresenter(networkService);
+    }
+
+
 
 }
