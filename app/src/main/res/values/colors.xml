@@ -5,4 +5,6 @@
     <color name="colorAccent">#34B7F1</color>
 
     <color name="colorFab">@color/colorPrimary</color>
+
+    <color name="dividerColor">#D3D3D3</color>
 </resources>

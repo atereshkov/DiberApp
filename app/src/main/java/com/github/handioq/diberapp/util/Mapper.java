@@ -28,8 +28,13 @@ public class Mapper {
         //String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
         //String date = orderDto.getDate();
 
+        ShopDvo shopDvo = mapShopToDvo(orderDto.getShop());
+        AddressDvo addressDvo = mapAddressToDvo(orderDto.getAddress());
+        UserDvo courierDvo = mapUserToDvo(orderDto.getCourier());
+        UserDvo customerDvo = mapUserToDvo(orderDto.getCustomer());
+
         return new OrderDvo(orderDto.getId(), orderDto.getDate(), orderDto.getDescription(),
-                orderDto.getPrice(), orderDto.getStatus());
+                orderDto.getPrice(), orderDto.getStatus(), shopDvo, addressDvo, courierDvo, customerDvo);
     }
 
     public static UserDvo mapUserToDvo(UserDto userDto) {

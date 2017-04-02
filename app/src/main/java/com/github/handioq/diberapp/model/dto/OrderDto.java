@@ -22,6 +22,50 @@ public class OrderDto {
     @SerializedName("status")
     private String status;
 
+    @SerializedName("address")
+    private AddressDto address;
+
+    @SerializedName("shop")
+    private ShopDto shop;
+
+    @SerializedName("courier")
+    private UserDto courier;
+
+    @SerializedName("customer")
+    private UserDto customer;
+
+    public AddressDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDto address) {
+        this.address = address;
+    }
+
+    public ShopDto getShop() {
+        return shop;
+    }
+
+    public void setShop(ShopDto shop) {
+        this.shop = shop;
+    }
+
+    public UserDto getCourier() {
+        return courier;
+    }
+
+    public void setCourier(UserDto courier) {
+        this.courier = courier;
+    }
+
+    public UserDto getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(UserDto customer) {
+        this.customer = customer;
+    }
+
     public long getId() {
         return id;
     }

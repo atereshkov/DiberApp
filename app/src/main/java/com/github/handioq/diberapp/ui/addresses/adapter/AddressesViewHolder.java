@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
@@ -15,19 +14,13 @@ import butterknife.ButterKnife;
 
 class AddressesViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.order_name)
-    TextView nameView;
-
-    @BindView(R.id.order_price)
-    TextView priceView;
-
-    @BindView(R.id.order_image)
-    ImageView orderImage;
+    @BindView(R.id.address_id)
+    TextView addressView;
 
     private AddressDvo addressDvo;
 
     static AddressesViewHolder inflate(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orders_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
         return new AddressesViewHolder(view);
     }
 
@@ -48,7 +41,7 @@ class AddressesViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final AddressDvo item) {
         addressDvo = item;
-        nameView.setText(item.getAddress());
+        addressView.setText(item.getAddress());
 
         /*
         buyButtonView.setOnClickListener(new View.OnClickListener() {

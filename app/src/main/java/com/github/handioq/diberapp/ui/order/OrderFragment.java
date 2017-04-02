@@ -67,7 +67,7 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View {
 
     @Override
     public void setOrder(OrderDvo order) {
-
+        Log.i(TAG, "get order: " + order);
     }
 
     @Override

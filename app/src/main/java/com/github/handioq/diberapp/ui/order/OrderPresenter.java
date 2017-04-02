@@ -23,7 +23,7 @@ public class OrderPresenter implements OrderMvp.Presenter, OrderMvp.Model.Callba
 
     @Override
     public void onOrderLoaded(OrderDvo order) {
-        Log.i(TAG, "get order: " + order);
+        //Log.i(TAG, "get order: " + order);
 
         if (orderView != null) {
             orderView.setOrder(order);

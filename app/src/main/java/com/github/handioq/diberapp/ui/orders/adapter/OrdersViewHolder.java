@@ -1,36 +1,42 @@
 package com.github.handioq.diberapp.ui.orders.adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.ui.order.OrderActivity;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 class OrdersViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.order_name)
-    TextView nameView;
+    @BindView(R.id.order_id)
+    TextView orderIdView;
 
-    @BindView(R.id.order_price)
-    TextView priceView;
+    @BindView(R.id.order_status)
+    TextView statusView;
 
-    @BindView(R.id.order_image)
-    ImageView orderImage;
+    @BindView(R.id.order_date)
+    TextView dateView;
+
+    @BindView(R.id.order_from)
+    TextView addressFromView;
+
+    @BindView(R.id.order_to)
+    TextView orderToView;
 
     private OrderDvo orderDvo;
 
     static OrdersViewHolder inflate(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orders_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_orders, parent, false);
         return new OrdersViewHolder(view);
     }
 
@@ -51,7 +57,11 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final OrderDvo item) {
         orderDvo = item;
-        nameView.setText(item.getDescription());
+        orderIdView.setText(String.valueOf(item.getId()));
+        statusView.setText(item.getStatus());
+        dateView.setText(item.getDate());
+        addressFromView.setText(item.getAddress().getCountry() + ", " + item.getAddress().getAddress());
+        orderToView.setText(item.getShop().getAddress());
 
         /*
         buyButtonView.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +71,8 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
         });
         */
 
-        priceView.setText(itemView.getContext().getString(R.string.order_price, item.getPrice()));
-        priceView.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorAccent));
+        //priceView.setText(itemView.getContext().getString(R.string.order_price, item.getPrice()));
+        //priceView.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorAccent));
 
         /*
         Glide.with(itemView.getContext())

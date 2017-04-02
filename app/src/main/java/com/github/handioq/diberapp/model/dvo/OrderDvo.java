@@ -7,6 +7,10 @@ public class OrderDvo {
     private String description;
     private Double price;
     private String status;
+    private ShopDvo shop;
+    private AddressDvo address;
+    private UserDvo courier;
+    private UserDvo customer;
 
     public OrderDvo() { }
 
@@ -16,6 +20,50 @@ public class OrderDvo {
         this.description = description;
         this.price = price;
         this.status = status;
+    }
+
+    public OrderDvo(long id, String date, String description, Double price, String status, ShopDvo shop, AddressDvo address, UserDvo courier, UserDvo customer) {
+        this.id = id;
+        this.date = date;
+        this.description = description;
+        this.price = price;
+        this.status = status;
+        this.shop = shop;
+        this.address = address;
+        this.courier = courier;
+        this.customer = customer;
+    }
+
+    public ShopDvo getShop() {
+        return shop;
+    }
+
+    public void setShop(ShopDvo shop) {
+        this.shop = shop;
+    }
+
+    public AddressDvo getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDvo address) {
+        this.address = address;
+    }
+
+    public UserDvo getCourier() {
+        return courier;
+    }
+
+    public void setCourier(UserDvo courier) {
+        this.courier = courier;
+    }
+
+    public UserDvo getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(UserDvo customer) {
+        this.customer = customer;
     }
 
     public long getId() {

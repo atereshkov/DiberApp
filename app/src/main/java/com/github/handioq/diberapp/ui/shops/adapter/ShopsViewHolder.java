@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
@@ -15,19 +14,13 @@ import butterknife.ButterKnife;
 
 class ShopsViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.order_name)
+    @BindView(R.id.shop_id)
     TextView nameView;
-
-    @BindView(R.id.order_price)
-    TextView priceView;
-
-    @BindView(R.id.order_image)
-    ImageView orderImage;
 
     private ShopDvo shopDvo;
 
     static ShopsViewHolder inflate(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orders_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shop, parent, false);
         return new ShopsViewHolder(view);
     }
 
