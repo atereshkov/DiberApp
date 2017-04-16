@@ -7,6 +7,9 @@ public class UserDvo {
     private boolean enabled;
     private String fullname;
 
+    public UserDvo() {
+    }
+
     public UserDvo(String email, String username, boolean enabled, String fullname) {
         this.email = email;
         this.username = username;

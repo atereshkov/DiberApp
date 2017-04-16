@@ -5,6 +5,9 @@ public class ShopDvo {
     private String name;
     private String address;
 
+    public ShopDvo() {
+    }
+
     public ShopDvo(String name, String address) {
         this.name = name;
         this.address = address;

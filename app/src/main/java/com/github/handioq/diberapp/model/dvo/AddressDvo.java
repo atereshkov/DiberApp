@@ -10,6 +10,9 @@ public class AddressDvo {
     private String address;
     private String phone;
 
+    public AddressDvo() {
+    }
+
     public AddressDvo(String name, int postalCode, String country, String city, String region, String address, String phone) {
         this.name = name;
         this.postalCode = postalCode;
