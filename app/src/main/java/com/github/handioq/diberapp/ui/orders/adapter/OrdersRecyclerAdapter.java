@@ -43,4 +43,8 @@ public class OrdersRecyclerAdapter extends RecyclerView.Adapter<OrdersViewHolder
     public List<OrderDvo> getItems() {
         return items;
     }
+
+    public void clearItems() {
+        this.items.clear();
+    }
 }

@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.ui.orders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
+public class OrdersFragment extends BaseFragment implements OrdersMvp.View, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -43,10 +44,14 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
     @BindView(R.id.progress_view)
     View progressView;
 
+    @BindView(R.id.content)
+    SwipeRefreshLayout content;
 
     private final String TAG = "OrdersFragment";
     private static final String USER_ID_KEY = "user";
     private long userId;
+
+    private boolean isHotUpdating = false;
 
     private OrdersRecyclerAdapter adapter;
     private LinearLayoutManager layoutManager;
@@ -92,6 +97,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
+        content.setOnRefreshListener(this);
         adapter = new OrdersRecyclerAdapter(new ArrayList<>());
         ordersPresenter.setView(this);
         ordersPresenter.getOrders(userId);
@@ -110,16 +116,22 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
     @Override
     public void showLoadOrdersProgress() {
-        progressView.setVisibility(View.VISIBLE);
+        content.setRefreshing(true);
+
+        if (!isHotUpdating) {
+            progressView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideLoadOrdersProgress() {
+        content.setRefreshing(false);
         progressView.setVisibility(View.GONE);
     }
 
     @Override
     public void setOrders(List<OrderDvo> orders) {
+        content.setRefreshing(false);
         if (getActivity() != null) { // check for attaching to activity
             adapter.setItems(orders);
         }
@@ -127,6 +139,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
 
     @Override
     public void showLoadOrdersError(Throwable error) {
+        content.setRefreshing(false);
         if (ErrorUtils.isUnauthorizedError(error)) {
             // TODO extract this
             authPreferences.setUserToken(AuthPreferences.TOKEN_NULL);
@@ -162,4 +175,10 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View {
         return true;
     }
 
+    @Override
+    public void onRefresh() {
+        isHotUpdating = true;
+        adapter.clearItems();
+        ordersPresenter.getOrders(userId);
+    }
 }
