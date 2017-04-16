@@ -101,8 +101,8 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
         content.setOnRefreshListener(this);
         adapter = new OrdersRecyclerAdapter(new ArrayList<>());
         ordersPresenter.setView(this);
-        ordersPresenter.getOrders(userId);
         isUpdating = true;
+        ordersPresenter.getOrders(userId);
         initRecycler();
     }
 

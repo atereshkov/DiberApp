@@ -43,4 +43,10 @@ public class ShopsRecyclerAdapter extends RecyclerView.Adapter<ShopsViewHolder> 
     public List<ShopDvo> getItems() {
         return items;
     }
+
+
+    public void clearItems() {
+        this.items.clear();
+    }
+
 }

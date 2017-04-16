@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.ui.shops;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ShopsFragment extends BaseFragment implements ShopsMvp.View {
+public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -39,6 +40,12 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View {
 
     @BindView(R.id.progress_view)
     View progressView;
+
+    @BindView(R.id.content)
+    SwipeRefreshLayout content;
+
+    private boolean isHotUpdating = false;
+    private boolean isUpdating = false;
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -76,7 +83,9 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View {
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
         adapter = new ShopsRecyclerAdapter(new ArrayList<>());
+        content.setOnRefreshListener(this);
         shopsPresenter.setView(this);
+        isUpdating = true;
         shopsPresenter.getUserShops(authPreferences.getUserId());
         initRecycler();
     }
@@ -93,16 +102,25 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View {
 
     @Override
     public void showLoadShopsProgress() {
-        progressView.setVisibility(View.VISIBLE);
+        if (isHotUpdating) {
+            content.setRefreshing(true);
+        }
+
+        if (!isHotUpdating) {
+            progressView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideLoadShopsProgress() {
+        content.setRefreshing(false);
         progressView.setVisibility(View.GONE);
     }
 
     @Override
     public void setShops(List<ShopDvo> shops) {
+        isUpdating = false;
+        content.setRefreshing(false);
         if (getActivity() != null) { // check for attaching to activity
             adapter.setItems(shops);
         }
@@ -125,6 +143,16 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View {
     void newAddressClick() {
         Intent intent = new Intent(getContext(), NewShopActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (!isUpdating) {
+            isHotUpdating = true;
+            adapter.clearItems();
+            isUpdating = true;
+            shopsPresenter.getUserShops(AuthPreferences.getUserId());
+        }
     }
 
     /*

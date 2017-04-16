@@ -43,4 +43,9 @@ public class AddressesRecyclerAdapter extends RecyclerView.Adapter<AddressesView
     public List<AddressDvo> getItems() {
         return items;
     }
+
+    public void clearItems() {
+        this.items.clear();
+    }
+
 }

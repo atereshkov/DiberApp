@@ -3,6 +3,7 @@ package com.github.handioq.diberapp.ui.addresses;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AddressesFragment extends BaseFragment implements AddressesMvp.View {
+public class AddressesFragment extends BaseFragment implements AddressesMvp.View, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -38,6 +39,12 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
 
     @BindView(R.id.progress_view)
     View progressView;
+
+    @BindView(R.id.content)
+    SwipeRefreshLayout content;
+
+    private boolean isHotUpdating = false;
+    private boolean isUpdating = false;
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -75,7 +82,9 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
         adapter = new AddressesRecyclerAdapter(new ArrayList<>());
+        content.setOnRefreshListener(this);
         addressesPresenter.setView(this);
+        isUpdating = true;
         addressesPresenter.getUserAddresses(authPreferences.getUserId());
         initRecycler();
     }
@@ -92,16 +101,25 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
 
     @Override
     public void showLoadAddressesProgress() {
-        progressView.setVisibility(View.VISIBLE);
+        if (isHotUpdating) {
+            content.setRefreshing(true);
+        }
+
+        if (!isHotUpdating) {
+            progressView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideLoadAddressesProgress() {
+        content.setRefreshing(false);
         progressView.setVisibility(View.GONE);
     }
 
     @Override
     public void setAddresses(List<AddressDvo> addresses) {
+        isUpdating = false;
+        content.setRefreshing(false);
         if (getActivity() != null) { // check for attaching to activity
             adapter.setItems(addresses);
         }
@@ -123,6 +141,16 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
     @OnClick(R.id.fab)
     void newAddressClick() {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        if (!isUpdating) {
+            isHotUpdating = true;
+            adapter.clearItems();
+            isUpdating = true;
+            addressesPresenter.getUserAddresses(AuthPreferences.getUserId());
+        }
     }
 
     /*
