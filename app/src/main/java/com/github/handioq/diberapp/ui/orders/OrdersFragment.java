@@ -52,6 +52,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
     private long userId;
 
     private boolean isHotUpdating = false;
+    private boolean isUpdating = false;
 
     private OrdersRecyclerAdapter adapter;
     private LinearLayoutManager layoutManager;
@@ -101,6 +102,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
         adapter = new OrdersRecyclerAdapter(new ArrayList<>());
         ordersPresenter.setView(this);
         ordersPresenter.getOrders(userId);
+        isUpdating = true;
         initRecycler();
     }
 
@@ -133,6 +135,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
 
     @Override
     public void setOrders(List<OrderDvo> orders) {
+        isUpdating = false;
         content.setRefreshing(false);
         if (getActivity() != null) { // check for attaching to activity
             adapter.setItems(orders);
@@ -141,6 +144,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
 
     @Override
     public void showLoadOrdersError(Throwable error) {
+        isUpdating = false;
         content.setRefreshing(false);
         if (ErrorUtils.isUnauthorizedError(error)) {
             // TODO extract this
@@ -179,8 +183,11 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
 
     @Override
     public void onRefresh() {
-        isHotUpdating = true;
-        adapter.clearItems();
-        ordersPresenter.getOrders(userId);
+        if (!isUpdating) {
+            isHotUpdating = true;
+            adapter.clearItems();
+            isUpdating = true;
+            ordersPresenter.getOrders(userId);
+        }
     }
 }
