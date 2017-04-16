@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +79,12 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @BindView(R.id.time_edit_text)
     TextView timeTextView;
+
+    @BindView(R.id.progress_view)
+    ProgressBar progressView;
+
+    @BindView(R.id.new_order_scroll_view)
+    ScrollView contentScrollView;
 
     @Inject
     ShopsMvp.Presenter shopsPresenter;
@@ -199,19 +206,23 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @Override
     public void showAddOrderProgress() {
-
+        progressView.setVisibility(View.VISIBLE);
+        contentScrollView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideAddOrderProgress() {
-
+        progressView.setVisibility(View.GONE);
+        contentScrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onOrderAdded(OrderDvo orderDvo) {
         Log.i(TAG, "Order added: " + orderDvo.toString());
         Toast.makeText(getContext(), "Order added!", Toast.LENGTH_LONG).show();
-        // todo close this activity and send eventbus event
+        getActivity().finish();
+
+        // todo send eventbus event
     }
 
     @Override
