@@ -54,4 +54,5 @@ public class NewOrderPresenter implements NewOrderMvp.Presenter, NewOrderMvp.Mod
     public void setView(NewOrderMvp.View view) {
         this.view = view;
     }
+
 }

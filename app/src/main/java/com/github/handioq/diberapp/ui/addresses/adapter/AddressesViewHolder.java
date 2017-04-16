@@ -28,13 +28,10 @@ class AddressesViewHolder extends RecyclerView.ViewHolder {
         super(v);
         ButterKnife.bind(this, v);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (addressDvo != null) {
-                    // Context context = itemView.getContext();
-                    // context.startActivity(ProductActivity.makeIntent(context, addressDvo.getId()));
-                }
+        itemView.setOnClickListener(v1 -> {
+            if (addressDvo != null) {
+                // Context context = itemView.getContext();
+                // context.startActivity(ProductActivity.makeIntent(context, addressDvo.getId()));
             }
         });
     }

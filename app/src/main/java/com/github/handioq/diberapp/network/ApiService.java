@@ -50,6 +50,10 @@ public interface ApiService {
     Observable<OrderDto> addOrder(@Path("user_id") long userId,
                                   @Body NewOrderDto orderDto);
 
+    @POST(USER_SHOPS)
+    Observable<ShopDto> addShop(@Path("user_id") long userId,
+                                @Body ShopDto shopDto);
+
     @GET(USER_SHOPS)
     Observable<List<ShopDto>> getUserShops(@Path("user_id") long userId);
 

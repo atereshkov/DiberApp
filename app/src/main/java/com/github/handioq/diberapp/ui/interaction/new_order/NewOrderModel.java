@@ -48,4 +48,5 @@ public class NewOrderModel implements NewOrderMvp.Model {
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
+
 }

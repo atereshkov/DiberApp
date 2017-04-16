@@ -15,8 +15,8 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
-import com.github.handioq.diberapp.ui.addresses.adapter.AddressesRecyclerAdapter;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
+import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopActivity;
 import com.github.handioq.diberapp.ui.shops.adapter.ShopsRecyclerAdapter;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
@@ -123,7 +123,8 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View {
 
     @OnClick(R.id.fab)
     void newAddressClick() {
-
+        Intent intent = new Intent(getContext(), NewShopActivity.class);
+        startActivity(intent);
     }
 
     /*

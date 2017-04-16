@@ -28,13 +28,10 @@ class ShopsViewHolder extends RecyclerView.ViewHolder {
         super(v);
         ButterKnife.bind(this, v);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (shopDvo != null) {
-                    // Context context = itemView.getContext();
-                    // context.startActivity(ProductActivity.makeIntent(context, shopDvo.getId()));
-                }
+        itemView.setOnClickListener(v1 -> {
+            if (shopDvo != null) {
+                // Context context = itemView.getContext();
+                // context.startActivity(ProductActivity.makeIntent(context, shopDvo.getId()));
             }
         });
     }
