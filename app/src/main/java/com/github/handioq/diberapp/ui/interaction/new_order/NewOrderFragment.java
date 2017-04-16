@@ -33,6 +33,7 @@ import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.Constants;
 import com.github.handioq.diberapp.util.DateUtils;
+import com.github.handioq.diberapp.util.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     private final String TAG = this.getClass().getSimpleName();
 
     private NewOrderDto orderDto = new NewOrderDto();
+    private AddressDvo selectedAddress = new AddressDvo();
+    private ShopDvo selectedShop = new ShopDvo();
 
     @BindView(R.id.spinner_addresses)
     Spinner addrSpinnerView;
@@ -134,7 +137,12 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         addrSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(parent.getContext(), "onAddressSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                for (AddressDvo address : addresses) {
+                    if (address.getName().equals(parent.getItemAtPosition(position).toString())) {
+                        selectedAddress = address;
+                        break;
+                    }
+                }
             }
 
             @Override
@@ -156,7 +164,12 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         shopsSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(parent.getContext(), "onShopSelected: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                for (ShopDvo shop : shops) {
+                    if (shop.getName().equals(parent.getItemAtPosition(position).toString())) {
+                        selectedShop = shop;
+                        break;
+                    }
+                }
             }
 
             @Override
@@ -166,17 +179,13 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @OnClick(R.id.create_order_button)
     public void onCreateOrderClick() {
-        //orderDto.setDate("2018-03-22 15:10:19");
         orderDto.setDate(dateTextView.getText().toString() + " " + timeTextView.getText().toString());
         orderDto.setDescription(descriptionEditView.getText().toString());
         orderDto.setPrice(Double.parseDouble(priceEditView.getText().toString()));
         orderDto.setStatus(Constants.STATUS_NEW);
 
-        // todo add new activity
-        AddressDto addressDto = new AddressDto("New addr", 200311, "Russia", "Moscow", "Region 2", "Frolova 20-23", "375252156474");
-
-        // todo get this from spinner or dialog?
-        ShopDto shopDto = new ShopDto("Colins2", "Sovetskaya 20");
+        AddressDto addressDto = Mapper.mapAddressToDto(selectedAddress);
+        ShopDto shopDto = Mapper.mapShopToDto(selectedShop);
 
         orderDto.setAddress(addressDto);
         orderDto.setShop(shopDto);

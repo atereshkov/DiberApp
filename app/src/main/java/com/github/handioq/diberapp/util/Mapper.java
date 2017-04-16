@@ -38,7 +38,10 @@ public class Mapper {
             addressDvo = mapAddressToDvo(orderDto.getAddress());
         }
 
-        UserDvo customerDvo = mapUserToDvo(orderDto.getCustomer());
+        UserDvo customerDvo = new UserDvo();
+        if (orderDto.getCustomer() != null) {
+            customerDvo = mapUserToDvo(orderDto.getCustomer());
+        }
 
         UserDvo courierDvo = new UserDvo();
         if (orderDto.getCourier() != null) {
@@ -63,7 +66,7 @@ public class Mapper {
         return addressesDvo;
     }
 
-    private static AddressDvo mapAddressToDvo(AddressDto addressDto) {
+    public static AddressDvo mapAddressToDvo(AddressDto addressDto) {
         return new AddressDvo(addressDto.getName(), addressDto.getPostalCode(), addressDto.getCountry(), addressDto.getCity(),
                 addressDto.getRegion(), addressDto.getAddress(), addressDto.getPhone());
     }
@@ -78,7 +81,16 @@ public class Mapper {
         return shopDvo;
     }
 
-    private static ShopDvo mapShopToDvo(ShopDto shopDto) {
+    public static ShopDvo mapShopToDvo(ShopDto shopDto) {
         return new ShopDvo(shopDto.getName(), shopDto.getAddress());
+    }
+
+    public static ShopDto mapShopToDto(ShopDvo shopDvo) {
+        return new ShopDto(shopDvo.getName(), shopDvo.getAddress());
+    }
+
+    public static AddressDto mapAddressToDto(AddressDvo addressDvo) {
+        return new AddressDto(addressDvo.getName(), addressDvo.getPostalCode(), addressDvo.getCountry(), addressDvo.getCity(),
+                addressDvo.getRegion(), addressDvo.getAddress(), addressDvo.getPhone());
     }
 }

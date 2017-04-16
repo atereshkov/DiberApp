@@ -116,7 +116,9 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
 
     @Override
     public void showLoadOrdersProgress() {
-        content.setRefreshing(true);
+        if (isHotUpdating) {
+            content.setRefreshing(true);
+        }
 
         if (!isHotUpdating) {
             progressView.setVisibility(View.VISIBLE);
