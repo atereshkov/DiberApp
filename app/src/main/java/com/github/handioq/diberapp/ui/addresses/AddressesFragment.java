@@ -15,12 +15,16 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
+import com.github.handioq.diberapp.base.event.AddressRemovedEvent;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.ui.addresses.adapter.AddressesRecyclerAdapter;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressActivity;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +89,7 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
         adapter = new AddressesRecyclerAdapter(new ArrayList<>());
         content.setOnRefreshListener(this);
         addressesPresenter.setView(this);
-        isUpdating = true;
-        addressesPresenter.getUserAddresses(authPreferences.getUserId());
+        loadData(false);
         initRecycler();
     }
 
@@ -98,6 +101,12 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
         recyclerView.setEmptyView(emptyView);
 
         //recyclerView.addOnScrollListener(new PaginationOnScrollListener(this, layoutManager));
+    }
+
+    private void loadData(Boolean force) {
+        adapter.clearItems();
+        isUpdating = true;
+        addressesPresenter.getUserAddresses(authPreferences.getUserId());
     }
 
     @Override
@@ -149,30 +158,26 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
     public void onRefresh() {
         if (!isUpdating) {
             isHotUpdating = true;
-            adapter.clearItems();
-            isUpdating = true;
-            addressesPresenter.getUserAddresses(AuthPreferences.getUserId());
+            loadData(true);
         }
     }
 
-    /*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    @Subscribe
+    public void addressRemovedEvent(AddressRemovedEvent event) {
+        Log.d("addressRemovedEvent", "addressRemovedEvent");
+        loadData(false);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Toast.makeText(getContext(), "Not implemented", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
-        return true;
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
     }
-    */
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
 
 }

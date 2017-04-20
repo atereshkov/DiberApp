@@ -46,6 +46,7 @@ public class AddressesRecyclerAdapter extends RecyclerView.Adapter<AddressesView
 
     public void clearItems() {
         this.items.clear();
+        notifyDataSetChanged();
     }
 
 }
