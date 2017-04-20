@@ -54,6 +54,10 @@
             android:name=".ui.interaction.new_shop.NewShopActivity"
             android:label="@string/activity_title_new_shop" />
 
+        <activity
+            android:name=".ui.interaction.new_address.NewAddressActivity"
+            android:label="@string/activity_title_new_shop" />
+
     </application>
 
 </manifest>

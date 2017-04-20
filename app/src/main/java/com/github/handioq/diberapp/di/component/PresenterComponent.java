@@ -5,6 +5,7 @@ import com.github.handioq.diberapp.di.scope.PresenterScope;
 import com.github.handioq.diberapp.ui.addresses.AddressesFragment;
 import com.github.handioq.diberapp.ui.auth.login.LoginFragment;
 import com.github.handioq.diberapp.ui.auth.registration.SignupFragment;
+import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressFragment;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderFragment;
 import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopFragment;
 import com.github.handioq.diberapp.ui.order.OrderFragment;
@@ -32,5 +33,7 @@ public interface PresenterComponent {
     void inject(OrderFragment orderFragment);
 
     void inject(NewShopFragment newShopFragment);
+
+    void inject(NewAddressFragment newAddressFragment);
 
 }

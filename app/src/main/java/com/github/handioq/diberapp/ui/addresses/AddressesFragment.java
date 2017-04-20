@@ -18,6 +18,7 @@ import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.ui.addresses.adapter.AddressesRecyclerAdapter;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
+import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressActivity;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
 
@@ -140,7 +141,8 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
 
     @OnClick(R.id.fab)
     void newAddressClick() {
-
+        Intent intent = new Intent(getContext(), NewAddressActivity.class);
+        startActivity(intent);
     }
 
     @Override

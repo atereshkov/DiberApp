@@ -1,4 +1,4 @@
-package com.github.handioq.diberapp.ui.interaction.new_shop;
+package com.github.handioq.diberapp.ui.interaction.new_address;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -6,7 +6,7 @@ import android.view.MenuItem;
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.base.BaseToolbarActivity;
 
-public class NewShopActivity extends BaseToolbarActivity {
+public class NewAddressActivity extends BaseToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class NewShopActivity extends BaseToolbarActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content, NewShopFragment.newInstance())
+                    .add(R.id.content, NewAddressFragment.newInstance())
                     .commit();
         }
     }

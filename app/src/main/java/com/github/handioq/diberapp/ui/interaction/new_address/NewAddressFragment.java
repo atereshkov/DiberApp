@@ -1,4 +1,4 @@
-package com.github.handioq.diberapp.ui.interaction.new_shop;
+package com.github.handioq.diberapp.ui.interaction.new_address;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
-import com.github.handioq.diberapp.model.dto.ShopDto;
-import com.github.handioq.diberapp.model.dvo.ShopDvo;
+import com.github.handioq.diberapp.model.dto.AddressDto;
+import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
 import javax.inject.Inject;
@@ -23,30 +23,45 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NewShopFragment extends BaseFragment implements NewShopMvp.View {
+public class NewAddressFragment extends BaseFragment implements NewAddressMvp.View {
 
     private final String TAG = this.getClass().getSimpleName();
 
     @BindView(R.id.progress_view)
     ProgressBar progressView;
 
-    @BindView(R.id.new_shop_scroll_view)
+    @BindView(R.id.new_address_scroll_view)
     ScrollView contentScrollView;
 
     @BindView(R.id.name)
     EditText nameEditView;
 
+    @BindView(R.id.country)
+    EditText countryEditView;
+
+    @BindView(R.id.city)
+    EditText cityEditView;
+
+    @BindView(R.id.region)
+    EditText regionEditView;
+
     @BindView(R.id.address)
     EditText addressEditView;
 
+    @BindView(R.id.postalcode)
+    EditText postalCodeEditView;
+
+    @BindView(R.id.phone)
+    EditText phoneEditView;
+
     @Inject
-    NewShopMvp.Presenter newShopPresenter;
+    NewAddressMvp.Presenter newAddressPresenter;
 
     @Inject
     AuthPreferences authPreferences;
 
-    public static NewShopFragment newInstance() {
-        return new NewShopFragment();
+    public static NewAddressFragment newInstance() {
+        return new NewAddressFragment();
     }
 
     @Override
@@ -57,7 +72,7 @@ public class NewShopFragment extends BaseFragment implements NewShopMvp.View {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_new_shop, container, false);
+        return inflater.inflate(R.layout.fragment_new_address, container, false);
     }
 
     @Override
@@ -65,35 +80,40 @@ public class NewShopFragment extends BaseFragment implements NewShopMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
-        newShopPresenter.setView(this);
+        newAddressPresenter.setView(this);
     }
 
-    @OnClick(R.id.create_shop_button)
-    public void onCreateShopClick() {
-        String shopName = nameEditView.getText().toString();
-        String shopAddress = addressEditView.getText().toString();
+    @OnClick(R.id.create_address_button)
+    public void onCreateAddressClick() {
+        String name = nameEditView.getText().toString();
+        String country = addressEditView.getText().toString();
+        String city = cityEditView.getText().toString();
+        String region = regionEditView.getText().toString();
+        Integer postalCode = Integer.parseInt(postalCodeEditView.getText().toString());
+        String address = addressEditView.getText().toString();
+        String phone =phoneEditView.getText().toString();
 
-        ShopDto shopDto = new ShopDto(shopName, shopAddress);
+        AddressDto shopDto = new AddressDto(name, postalCode, country, city, region, address, phone);
 
-        // todo add all checks for validity of shop
-        newShopPresenter.addShop(authPreferences.getUserId(), shopDto);
+        // todo add all checks for validity of address
+        newAddressPresenter.addAddress(authPreferences.getUserId(), shopDto);
     }
 
     @Override
-    public void showAddShopProgress() {
+    public void showAddAddressProgress() {
         progressView.setVisibility(View.VISIBLE);
         contentScrollView.setVisibility(View.GONE);
     }
 
     @Override
-    public void hideAddShopProgress() {
+    public void hideAddAddressProgress() {
         progressView.setVisibility(View.GONE);
         contentScrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onShopAdded(ShopDvo shopDvo) {
-        Log.i(TAG, "Shop added: " + shopDvo.toString());
+    public void onAddressAdded(AddressDvo addressDvo) {
+        Log.i(TAG, "Shop added: " + addressDvo.toString());
         Toast.makeText(getContext(), "Shop added!", Toast.LENGTH_LONG).show();
         getActivity().finish();
 
@@ -101,7 +121,7 @@ public class NewShopFragment extends BaseFragment implements NewShopMvp.View {
     }
 
     @Override
-    public void onAddShopError(Throwable error) {
+    public void onAddAddressError(Throwable error) {
         Log.e(TAG, error.toString());
     }
 
