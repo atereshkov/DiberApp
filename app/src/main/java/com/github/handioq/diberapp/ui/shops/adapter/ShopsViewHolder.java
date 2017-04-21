@@ -4,10 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
+import com.github.handioq.diberapp.base.event.RemoveShopEvent;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +20,9 @@ class ShopsViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.shop_id)
     TextView nameView;
+
+    @BindView(R.id.delete_button)
+    ImageButton removeButtonView;
 
     private ShopDvo shopDvo;
 
@@ -40,13 +47,11 @@ class ShopsViewHolder extends RecyclerView.ViewHolder {
         shopDvo = item;
         nameView.setText(item.getName() + " - " + item.getAddress());
 
-        /*
-        buyButtonView.setOnClickListener(new View.OnClickListener() {
+        removeButtonView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EventBus.getDefault().post(new AddToCartClickEvent(shopDvo));
+                EventBus.getDefault().post(new RemoveShopEvent(shopDvo));
             }
         });
-        */
 
         /*
         Glide.with(itemView.getContext())

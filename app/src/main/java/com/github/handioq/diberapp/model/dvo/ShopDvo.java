@@ -2,15 +2,25 @@ package com.github.handioq.diberapp.model.dvo;
 
 public class ShopDvo {
 
+    private int id;
     private String name;
     private String address;
 
     public ShopDvo() {
     }
 
-    public ShopDvo(String name, String address) {
+    public ShopDvo(int id, String name, String address) {
+        this.id = id;
         this.name = name;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

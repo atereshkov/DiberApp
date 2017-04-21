@@ -22,6 +22,8 @@ import com.github.handioq.diberapp.ui.orders.OrdersMvp;
 import com.github.handioq.diberapp.ui.orders.OrdersPresenter;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.ui.shops.ShopsPresenter;
+import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopMvp;
+import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopPresenter;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
 import dagger.Module;
@@ -88,6 +90,12 @@ public class PresenterModule {
     @PresenterScope
     public RemoveAddressMvp.Presenter providesRemoveAddressPresenter(NetworkService networkService) {
         return new RemoveAddressPresenter(networkService);
+    }
+
+    @Provides
+    @PresenterScope
+    public RemoveShopMvp.Presenter providesRemoveShopPresenter(NetworkService networkService) {
+        return new RemoveShopPresenter(networkService);
     }
 
 }

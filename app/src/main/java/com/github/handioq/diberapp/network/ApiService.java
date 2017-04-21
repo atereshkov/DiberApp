@@ -30,6 +30,7 @@ public interface ApiService {
     String USER_GET_INFO = API_BASE_URL + "/users/info";
     String USER_ORDERS = API_BASE_URL + "/users/{user_id}/orders";
     String USER_SHOPS = API_BASE_URL + "/users/{user_id}/shops";
+    String USER_SHOPS_ID = USER_SHOPS + "/{shop_id}";
     String USER_ADDRESSES = API_BASE_URL + "/users/{user_id}/addresses";
     String USER_ADDRESSES_ID = USER_ADDRESSES + "/{address_id}";
     String ORDER_INFO = API_BASE_URL + "/orders/{order_id}";
@@ -73,5 +74,9 @@ public interface ApiService {
     @DELETE(USER_ADDRESSES_ID)
     Observable<ResponseDto> removeAddress(@Path("user_id") long userId,
                                           @Path("address_id") int addressId);
+
+    @DELETE(USER_SHOPS_ID)
+    Observable<ResponseDto> removeShop(@Path("user_id") long userId,
+                                          @Path("shop_id") int shopId);
 
 }

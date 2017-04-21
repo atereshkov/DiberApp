@@ -50,7 +50,7 @@ public class NewShopDialog extends DialogFragment {
                     String name = nameEditView.getText().toString();
                     String address = addressEditView.getText().toString();
 
-                    listener.onNewShopDialogAddClick(this, new ShopDto(name, address));
+                    listener.onNewShopDialogAddClick(this, new ShopDto(0, name, address));
                 })
                 .setNegativeButton(R.string.dialog_new_shop_cancel, (dialog, id) -> {
                     listener.onNewShopDialogCancelClick(this);

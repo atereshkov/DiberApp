@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ShopDto {
 
+    @SerializedName("id")
+    private int id;
+
     @SerializedName("name")
     private String name;
 
@@ -13,9 +16,23 @@ public class ShopDto {
     public ShopDto() {
     }
 
-    public ShopDto(String name, String address) {
+    public ShopDto(int id, String name, String address) {
+        this.id = id;
         this.name = name;
         this.address = address;
+    }
+
+    public ShopDto(String address, String name) {
+        this.address = address;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

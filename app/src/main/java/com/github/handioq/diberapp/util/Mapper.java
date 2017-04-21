@@ -82,11 +82,11 @@ public class Mapper {
     }
 
     public static ShopDvo mapShopToDvo(ShopDto shopDto) {
-        return new ShopDvo(shopDto.getName(), shopDto.getAddress());
+        return new ShopDvo(shopDto.getId(), shopDto.getName(), shopDto.getAddress());
     }
 
     public static ShopDto mapShopToDto(ShopDvo shopDvo) {
-        return new ShopDto(shopDvo.getName(), shopDvo.getAddress());
+        return new ShopDto(shopDvo.getId(), shopDvo.getName(), shopDvo.getAddress());
     }
 
     public static AddressDto mapAddressToDto(AddressDvo addressDvo) {

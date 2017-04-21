@@ -15,12 +15,17 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
+import com.github.handioq.diberapp.base.event.RemoveShopEvent;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopActivity;
 import com.github.handioq.diberapp.ui.shops.adapter.ShopsRecyclerAdapter;
+import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +35,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeRefreshLayout.OnRefreshListener {
+public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeRefreshLayout.OnRefreshListener,
+        RemoveShopMvp.View {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -54,6 +60,9 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeR
 
     @Inject
     ShopsMvp.Presenter shopsPresenter;
+
+    @Inject
+    RemoveShopMvp.Presenter removeShopPresenter;
 
     @Inject
     AuthPreferences authPreferences;
@@ -85,8 +94,7 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeR
         adapter = new ShopsRecyclerAdapter(new ArrayList<>());
         content.setOnRefreshListener(this);
         shopsPresenter.setView(this);
-        isUpdating = true;
-        shopsPresenter.getUserShops(authPreferences.getUserId());
+        loadData(false);
         initRecycler();
     }
 
@@ -98,6 +106,12 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeR
         recyclerView.setEmptyView(emptyView);
 
         //recyclerView.addOnScrollListener(new PaginationOnScrollListener(this, layoutManager));
+    }
+
+    private void loadData(Boolean force) {
+        //adapter.clearItems();
+        isUpdating = true;
+        shopsPresenter.getUserShops(authPreferences.getUserId());
     }
 
     @Override
@@ -149,30 +163,38 @@ public class ShopsFragment extends BaseFragment implements ShopsMvp.View, SwipeR
     public void onRefresh() {
         if (!isUpdating) {
             isHotUpdating = true;
-            adapter.clearItems();
-            isUpdating = true;
-            shopsPresenter.getUserShops(AuthPreferences.getUserId());
+            loadData(true);
         }
     }
 
-    /*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    @Subscribe
+    public void RemoveAddressEvent(RemoveShopEvent event) {
+        removeShopPresenter.setView(this);
+        removeShopPresenter.removeShop(AuthPreferences.getUserId(), event.getShopDvo().getId());
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Toast.makeText(getContext(), "Not implemented", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
-        return true;
+    public void onShopRemoved() {
+        Toast.makeText(getActivity(), "Shop removed!", Toast.LENGTH_SHORT).show();
+        loadData(false);
     }
-    */
+
+    @Override
+    public void onShopRemoveError(Throwable e) {
+        Log.e(TAG, e.toString());
+        Toast.makeText(getContext(), "Error during shop removing!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
 
 }
