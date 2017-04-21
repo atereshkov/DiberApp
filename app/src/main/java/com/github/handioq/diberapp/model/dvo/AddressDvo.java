@@ -2,6 +2,7 @@ package com.github.handioq.diberapp.model.dvo;
 
 public class AddressDvo {
 
+    private int id;
     private String name;
     private int postalCode;
     private String country;
@@ -13,7 +14,8 @@ public class AddressDvo {
     public AddressDvo() {
     }
 
-    public AddressDvo(String name, int postalCode, String country, String city, String region, String address, String phone) {
+    public AddressDvo(int id, String name, int postalCode, String country, String city, String region, String address, String phone) {
+        this.id = id;
         this.name = name;
         this.postalCode = postalCode;
         this.country = country;
@@ -21,6 +23,14 @@ public class AddressDvo {
         this.region = region;
         this.address = address;
         this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

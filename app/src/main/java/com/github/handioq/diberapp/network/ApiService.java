@@ -5,6 +5,7 @@ import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.RegisterDto;
+import com.github.handioq.diberapp.model.dto.ResponseDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dto.UserDto;
 import com.github.handioq.diberapp.model.dto.UserInfoDto;
@@ -12,6 +13,7 @@ import com.github.handioq.diberapp.model.dto.UserInfoDto;
 import java.util.List;
 
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -29,6 +31,7 @@ public interface ApiService {
     String USER_ORDERS = API_BASE_URL + "/users/{user_id}/orders";
     String USER_SHOPS = API_BASE_URL + "/users/{user_id}/shops";
     String USER_ADDRESSES = API_BASE_URL + "/users/{user_id}/addresses";
+    String USER_ADDRESSES_ID = USER_ADDRESSES + "/{address_id}";
     String ORDER_INFO = API_BASE_URL + "/orders/{order_id}";
 
     @POST(LOGIN_URL)
@@ -66,5 +69,9 @@ public interface ApiService {
 
     @GET(ORDER_INFO)
     Observable<OrderDto> getOrder(@Path("order_id") long orderId);
+
+    @DELETE(USER_ADDRESSES_ID)
+    Observable<ResponseDto> removeAddress(@Path("user_id") long userId,
+                                          @Path("address_id") int addressId);
 
 }

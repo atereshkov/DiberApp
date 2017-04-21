@@ -15,9 +15,10 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
-import com.github.handioq.diberapp.base.event.AddressRemovedEvent;
+import com.github.handioq.diberapp.base.event.RemoveAddressEvent;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.ui.addresses.adapter.AddressesRecyclerAdapter;
+import com.github.handioq.diberapp.ui.addresses.interaction.RemoveAddressMvp;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressActivity;
 import com.github.handioq.diberapp.util.AuthPreferences;
@@ -34,7 +35,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AddressesFragment extends BaseFragment implements AddressesMvp.View, SwipeRefreshLayout.OnRefreshListener {
+public class AddressesFragment extends BaseFragment implements AddressesMvp.View, SwipeRefreshLayout.OnRefreshListener,
+        RemoveAddressMvp.View {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -58,6 +60,9 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
 
     @Inject
     AddressesMvp.Presenter addressesPresenter;
+
+    @Inject
+    RemoveAddressMvp.Presenter removeAddressPresenter;
 
     @Inject
     AuthPreferences authPreferences;
@@ -104,7 +109,7 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
     }
 
     private void loadData(Boolean force) {
-        adapter.clearItems();
+        //adapter.clearItems();
         isUpdating = true;
         addressesPresenter.getUserAddresses(authPreferences.getUserId());
     }
@@ -163,9 +168,21 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
     }
 
     @Subscribe
-    public void addressRemovedEvent(AddressRemovedEvent event) {
-        Log.d("addressRemovedEvent", "addressRemovedEvent");
+    public void RemoveAddressEvent(RemoveAddressEvent event) {
+        removeAddressPresenter.setView(this);
+        removeAddressPresenter.removeAddress(AuthPreferences.getUserId(), event.getAddressDvo().getId());
+    }
+
+    @Override
+    public void onAddressRemoved() {
+        Toast.makeText(getActivity(), "Address removed!", Toast.LENGTH_SHORT).show();
         loadData(false);
+    }
+
+    @Override
+    public void onAddressRemoveError(Throwable e) {
+        Log.e(TAG, e.toString());
+        Toast.makeText(getContext(), "Error during address removing!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

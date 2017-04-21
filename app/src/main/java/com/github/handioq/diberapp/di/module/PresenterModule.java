@@ -4,6 +4,8 @@ import com.github.handioq.diberapp.di.scope.PresenterScope;
 import com.github.handioq.diberapp.network.NetworkService;
 import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
 import com.github.handioq.diberapp.ui.addresses.AddressesPresenter;
+import com.github.handioq.diberapp.ui.addresses.interaction.RemoveAddressMvp;
+import com.github.handioq.diberapp.ui.addresses.interaction.RemoveAddressPresenter;
 import com.github.handioq.diberapp.ui.auth.login.LoginMvp;
 import com.github.handioq.diberapp.ui.auth.login.LoginPresenter;
 import com.github.handioq.diberapp.ui.auth.registration.SignupMvp;
@@ -80,6 +82,12 @@ public class PresenterModule {
     @PresenterScope
     public NewAddressMvp.Presenter providesNewAddressPresenter(NetworkService networkService) {
         return new NewAddressPresenter(networkService);
+    }
+
+    @Provides
+    @PresenterScope
+    public RemoveAddressMvp.Presenter providesRemoveAddressPresenter(NetworkService networkService) {
+        return new RemoveAddressPresenter(networkService);
     }
 
 }

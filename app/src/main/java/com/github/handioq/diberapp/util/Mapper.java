@@ -67,7 +67,7 @@ public class Mapper {
     }
 
     public static AddressDvo mapAddressToDvo(AddressDto addressDto) {
-        return new AddressDvo(addressDto.getName(), addressDto.getPostalCode(), addressDto.getCountry(), addressDto.getCity(),
+        return new AddressDvo(addressDto.getId(), addressDto.getName(), addressDto.getPostalCode(), addressDto.getCountry(), addressDto.getCity(),
                 addressDto.getRegion(), addressDto.getAddress(), addressDto.getPhone());
     }
 
