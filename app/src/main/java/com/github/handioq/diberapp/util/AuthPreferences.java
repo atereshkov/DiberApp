@@ -48,7 +48,7 @@ public class AuthPreferences {
         return token;
     }
 
-    public void setUserFullname(String fullname) {
+    public static void setUserFullname(String fullname) {
         sharedPreferences.edit().putString(USER_FULLNAME, fullname).apply();
     }
 
@@ -62,7 +62,7 @@ public class AuthPreferences {
         return fullname;
     }
 
-    public void setUserEmail(String email) {
+    public static void setUserEmail(String email) {
         sharedPreferences.edit().putString(USER_EMAIL, email).apply();
     }
 
@@ -76,7 +76,7 @@ public class AuthPreferences {
         return  email;
     }
 
-    public void setUserRefreshToken(String refreshToken) {
+    public static void setUserRefreshToken(String refreshToken) {
         sharedPreferences.edit().putString(REFRESH_TOKEN, refreshToken).apply();
 
         AuthPreferences.refreshToken = refreshToken;
@@ -92,7 +92,7 @@ public class AuthPreferences {
         return refreshToken;
     }
 
-    public void setUserId(long id) {
+    public static void setUserId(long id) {
         sharedPreferences.edit().putLong(USER_ID, id).apply();
     }
 
@@ -106,7 +106,7 @@ public class AuthPreferences {
         return userId;
     }
 
-    public boolean isUserLoggedIn() {
+    public static boolean isUserLoggedIn() {
         boolean isLogged = true;
 
         if (sharedPreferences.getString(TOKEN, TOKEN_NULL).equals(TOKEN_NULL)) {
@@ -124,10 +124,13 @@ public class AuthPreferences {
         return isLogged;
     }
 
-    public void logout() {
+    public static void logout() {
         Log.i(TAG, "logout");
         sharedPreferences.edit()
                 .putString(TOKEN, TOKEN_NULL)
                 .putLong(USER_ID, USER_ID_NULL).apply();
+
+        Log.i(TAG, "Token cleared.");
+        Log.i(TAG, "isUserLoggedIn: " + isUserLoggedIn());
     }
 }

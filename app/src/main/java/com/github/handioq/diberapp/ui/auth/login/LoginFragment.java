@@ -117,6 +117,8 @@ public class LoginFragment extends BaseFragment implements LoginMvp.View {
 
     @OnClick(R.id.sign_in)
     void signIn() {
+        authPreferences.logout();
+
         String email = loginTextView.getText().toString();
         String password = passwordView.getText().toString();
 
