@@ -20,6 +20,8 @@ import com.github.handioq.diberapp.ui.order.OrderMvp;
 import com.github.handioq.diberapp.ui.order.OrderPresenter;
 import com.github.handioq.diberapp.ui.orders.OrdersMvp;
 import com.github.handioq.diberapp.ui.orders.OrdersPresenter;
+import com.github.handioq.diberapp.ui.requests.RequestsMvp;
+import com.github.handioq.diberapp.ui.requests.RequestsPresenter;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.ui.shops.ShopsPresenter;
 import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopMvp;
@@ -96,6 +98,12 @@ public class PresenterModule {
     @PresenterScope
     public RemoveShopMvp.Presenter providesRemoveShopPresenter(NetworkService networkService) {
         return new RemoveShopPresenter(networkService);
+    }
+
+    @Provides
+    @PresenterScope
+    public RequestsMvp.Presenter providesRequestsPresenter(NetworkService networkService) {
+        return new RequestsPresenter(networkService);
     }
 
 }

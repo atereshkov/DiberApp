@@ -20,7 +20,7 @@
     <string name="password_recovery_not_impl">Password recovery not implemented now</string>
 
     <string name="order_price">$%1$.2f</string>
-    <string name="no_data_recycler_view">There\'s nothing here. Add something.</string>
+    <string name="no_data_recycler_view">There\'s nothing here.</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="prompt_zipcode">Zipcode</string>
     <string name="prompt_street">Street</string>

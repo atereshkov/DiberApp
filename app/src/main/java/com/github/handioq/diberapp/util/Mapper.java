@@ -2,10 +2,12 @@ package com.github.handioq.diberapp.util;
 
 import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
+import com.github.handioq.diberapp.model.dto.RequestDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dto.UserDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.RequestDvo;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
 import com.github.handioq.diberapp.model.dvo.UserDvo;
 
@@ -79,6 +81,20 @@ public class Mapper {
         }
 
         return shopDvo;
+    }
+
+    public static List<RequestDvo> mapRequestsToDvo(List<RequestDto> requestListDto) {
+        List<RequestDvo> requestsDvo = new ArrayList<>();
+
+        for (RequestDto requestDto : requestListDto) {
+            requestsDvo.add(mapRequestToDvo(requestDto));
+        }
+
+        return requestsDvo;
+    }
+
+    public static RequestDvo mapRequestToDvo(RequestDto requestDto) {
+        return new RequestDvo(mapOrderToDvo(requestDto.getOrder()), mapUserToDvo(requestDto.getCourier()));
     }
 
     public static ShopDvo mapShopToDvo(ShopDto shopDto) {

@@ -2,6 +2,7 @@ package com.github.handioq.diberapp.ui.order;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +14,28 @@ import android.widget.TextView;
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
+import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.RequestDvo;
+import com.github.handioq.diberapp.ui.requests.RequestsMvp;
+import com.github.handioq.diberapp.ui.requests.adapter.RequestsRecyclerAdapter;
 import com.github.handioq.diberapp.util.AuthPreferences;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class OrderFragment extends BaseFragment implements OrderMvp.View {
+public class OrderFragment extends BaseFragment implements OrderMvp.View, RequestsMvp.View {
 
     private static final String TAG = "OrderFragment";
     private static final String ORDER_ID_KEY = "order";
     private long orderId;
+
+    private RequestsRecyclerAdapter adapter;
+    private LinearLayoutManager layoutManager;
 
     @BindView(R.id.order_id)
     TextView orderIdView;
@@ -53,8 +64,17 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View {
     @BindView(R.id.progress_view)
     ProgressBar progressView;
 
+    @BindView(R.id.recycler_view)
+    RecyclerViewEmptySupport recyclerView;
+
+    @BindView(R.id.empty_recycler_view)
+    View emptyView;
+
     @Inject
     OrderMvp.Presenter orderPresenter;
+
+    @Inject
+    RequestsMvp.Presenter orderRequestsPresenter;
 
     @Inject
     AuthPreferences authPreferences;
@@ -93,8 +113,20 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View {
         super.onViewCreated(view, savedInstanceState);
         ((DiberApp) getContext().getApplicationContext()).getPresenterComponent().inject(this);
 
+        adapter = new RequestsRecyclerAdapter(new ArrayList<>());
+        initRecycler();
         orderPresenter.setView(this);
+        orderRequestsPresenter.setView(this);
         orderPresenter.getOrder(orderId);
+        orderRequestsPresenter.getOrderRequests(orderId);
+    }
+
+    private void initRecycler() {
+        layoutManager = new LinearLayoutManager(getContext()); // 1 order in a row
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setEmptyView(emptyView);
     }
 
     @Override
@@ -129,5 +161,29 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View {
     @Override
     public void showLoadOrderError(Throwable error) {
         Log.e(TAG, error.toString());
+    }
+
+    // RequestsMvp.View
+
+    @Override
+    public void showLoadRequestsProgress() {
+
+    }
+
+    @Override
+    public void hideLoadRequestsProgress() {
+
+    }
+
+    @Override
+    public void setRequests(List<RequestDvo> requests) {
+        if (getActivity() != null) {
+            adapter.setItems(requests);
+        }
+    }
+
+    @Override
+    public void showLoadRequestsError(Throwable error) {
+
     }
 }
