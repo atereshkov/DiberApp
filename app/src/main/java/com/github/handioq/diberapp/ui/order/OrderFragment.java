@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
@@ -15,11 +18,40 @@ import com.github.handioq.diberapp.util.AuthPreferences;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class OrderFragment extends BaseFragment implements OrderMvp.View {
 
     private static final String TAG = "OrderFragment";
     private static final String ORDER_ID_KEY = "order";
     private long orderId;
+
+    @BindView(R.id.order_id)
+    TextView orderIdView;
+
+    @BindView(R.id.order_status)
+    TextView statusView;
+
+    @BindView(R.id.order_date)
+    TextView dateView;
+
+    @BindView(R.id.order_from)
+    TextView addressFromView;
+
+    @BindView(R.id.order_to)
+    TextView orderToView;
+
+    @BindView(R.id.order_price)
+    TextView orderPriceView;
+
+    @BindView(R.id.order_description)
+    TextView orderDescriptionView;
+
+    @BindView(R.id.order_content)
+    LinearLayout orderContentLayout;
+
+    @BindView(R.id.progress_view)
+    ProgressBar progressView;
 
     @Inject
     OrderMvp.Presenter orderPresenter;
@@ -68,16 +100,30 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View {
     @Override
     public void setOrder(OrderDvo order) {
         Log.i(TAG, "get order: " + order);
+
+        bindOrderInformation(order);
+    }
+
+    private void bindOrderInformation(OrderDvo order) {
+        orderIdView.setText(String.valueOf(order.getId()));
+        dateView.setText(order.getDate());
+        orderPriceView.setText(String.valueOf(order.getPrice()));
+        addressFromView.setText(order.getAddress().getCountry() + ", " + order.getAddress().getCity() + ", " + order.getAddress().getAddress()); // todo extract this
+        orderToView.setText(order.getShop().getAddress());
+        orderDescriptionView.setText(order.getDescription());
+        statusView.setText(order.getStatus());
     }
 
     @Override
     public void showLoadOrderProgress() {
-
+        orderContentLayout.setVisibility(View.GONE);
+        progressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadOrderProgress() {
-
+        orderContentLayout.setVisibility(View.VISIBLE);
+        progressView.setVisibility(View.GONE);
     }
 
     @Override
