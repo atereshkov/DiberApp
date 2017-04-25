@@ -184,6 +184,6 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
     @Override
     public void showLoadRequestsError(Throwable error) {
-
+        Log.e(TAG, error.toString());
     }
 }

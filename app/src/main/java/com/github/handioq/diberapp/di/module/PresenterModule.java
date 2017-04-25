@@ -24,6 +24,8 @@ import com.github.handioq.diberapp.ui.request.RequestMvp;
 import com.github.handioq.diberapp.ui.request.RequestPresenter;
 import com.github.handioq.diberapp.ui.requests.RequestsMvp;
 import com.github.handioq.diberapp.ui.requests.RequestsPresenter;
+import com.github.handioq.diberapp.ui.reviews.ReviewsMvp;
+import com.github.handioq.diberapp.ui.reviews.ReviewsPresenter;
 import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.ui.shops.ShopsPresenter;
 import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopMvp;
@@ -112,6 +114,12 @@ public class PresenterModule {
     @PresenterScope
     public RequestMvp.Presenter providesRequestPresenter(NetworkService networkService) {
         return new RequestPresenter(networkService);
+    }
+
+    @Provides
+    @PresenterScope
+    public ReviewsMvp.Presenter providesReviewsPresenter(NetworkService networkService) {
+        return new ReviewsPresenter(networkService);
     }
 
 }

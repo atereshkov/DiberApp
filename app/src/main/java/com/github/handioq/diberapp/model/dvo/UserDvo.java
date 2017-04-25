@@ -2,6 +2,7 @@ package com.github.handioq.diberapp.model.dvo;
 
 public class UserDvo {
 
+    private long id;
     private String email;
     private String username;
     private boolean enabled;
@@ -10,11 +11,20 @@ public class UserDvo {
     public UserDvo() {
     }
 
-    public UserDvo(String email, String username, boolean enabled, String fullname) {
+    public UserDvo(long id, String email, String username, boolean enabled, String fullname) {
+        this.id = id;
         this.email = email;
         this.username = username;
         this.enabled = enabled;
         this.fullname = fullname;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {

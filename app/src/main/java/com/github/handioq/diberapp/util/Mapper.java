@@ -3,11 +3,13 @@ package com.github.handioq.diberapp.util;
 import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.RequestDto;
+import com.github.handioq.diberapp.model.dto.ReviewDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dto.UserDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.model.dvo.RequestDvo;
+import com.github.handioq.diberapp.model.dvo.ReviewDvo;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
 import com.github.handioq.diberapp.model.dvo.UserDvo;
 
@@ -55,7 +57,7 @@ public class Mapper {
     }
 
     public static UserDvo mapUserToDvo(UserDto userDto) {
-        return new UserDvo(userDto.getEmail(), userDto.getUsername(), userDto.isEnabled(), userDto.getFullname());
+        return new UserDvo(userDto.getId(), userDto.getEmail(), userDto.getUsername(), userDto.isEnabled(), userDto.getFullname());
     }
 
     public static List<AddressDvo> mapAddressListToDvo(List<AddressDto> addressListDto) {
@@ -95,6 +97,20 @@ public class Mapper {
 
     public static RequestDvo mapRequestToDvo(RequestDto requestDto) {
         return new RequestDvo(requestDto.getId(), mapOrderToDvo(requestDto.getOrder()), mapUserToDvo(requestDto.getCourier()));
+    }
+
+    public static List<ReviewDvo> mapReviewsToDvo(List<ReviewDto> reviews) {
+        List<ReviewDvo> reviewsDvo = new ArrayList<>();
+
+        for (ReviewDto reviewDto : reviews) {
+            reviewsDvo.add(mapReviewToDvo(reviewDto));
+        }
+
+        return reviewsDvo;
+    }
+
+    public static ReviewDvo mapReviewToDvo(ReviewDto reviewDto) {
+        return new ReviewDvo(reviewDto.getReview(), reviewDto.getRating(), mapUserToDvo(reviewDto.getCourer()), mapUserToDvo(reviewDto.getUser()));
     }
 
     public static ShopDvo mapShopToDvo(ShopDto shopDto) {
