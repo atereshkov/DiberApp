@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
@@ -14,12 +17,25 @@ import com.github.handioq.diberapp.model.dvo.RequestDvo;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class RequestFragment extends BaseFragment implements RequestMvp.View {
 
     private static final String TAG = "RequestFragment";
     private static final String REQUEST_ID_KEY = "request";
     private long requestId;
 
+    @BindView(R.id.request_content)
+    LinearLayout requestContentLayout;
+
+    @BindView(R.id.progress_view)
+    ProgressBar progressView;
+
+    @BindView(R.id.request_courier_name)
+    TextView courierNameView;
+
+    @BindView(R.id.request_courier_rating)
+    TextView courierRatingView;
 
     @Inject
     RequestMvp.Presenter requestPresenter;
@@ -70,19 +86,19 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View {
     }
 
     private void bindRequestInformation(RequestDvo request) {
-
+        courierNameView.setText(request.getCourier().getFullname());
     }
 
     @Override
     public void showLoadRequestProgress() {
-        //orderContentLayout.setVisibility(View.GONE);
-        //progressView.setVisibility(View.VISIBLE);
+        requestContentLayout.setVisibility(View.GONE);
+        progressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadRequestProgress() {
-        //orderContentLayout.setVisibility(View.VISIBLE);
-        //progressView.setVisibility(View.GONE);
+        requestContentLayout.setVisibility(View.VISIBLE);
+        progressView.setVisibility(View.GONE);
     }
 
     @Override
