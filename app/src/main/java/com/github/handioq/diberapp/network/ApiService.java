@@ -36,6 +36,7 @@ public interface ApiService {
     String USER_ADDRESSES_ID = USER_ADDRESSES + "/{address_id}";
     String ORDER_INFO = API_BASE_URL + "/orders/{order_id}";
     String ORDER_REQUESTS = API_BASE_URL + "/orders/{order_id}/requests";
+    String REQUEST_INFO = API_BASE_URL + "/requests/{request_id}";
 
     @POST(LOGIN_URL)
     Observable<AuthResponseDto> login(@Query("username") String login,
@@ -75,6 +76,9 @@ public interface ApiService {
 
     @GET(ORDER_INFO)
     Observable<OrderDto> getOrder(@Path("order_id") long orderId);
+
+    @GET(REQUEST_INFO)
+    Observable<RequestDto> getRequestDetails(@Path("request_id") long requestId);
 
     @DELETE(USER_ADDRESSES_ID)
     Observable<ResponseDto> removeAddress(@Path("user_id") long userId,

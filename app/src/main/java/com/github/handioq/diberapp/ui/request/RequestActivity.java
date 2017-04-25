@@ -1,4 +1,4 @@
-package com.github.handioq.diberapp.ui.order;
+package com.github.handioq.diberapp.ui.request;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,17 +6,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.github.handioq.diberapp.R;
-import com.github.handioq.diberapp.base.BaseDrawerActivity;
 import com.github.handioq.diberapp.base.BaseToolbarActivity;
 
-public class OrderActivity extends BaseToolbarActivity {
+public class RequestActivity extends BaseToolbarActivity {
 
-    private static final String KEY_ORDER_ID = "order";
-    private long orderId;
+    private static final String KEY_REQUEST_ID = "request";
+    private long requestId;
 
-    public static Intent makeIntent(Context context, long userId){
-        Intent intent = new Intent(context, OrderActivity.class);
-        intent.putExtra(KEY_ORDER_ID, userId);
+    public static Intent makeIntent(Context context, long userId) {
+        Intent intent = new Intent(context, RequestActivity.class);
+        intent.putExtra(KEY_REQUEST_ID, userId);
         return intent;
     }
 
@@ -30,13 +29,13 @@ public class OrderActivity extends BaseToolbarActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        if (getIntent().hasExtra(KEY_ORDER_ID)) {
-            orderId = getIntent().getExtras().getLong(KEY_ORDER_ID);
+        if (getIntent().hasExtra(KEY_REQUEST_ID)) {
+            requestId = getIntent().getExtras().getLong(KEY_REQUEST_ID);
         }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content, OrderFragment.newInstance(orderId))
+                    .add(R.id.content, RequestFragment.newInstance(requestId))
                     .commit();
         }
     }

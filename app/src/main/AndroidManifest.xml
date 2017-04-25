@@ -51,6 +51,11 @@
             android:label="@string/activity_title_order" />
 
         <activity
+            android:name=".ui.request.RequestActivity"
+            android:launchMode="singleTask"
+            android:label="@string/activity_title_request" />
+
+        <activity
             android:name=".ui.interaction.new_shop.NewShopActivity"
             android:label="@string/activity_title_new_shop" />
 

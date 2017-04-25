@@ -1,7 +1,5 @@
 package com.github.handioq.diberapp.ui.order;
 
-import android.util.Log;
-
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.network.NetworkService;
 

@@ -2,14 +2,24 @@ package com.github.handioq.diberapp.model.dvo;
 
 public class RequestDvo {
 
+    private long id;
     private OrderDvo order;
     private UserDvo courier;
 
     public RequestDvo() { }
 
-    public RequestDvo(OrderDvo order, UserDvo courier) {
+    public RequestDvo(long id, OrderDvo order, UserDvo courier) {
+        this.id = id;
         this.order = order;
         this.courier = courier;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public OrderDvo getOrder() {

@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.ui.requests.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.model.dvo.RequestDvo;
+import com.github.handioq.diberapp.ui.request.RequestActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +36,8 @@ public class RequestsViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(v1 -> {
             if (requestDvo != null) {
-                // Context context = itemView.getContext();
-                // context.startActivity(ProductActivity.makeIntent(context, shopDvo.getId()));
+                Context context = itemView.getContext();
+                context.startActivity(RequestActivity.makeIntent(context, requestDvo.getId()));
             }
         });
     }

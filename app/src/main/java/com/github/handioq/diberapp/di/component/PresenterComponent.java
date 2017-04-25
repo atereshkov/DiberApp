@@ -10,6 +10,7 @@ import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderFragment;
 import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopFragment;
 import com.github.handioq.diberapp.ui.order.OrderFragment;
 import com.github.handioq.diberapp.ui.orders.OrdersFragment;
+import com.github.handioq.diberapp.ui.request.RequestFragment;
 import com.github.handioq.diberapp.ui.shops.ShopsFragment;
 
 import dagger.Component;
@@ -35,5 +36,7 @@ public interface PresenterComponent {
     void inject(NewShopFragment newShopFragment);
 
     void inject(NewAddressFragment newAddressFragment);
+
+    void inject(RequestFragment requestFragment);
 
 }
