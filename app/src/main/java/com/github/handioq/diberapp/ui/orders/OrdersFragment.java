@@ -210,6 +210,11 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
     public void onOrderRemoved() {
         Toast.makeText(getActivity(), "Order removed!", Toast.LENGTH_SHORT).show();
         //loadData(false); // todo
+
+        // make loadData method and remove this repeated shit(((
+        adapter.clearItems();
+        isUpdating = true;
+        ordersPresenter.getOrders(userId);
     }
 
     @Override
