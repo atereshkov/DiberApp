@@ -22,6 +22,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
+import static com.github.handioq.diberapp.network.ApiService.ORDER_ID;
+
 public interface ApiService {
 
     String API_BASE_URL = "/api/v1";
@@ -36,6 +38,7 @@ public interface ApiService {
     String USER_ADDRESSES = API_BASE_URL + "/users/{user_id}/addresses";
     String USER_ADDRESSES_ID = USER_ADDRESSES + "/{address_id}";
     String ORDER_INFO = API_BASE_URL + "/orders/{order_id}";
+    String ORDER_ID = API_BASE_URL + "/orders/{order_id}";
     String ORDER_REQUESTS = API_BASE_URL + "/orders/{order_id}/requests";
     String REQUEST_INFO = API_BASE_URL + "/requests/{request_id}";
     String USER_REVIEWS = API_BASE_URL + "/users/{user_id}/reviews";
@@ -92,5 +95,8 @@ public interface ApiService {
     @DELETE(USER_SHOPS_ID)
     Observable<ResponseDto> removeShop(@Path("user_id") long userId,
                                           @Path("shop_id") int shopId);
+
+    @DELETE(ORDER_ID)
+    Observable<ResponseDto> deleteOrder(@Path("order_id") long orderId);
 
 }

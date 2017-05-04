@@ -6,8 +6,8 @@ public class RemoveShopEvent {
 
     private final ShopDvo shopDvo;
 
-    public RemoveShopEvent(ShopDvo addressDvo) {
-        this.shopDvo = addressDvo;
+    public RemoveShopEvent(ShopDvo orderDvo) {
+        this.shopDvo = orderDvo;
     }
 
     public ShopDvo getShopDvo() {

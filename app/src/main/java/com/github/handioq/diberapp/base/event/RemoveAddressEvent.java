@@ -13,4 +13,5 @@ public class RemoveAddressEvent {
     public AddressDvo getAddressDvo() {
         return addressDvo;
     }
+
 }

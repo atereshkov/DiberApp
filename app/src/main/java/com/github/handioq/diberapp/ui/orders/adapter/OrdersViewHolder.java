@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
+import com.github.handioq.diberapp.base.event.RemoveOrderEvent;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.ui.order.OrderActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
 import butterknife.BindView;
@@ -32,6 +35,9 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.order_to)
     TextView orderToView;
+
+    @BindView(R.id.delete_button)
+    ImageButton removeButtonView;
 
     private OrderDvo orderDvo;
 
@@ -59,6 +65,12 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
         dateView.setText(item.getDate());
         addressFromView.setText(item.getAddress().getCountry() + ", " + item.getAddress().getAddress());
         orderToView.setText(item.getShop().getAddress());
+
+        removeButtonView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EventBus.getDefault().post(new RemoveOrderEvent(orderDvo));
+            }
+        });
 
         /*
         buyButtonView.setOnClickListener(new View.OnClickListener() {

@@ -22,8 +22,11 @@ import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderActivity;
 import com.github.handioq.diberapp.ui.orders.adapter.OrdersRecyclerAdapter;
+import com.github.handioq.diberapp.ui.orders.interaction.RemoveOrderMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OrdersFragment extends BaseFragment implements OrdersMvp.View, SwipeRefreshLayout.OnRefreshListener {
+public class OrdersFragment extends BaseFragment implements OrdersMvp.View, SwipeRefreshLayout.OnRefreshListener,
+        RemoveOrderMvp.View {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -189,5 +193,29 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
             isUpdating = true;
             ordersPresenter.getOrders(userId);
         }
+    }
+
+    @Override
+    public void onOrderRemoved() {
+        Toast.makeText(getActivity(), "Order removed!", Toast.LENGTH_SHORT).show();
+        //loadData(false); // todo
+    }
+
+    @Override
+    public void onOrderRemoveError(Throwable e) {
+        Log.e(TAG, e.toString());
+        Toast.makeText(getContext(), "Error during order removing!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 }

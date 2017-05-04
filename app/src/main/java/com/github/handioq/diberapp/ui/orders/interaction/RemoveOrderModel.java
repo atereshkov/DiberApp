@@ -1,25 +1,25 @@
-package com.github.handioq.diberapp.ui.shops.interaction;
+package com.github.handioq.diberapp.ui.orders.interaction;
 
 import com.github.handioq.diberapp.model.dto.ResponseDto;
 import com.github.handioq.diberapp.network.NetworkService;
 
 import rx.Subscriber;
 
-public class RemoveShopModel implements RemoveShopMvp.Model {
+public class RemoveOrderModel implements RemoveOrderMvp.Model {
 
     private final NetworkService networkService;
-    private RemoveShopMvp.Model.Callback callback;
+    private Callback callback;
 
-    private final static String TAG = "RemoveShopModel";
+    private final static String TAG = "RemoveOrderModel";
 
-    public RemoveShopModel(NetworkService networkService) {
+    public RemoveOrderModel(NetworkService networkService) {
         this.networkService = networkService;
     }
 
     @Override
-    public void removeShop(long userId, int shopId) {
+    public void deleteOrder(long orderId) {
         networkService.getApiService()
-                .removeShop(userId, shopId)
+                .deleteOrder(orderId)
                 .compose(NetworkService.applyScheduler())
                 .subscribe(new Subscriber<ResponseDto>() {
                     @Override
@@ -29,18 +29,18 @@ public class RemoveShopModel implements RemoveShopMvp.Model {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onShopRemoveError(e);
+                        callback.onOrderRemoveError(e);
                     }
 
                     @Override
                     public void onNext(ResponseDto responseDto) {
-                        callback.onShopRemoved();
+                        callback.onOrderRemoved();
                     }
                 });
     }
 
     @Override
-    public void setCallback(RemoveShopMvp.Model.Callback callback) {
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
 

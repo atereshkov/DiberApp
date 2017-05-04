@@ -10,7 +10,7 @@ public class RemoveShopPresenter implements RemoveShopMvp.Presenter, RemoveShopM
     private RemoveShopMvp.Model model;
     private NetworkService networkService;
 
-    private final static String TAG = "RemoveAddressPresenter";
+    private final static String TAG = "RemoveShopPresenter";
 
     @Inject
     public RemoveShopPresenter(NetworkService networkService) {
