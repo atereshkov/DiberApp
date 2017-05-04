@@ -18,6 +18,7 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
+import com.github.handioq.diberapp.base.event.RemoveOrderEvent;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderActivity;
@@ -27,6 +28,7 @@ import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.ErrorUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,9 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
 
     @Inject
     OrdersMvp.Presenter ordersPresenter;
+
+    @Inject
+    RemoveOrderMvp.Presenter removeOrderPresenter;
 
     @Inject
     AuthPreferences authPreferences;
@@ -193,6 +198,12 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
             isUpdating = true;
             ordersPresenter.getOrders(userId);
         }
+    }
+
+    @Subscribe
+    public void RemoveOrderEvent(RemoveOrderEvent event) {
+        removeOrderPresenter.setView(this);
+        removeOrderPresenter.deleteOrder(event.getOrderDvo().getId());
     }
 
     @Override
