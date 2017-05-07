@@ -96,7 +96,8 @@ public class Mapper {
     }
 
     public static RequestDvo mapRequestToDvo(RequestDto requestDto) {
-        return new RequestDvo(requestDto.getId(), mapOrderToDvo(requestDto.getOrder()), mapUserToDvo(requestDto.getCourier()));
+        return new RequestDvo(requestDto.getId(), mapOrderToDvo(requestDto.getOrder()),
+                mapUserToDvo(requestDto.getCourier()), requestDto.getStatus());
     }
 
     public static List<ReviewDvo> mapReviewsToDvo(List<ReviewDto> reviews) {

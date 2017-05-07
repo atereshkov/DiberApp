@@ -5,13 +5,23 @@ public class RequestDvo {
     private long id;
     private OrderDvo order;
     private UserDvo courier;
+    private String status;
 
     public RequestDvo() { }
 
-    public RequestDvo(long id, OrderDvo order, UserDvo courier) {
+    public RequestDvo(long id, OrderDvo order, UserDvo courier, String status) {
         this.id = id;
         this.order = order;
         this.courier = courier;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public long getId() {
