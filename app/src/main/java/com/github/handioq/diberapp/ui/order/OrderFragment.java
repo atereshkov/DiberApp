@@ -21,6 +21,8 @@ import com.github.handioq.diberapp.ui.requests.RequestsMvp;
 import com.github.handioq.diberapp.ui.requests.adapter.RequestsRecyclerAdapter;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,9 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
     @BindView(R.id.order_description)
     TextView orderDescriptionView;
 
+    @BindView(R.id.order_courier_name)
+    TextView orderCourierName;
+
     @BindView(R.id.order_content)
     LinearLayout orderContentLayout;
 
@@ -69,6 +74,9 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
     @BindView(R.id.order_requests_content)
     LinearLayout orderRequestsView;
+
+    @BindView(R.id.order_courier_info)
+    LinearLayout orderCourierView;
 
     @BindView(R.id.empty_recycler_view)
     View emptyView;
@@ -138,8 +146,10 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
         if (order.getCourier() == null) {
             orderRequestsView.setVisibility(View.VISIBLE);
+            orderCourierView.setVisibility(View.GONE);
         } else {
             orderRequestsView.setVisibility(View.GONE);
+            orderCourierView.setVisibility(View.VISIBLE);
         }
 
         bindOrderInformation(order);
@@ -153,6 +163,10 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
         orderToView.setText(order.getShop().getAddress());
         orderDescriptionView.setText(order.getDescription());
         statusView.setText(order.getStatus());
+
+        if (order.getCourier() != null) {
+            orderCourierName.setText(order.getCourier().getFullname());
+        }
     }
 
     @Override
