@@ -42,14 +42,18 @@ public class Mapper {
             addressDvo = mapAddressToDvo(orderDto.getAddress());
         }
 
-        UserDvo customerDvo = new UserDvo();
+        UserDvo customerDvo;
         if (orderDto.getCustomer() != null) {
             customerDvo = mapUserToDvo(orderDto.getCustomer());
+        } else {
+            customerDvo = null;
         }
 
-        UserDvo courierDvo = new UserDvo();
+        UserDvo courierDvo;
         if (orderDto.getCourier() != null) {
             courierDvo = mapUserToDvo(orderDto.getCourier());
+        } else {
+            courierDvo = null;
         }
 
         return new OrderDvo(orderDto.getId(), orderDto.getDate(), orderDto.getDescription(),

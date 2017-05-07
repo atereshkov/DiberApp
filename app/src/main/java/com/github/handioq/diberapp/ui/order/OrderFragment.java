@@ -65,7 +65,10 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
     ProgressBar progressView;
 
     @BindView(R.id.recycler_view)
-    RecyclerViewEmptySupport recyclerView;
+    RecyclerViewEmptySupport requestsRecyclerView;
+
+    @BindView(R.id.order_requests_content)
+    LinearLayout orderRequestsView;
 
     @BindView(R.id.empty_recycler_view)
     View emptyView;
@@ -123,15 +126,21 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
     private void initRecycler() {
         layoutManager = new LinearLayoutManager(getContext()); // 1 order in a row
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setEmptyView(emptyView);
+        requestsRecyclerView.setHasFixedSize(true);
+        requestsRecyclerView.setLayoutManager(layoutManager);
+        requestsRecyclerView.setAdapter(adapter);
+        requestsRecyclerView.setEmptyView(emptyView);
     }
 
     @Override
     public void setOrder(OrderDvo order) {
         Log.i(TAG, "get order: " + order);
+
+        if (order.getCourier() == null) {
+            orderRequestsView.setVisibility(View.VISIBLE);
+        } else {
+            orderRequestsView.setVisibility(View.GONE);
+        }
 
         bindOrderInformation(order);
     }
