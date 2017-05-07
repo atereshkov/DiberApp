@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -80,6 +81,9 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
     @BindView(R.id.empty_recycler_view)
     View emptyView;
+
+    @BindView(R.id.map_button)
+    ImageButton mapButton;
 
     @Inject
     OrderMvp.Presenter orderPresenter;
