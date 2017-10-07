@@ -3,12 +3,12 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.github.handioq.diberapp"
         minSdkVersion 21
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -28,7 +28,7 @@ android {
 
 def retrofitVersion = '2.1.0'
 def daggerVersion = '2.8'
-def supportVersion = '24.2.1'
+def supportVersion = '25.0.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
