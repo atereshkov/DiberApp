@@ -2,12 +2,14 @@ package com.github.handioq.diberapp.util;
 
 import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
+import com.github.handioq.diberapp.model.dto.PageableOrderListDto;
 import com.github.handioq.diberapp.model.dto.RequestDto;
 import com.github.handioq.diberapp.model.dto.ReviewDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dto.UserDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.OrderListDvo;
 import com.github.handioq.diberapp.model.dvo.RequestDvo;
 import com.github.handioq.diberapp.model.dvo.ReviewDvo;
 import com.github.handioq.diberapp.model.dvo.ShopDvo;
@@ -18,11 +20,11 @@ import java.util.List;
 
 public class Mapper {
 
-    public static List<OrderDvo> mapOrderListToDvo(List<OrderDto> orderListDto) {
-        List<OrderDvo> ordersDvo = new ArrayList<>();
+    public static OrderListDvo mapOrderListToDvo(PageableOrderListDto orderListDto) {
+        OrderListDvo ordersDvo = new OrderListDvo();
 
-        for (OrderDto orderDto : orderListDto) {
-            ordersDvo.add(mapOrderToDvo(orderDto));
+        for (OrderDto orderDto : orderListDto.getOrders()) {
+            ordersDvo.getOrders().add(mapOrderToDvo(orderDto));
         }
 
         return ordersDvo;

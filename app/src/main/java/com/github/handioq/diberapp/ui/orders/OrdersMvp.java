@@ -1,9 +1,7 @@
 package com.github.handioq.diberapp.ui.orders;
 
 import com.github.handioq.diberapp.base.BaseMvp;
-import com.github.handioq.diberapp.model.dvo.OrderDvo;
-
-import java.util.List;
+import com.github.handioq.diberapp.model.dvo.OrderListDvo;
 
 public interface OrdersMvp {
 
@@ -15,7 +13,7 @@ public interface OrdersMvp {
 
         interface Callback {
 
-            void onOrdersLoaded(List<OrderDvo> orders);
+            void onOrdersLoaded(OrderListDvo orders);
 
             void onOrdersLoadError(Throwable error);
 
@@ -29,7 +27,7 @@ public interface OrdersMvp {
 
         void hideLoadOrdersProgress();
 
-        void setOrders(List<OrderDvo> orders);
+        void setOrders(OrderListDvo orders);
 
         void showLoadOrdersError(Throwable error);
 

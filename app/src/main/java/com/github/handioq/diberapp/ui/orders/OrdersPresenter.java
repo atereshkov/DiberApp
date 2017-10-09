@@ -1,11 +1,7 @@
 package com.github.handioq.diberapp.ui.orders;
 
-import android.util.Log;
-
-import com.github.handioq.diberapp.model.dvo.OrderDvo;
+import com.github.handioq.diberapp.model.dvo.OrderListDvo;
 import com.github.handioq.diberapp.network.NetworkService;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,9 +20,7 @@ public class OrdersPresenter implements OrdersMvp.Presenter, OrdersMvp.Model.Cal
     }
 
     @Override
-    public void onOrdersLoaded(List<OrderDvo> orders) {
-        Log.i(TAG, "get orders: " + orders.size());
-
+    public void onOrdersLoaded(OrderListDvo orders) {
         if (ordersView != null) {
             ordersView.setOrders(orders);
             ordersView.hideLoadOrdersProgress();
