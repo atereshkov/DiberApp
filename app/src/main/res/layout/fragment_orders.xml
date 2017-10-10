@@ -23,14 +23,6 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_add_white_24px"
-            app:backgroundTint="@color/colorFab" />
 
         <include
             android:id="@+id/progress_view"
@@ -43,6 +35,18 @@
         <include layout="@layout/error_layout" />
 
     </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_white_24px"
+        app:backgroundTint="@color/colorFab"
+        app:layout_anchor="@+id/recycler_view"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_behavior="com.github.handioq.diberapp.util.FABScrollBehavior" />
 
     <include
         android:id="@+id/empty_recycler_view"
