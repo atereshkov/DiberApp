@@ -19,6 +19,8 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.base.event.RemoveOrderEvent;
+import com.github.handioq.diberapp.base.pagination.PaginationListener;
+import com.github.handioq.diberapp.base.pagination.PaginationOnScrollListener;
 import com.github.handioq.diberapp.model.dvo.OrderListDvo;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderActivity;
@@ -38,7 +40,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OrdersFragment extends BaseFragment implements OrdersMvp.View, SwipeRefreshLayout.OnRefreshListener,
-        RemoveOrderMvp.View {
+        RemoveOrderMvp.View, PaginationListener {
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -121,7 +123,7 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(emptyView);
 
-        //recyclerView.addOnScrollListener(new PaginationOnScrollListener(this, layoutManager));
+        recyclerView.addOnScrollListener(new PaginationOnScrollListener(this, layoutManager));
     }
 
     @Override
@@ -220,6 +222,13 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
     public void onOrderRemoveError(Throwable e) {
         Log.e(TAG, e.toString());
         Toast.makeText(getContext(), "Error during order removing!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPaginationLoad(boolean state, int totalItemCount, int limit) {
+        //firstPaginationLoad = state;
+        Log.e(TAG, "Pagination load!");
+        //ordersPresenter.getOrders(userId, totalItemCount, limit);
     }
 
     @Override
