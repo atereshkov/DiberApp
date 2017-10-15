@@ -7,11 +7,9 @@ import com.github.handioq.diberapp.ui.auth.login.LoginFragment;
 import com.github.handioq.diberapp.ui.auth.registration.SignupFragment;
 import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressFragment;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderFragment;
-import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopFragment;
 import com.github.handioq.diberapp.ui.order.OrderFragment;
 import com.github.handioq.diberapp.ui.orders.OrdersFragment;
 import com.github.handioq.diberapp.ui.request.RequestFragment;
-import com.github.handioq.diberapp.ui.shops.ShopsFragment;
 
 import dagger.Component;
 
@@ -29,11 +27,7 @@ public interface PresenterComponent {
 
     void inject(AddressesFragment addressesFragment);
 
-    void inject(ShopsFragment shopsFragment);
-
     void inject(OrderFragment orderFragment);
-
-    void inject(NewShopFragment newShopFragment);
 
     void inject(NewAddressFragment newAddressFragment);
 

@@ -62,9 +62,9 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
         orderDvo = item;
         orderIdView.setText(String.valueOf(item.getId()));
         statusView.setText(item.getStatus());
-        dateView.setText(item.getDate());
-        addressFromView.setText(item.getAddress().getCountry() + ", " + item.getAddress().getAddress());
-        orderToView.setText(item.getShop().getAddress());
+        dateView.setText(String.valueOf(item.getDate()));
+        //addressFromView.setText(item.getAddress().getCountry() + ", " + item.getAddress().getAddress());
+        //orderToView.setText(item.getShop().getAddress());
 
         removeButtonView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

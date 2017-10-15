@@ -22,8 +22,6 @@ import com.github.handioq.diberapp.ui.requests.RequestsMvp;
 import com.github.handioq.diberapp.ui.requests.adapter.RequestsRecyclerAdapter;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,10 +159,10 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
     private void bindOrderInformation(OrderDvo order) {
         orderIdView.setText(String.valueOf(order.getId()));
-        dateView.setText(order.getDate());
+        dateView.setText(String.valueOf(order.getDate()));
         orderPriceView.setText(String.valueOf(order.getPrice()));
-        addressFromView.setText(order.getAddress().getCountry() + ", " + order.getAddress().getCity() + ", " + order.getAddress().getAddress()); // todo extract this
-        orderToView.setText(order.getShop().getAddress());
+        //addressFromView.setText(order.getAddress().getCountry() + ", " + order.getAddress().getCity() + ", " + order.getAddress().getAddress()); // todo extract this
+        //orderToView.setText(order.getShop().getAddress());
         orderDescriptionView.setText(order.getDescription());
         statusView.setText(order.getStatus());
 

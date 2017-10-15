@@ -11,7 +11,7 @@ public class OrderDto {
     private long id;
 
     @SerializedName("date")
-    private String date;
+    private long date;
 
     @SerializedName("description")
     private String description;
@@ -22,11 +22,11 @@ public class OrderDto {
     @SerializedName("status")
     private String status;
 
-    @SerializedName("address")
-    private AddressDto address;
+    @SerializedName("addressFrom")
+    private AddressDto addressFrom;
 
-    @SerializedName("shop")
-    private ShopDto shop;
+    @SerializedName("addressTo")
+    private AddressDto addressTo;
 
     @SerializedName("courier")
     private UserDto courier;
@@ -34,20 +34,20 @@ public class OrderDto {
     @SerializedName("customer")
     private UserDto customer;
 
-    public AddressDto getAddress() {
-        return address;
+    public AddressDto getAddressFrom() {
+        return addressFrom;
     }
 
-    public void setAddress(AddressDto address) {
-        this.address = address;
+    public void setAddressFrom(AddressDto addressFrom) {
+        this.addressFrom = addressFrom;
     }
 
-    public ShopDto getShop() {
-        return shop;
+    public AddressDto getAddressTo() {
+        return addressTo;
     }
 
-    public void setShop(ShopDto shop) {
-        this.shop = shop;
+    public void setAddressTo(AddressDto addressTo) {
+        this.addressTo = addressTo;
     }
 
     public UserDto getCourier() {
@@ -74,11 +74,11 @@ public class OrderDto {
         this.id = id;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

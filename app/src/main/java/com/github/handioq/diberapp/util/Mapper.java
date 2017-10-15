@@ -34,14 +34,14 @@ public class Mapper {
         //String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
         //String date = orderDto.getDate();
 
-        ShopDvo shopDvo = new ShopDvo();
-        if (orderDto.getShop() != null) {
-            shopDvo = mapShopToDvo(orderDto.getShop());
+        AddressDvo addressToDvo = new AddressDvo();
+        if (orderDto.getAddressTo() != null) {
+            addressToDvo = mapAddressToDvo(orderDto.getAddressTo());
         }
 
-        AddressDvo addressDvo = new AddressDvo();
-        if (orderDto.getAddress() != null) {
-            addressDvo = mapAddressToDvo(orderDto.getAddress());
+        AddressDvo addressFromDvo = new AddressDvo();
+        if (orderDto.getAddressFrom() != null) {
+            addressFromDvo = mapAddressToDvo(orderDto.getAddressTo());
         }
 
         UserDvo customerDvo;
@@ -59,7 +59,7 @@ public class Mapper {
         }
 
         return new OrderDvo(orderDto.getId(), orderDto.getDate(), orderDto.getDescription(),
-                orderDto.getPrice(), orderDto.getStatus(), shopDvo, addressDvo, courierDvo, customerDvo);
+                orderDto.getPrice(), orderDto.getStatus(), addressToDvo, addressFromDvo, courierDvo, customerDvo);
     }
 
     public static UserDvo mapUserToDvo(UserDto userDto) {
@@ -79,16 +79,6 @@ public class Mapper {
     public static AddressDvo mapAddressToDvo(AddressDto addressDto) {
         return new AddressDvo(addressDto.getId(), addressDto.getName(), addressDto.getPostalCode(), addressDto.getCountry(), addressDto.getCity(),
                 addressDto.getRegion(), addressDto.getAddress(), addressDto.getPhone());
-    }
-
-    public static List<ShopDvo> mapShopsListToDvo(List<ShopDto> shopListDto) {
-        List<ShopDvo> shopDvo = new ArrayList<>();
-
-        for (ShopDto shopDto : shopListDto) {
-            shopDvo.add(mapShopToDvo(shopDto));
-        }
-
-        return shopDvo;
     }
 
     public static List<RequestDvo> mapRequestsToDvo(List<RequestDto> requestListDto) {
@@ -118,14 +108,6 @@ public class Mapper {
 
     public static ReviewDvo mapReviewToDvo(ReviewDto reviewDto) {
         return new ReviewDvo(reviewDto.getReview(), reviewDto.getRating(), mapUserToDvo(reviewDto.getCourer()), mapUserToDvo(reviewDto.getUser()));
-    }
-
-    public static ShopDvo mapShopToDvo(ShopDto shopDto) {
-        return new ShopDvo(shopDto.getId(), shopDto.getName(), shopDto.getAddress());
-    }
-
-    public static ShopDto mapShopToDto(ShopDvo shopDvo) {
-        return new ShopDto(shopDvo.getId(), shopDvo.getName(), shopDvo.getAddress());
     }
 
     public static AddressDto mapAddressToDto(AddressDvo addressDvo) {

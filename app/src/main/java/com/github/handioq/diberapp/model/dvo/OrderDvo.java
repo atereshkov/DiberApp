@@ -3,18 +3,18 @@ package com.github.handioq.diberapp.model.dvo;
 public class OrderDvo {
 
     private long id;
-    private String date;
+    private long date;
     private String description;
     private Double price;
     private String status;
-    private ShopDvo shop;
-    private AddressDvo address;
+    private AddressDvo addressTo;
+    private AddressDvo addressFrom;
     private UserDvo courier;
     private UserDvo customer;
 
     public OrderDvo() { }
 
-    public OrderDvo(long id, String date, String description, Double price, String status) {
+    public OrderDvo(long id, long date, String description, Double price, String status) {
         this.id = id;
         this.date = date;
         this.description = description;
@@ -22,32 +22,32 @@ public class OrderDvo {
         this.status = status;
     }
 
-    public OrderDvo(long id, String date, String description, Double price, String status, ShopDvo shop, AddressDvo address, UserDvo courier, UserDvo customer) {
+    public OrderDvo(long id, long date, String description, Double price, String status, AddressDvo addressTo, AddressDvo addressFrom, UserDvo courier, UserDvo customer) {
         this.id = id;
         this.date = date;
         this.description = description;
         this.price = price;
         this.status = status;
-        this.shop = shop;
-        this.address = address;
         this.courier = courier;
         this.customer = customer;
+        this.addressFrom = addressFrom;
+        this.addressTo = addressTo;
     }
 
-    public ShopDvo getShop() {
-        return shop;
+    public AddressDvo getAddressTo() {
+        return addressTo;
     }
 
-    public void setShop(ShopDvo shop) {
-        this.shop = shop;
+    public void setAddressTo(AddressDvo addressTo) {
+        this.addressTo = addressTo;
     }
 
-    public AddressDvo getAddress() {
-        return address;
+    public AddressDvo getAddressFrom() {
+        return addressFrom;
     }
 
-    public void setAddress(AddressDvo address) {
-        this.address = address;
+    public void setAddressFrom(AddressDvo addressFrom) {
+        this.addressFrom = addressFrom;
     }
 
     public UserDvo getCourier() {
@@ -74,11 +74,11 @@ public class OrderDvo {
         this.id = id;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

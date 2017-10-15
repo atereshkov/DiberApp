@@ -33,7 +33,6 @@
     <string name="prompt_repeat_password">Repeat password</string>
     <string name="activity_title_signup">Sign Up</string>
     <string name="activity_title_new_order">New order</string>
-    <string name="activity_title_new_shop">New shop</string>
     <string name="activity_title_new_address">New address</string>
     <string name="prompt_description">Description</string>
     <string name="prompt_price">Price ($)</string>
@@ -62,7 +61,6 @@
     <string name="time">Time</string>
     <string name="drawer_logout">Logout</string>
     <string name="activity_title_addresses">Addresses</string>
-    <string name="activity_title_shops">Shops</string>
     <string name="activity_title_orders">Orders</string>
     <string name="activity_title_profile">Profile</string>
     <string name="activity_title_order">Order</string>

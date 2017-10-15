@@ -38,12 +38,7 @@
         <activity
             android:name=".ui.addresses.AddressesActivity"
             android:launchMode="singleTask"
-            android:label="@string/activity_title_addresses" />
-
-        <activity
-            android:name=".ui.shops.ShopsActivity"
-            android:launchMode="singleTask"
-            android:label="@string/activity_title_shops" />
+            android:label="@string/activity_title_addresses" />\
 
         <activity
             android:name=".ui.order.OrderActivity"
@@ -56,12 +51,8 @@
             android:label="@string/activity_title_request" />
 
         <activity
-            android:name=".ui.interaction.new_shop.NewShopActivity"
-            android:label="@string/activity_title_new_shop" />
-
-        <activity
             android:name=".ui.interaction.new_address.NewAddressActivity"
-            android:label="@string/activity_title_new_shop" />
+            android:label="@string/activity_title_new_address" />
 
     </application>
 

@@ -30,22 +30,24 @@ import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
 import com.github.handioq.diberapp.ui.dialog.CustomDatePickerDialog;
 import com.github.handioq.diberapp.ui.dialog.CustomTimePickerDialog;
 import com.github.handioq.diberapp.ui.dialog.NewShopDialog;
-import com.github.handioq.diberapp.ui.shops.ShopsMvp;
 import com.github.handioq.diberapp.util.AuthPreferences;
 import com.github.handioq.diberapp.util.Constants;
 import com.github.handioq.diberapp.util.DateUtils;
 import com.github.handioq.diberapp.util.Mapper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener,
-    ShopsMvp.View, AddressesMvp.View, CustomDatePickerDialog.DialogListener, CustomTimePickerDialog.DialogListener {
+public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener, AddressesMvp.View, CustomDatePickerDialog.DialogListener, CustomTimePickerDialog.DialogListener {
 
     private static final String ADD_SHOP_DIALOG = "NewShopDialog";
     private static final String DATE_PICKER_DIALOG = "DatePickerDialog";
@@ -87,9 +89,6 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     ScrollView contentScrollView;
 
     @Inject
-    ShopsMvp.Presenter shopsPresenter;
-
-    @Inject
     AddressesMvp.Presenter addressesPresenter;
 
     @Inject
@@ -122,9 +121,6 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
         newOrderPresenter.setView(this);
 
-        shopsPresenter.setView(this);
-        shopsPresenter.getUserShops(authPreferences.getUserId());
-
         addressesPresenter.setView(this);
         addressesPresenter.getUserAddresses(authPreferences.getUserId());
     }
@@ -153,7 +149,8 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
@@ -180,22 +177,32 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
     @OnClick(R.id.create_order_button)
     public void onCreateOrderClick() {
-        orderDto.setDate(dateTextView.getText().toString() + " " + timeTextView.getText().toString());
+        long timestamp = 0;
+        try {
+            String dateString = dateTextView.getText().toString() + " " + timeTextView.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm", Locale.getDefault());
+            Date date = sdf.parse(dateString);
+            timestamp = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        orderDto.setDate(timestamp);
         orderDto.setDescription(descriptionEditView.getText().toString());
         orderDto.setPrice(Double.parseDouble(priceEditView.getText().toString()));
         orderDto.setStatus(Constants.STATUS_NEW);
 
         AddressDto addressDto = Mapper.mapAddressToDto(selectedAddress);
-        ShopDto shopDto = Mapper.mapShopToDto(selectedShop);
 
-        orderDto.setAddress(addressDto);
-        orderDto.setShop(shopDto);
+        orderDto.setAddressFrom(addressDto);
+        orderDto.setAddressTo(addressDto);
 
         // todo add all checks for validity of order
 
@@ -247,30 +254,6 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     @Override
     public void onNewShopDialogCancelClick(DialogFragment dialog) {
 
-    }
-
-    // Shops methods:
-
-    @Override
-    public void showLoadShopsProgress() {
-        progressBarShops.setVisibility(View.VISIBLE);
-        shopsSpinnerView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void hideLoadShopsProgress() {
-        progressBarShops.setVisibility(View.GONE);
-        shopsSpinnerView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void setShops(List<ShopDvo> shops) {
-        initShopsSpinner(shops);
-    }
-
-    @Override
-    public void showLoadShopsError(Throwable error) {
-        Log.e(TAG, error.toString());
     }
 
     // Addresses methods:

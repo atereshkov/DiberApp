@@ -14,8 +14,6 @@ import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressMvp;
 import com.github.handioq.diberapp.ui.interaction.new_address.NewAddressPresenter;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderMvp;
 import com.github.handioq.diberapp.ui.interaction.new_order.NewOrderPresenter;
-import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopMvp;
-import com.github.handioq.diberapp.ui.interaction.new_shop.NewShopPresenter;
 import com.github.handioq.diberapp.ui.order.OrderMvp;
 import com.github.handioq.diberapp.ui.order.OrderPresenter;
 import com.github.handioq.diberapp.ui.orders.OrdersMvp;
@@ -28,10 +26,6 @@ import com.github.handioq.diberapp.ui.requests.RequestsMvp;
 import com.github.handioq.diberapp.ui.requests.RequestsPresenter;
 import com.github.handioq.diberapp.ui.reviews.ReviewsMvp;
 import com.github.handioq.diberapp.ui.reviews.ReviewsPresenter;
-import com.github.handioq.diberapp.ui.shops.ShopsMvp;
-import com.github.handioq.diberapp.ui.shops.ShopsPresenter;
-import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopMvp;
-import com.github.handioq.diberapp.ui.shops.interaction.RemoveShopPresenter;
 import com.github.handioq.diberapp.util.AuthPreferences;
 
 import dagger.Module;
@@ -66,12 +60,6 @@ public class PresenterModule {
 
     @Provides
     @PresenterScope
-    public ShopsMvp.Presenter providesShopsPresenter(NetworkService networkService) {
-        return new ShopsPresenter(networkService);
-    }
-
-    @Provides
-    @PresenterScope
     public NewOrderMvp.Presenter providesNewOrderPresenter(NetworkService networkService) {
         return new NewOrderPresenter(networkService);
     }
@@ -84,12 +72,6 @@ public class PresenterModule {
 
     @Provides
     @PresenterScope
-    public NewShopMvp.Presenter providesNewShopPresenter(NetworkService networkService) {
-        return new NewShopPresenter(networkService);
-    }
-
-    @Provides
-    @PresenterScope
     public NewAddressMvp.Presenter providesNewAddressPresenter(NetworkService networkService) {
         return new NewAddressPresenter(networkService);
     }
@@ -98,12 +80,6 @@ public class PresenterModule {
     @PresenterScope
     public RemoveAddressMvp.Presenter providesRemoveAddressPresenter(NetworkService networkService) {
         return new RemoveAddressPresenter(networkService);
-    }
-
-    @Provides
-    @PresenterScope
-    public RemoveShopMvp.Presenter providesRemoveShopPresenter(NetworkService networkService) {
-        return new RemoveShopPresenter(networkService);
     }
 
     @Provides
