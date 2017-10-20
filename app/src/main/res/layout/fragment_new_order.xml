@@ -124,13 +124,13 @@
                     android:paddingTop="@dimen/padding_xsmall">
 
                     <TextView
-                        android:id="@+id/delivery_address"
+                        android:id="@+id/delivery_address_from"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
                         android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:text="@string/delivery_address"
+                        android:text="@string/delivery_address_from"
                         android:textStyle="bold" />
 
                     <RelativeLayout
@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content">
 
                         <Spinner
-                            android:id="@+id/spinner_addresses"
+                            android:id="@+id/spinner_addresses_from"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_toLeftOf="@+id/addAddressButton"
@@ -177,13 +177,13 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/address_from"
+                        android:id="@+id/address_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_normal"
                         android:layout_marginLeft="@dimen/padding_normal"
                         android:layout_marginTop="@dimen/padding_normal"
-                        android:text="@string/delivery_address_from"
+                        android:text="@string/delivery_address_to"
                         android:textStyle="bold" />
 
                     <RelativeLayout
@@ -191,7 +191,7 @@
                         android:layout_height="wrap_content">
 
                         <Spinner
-                            android:id="@+id/spinner_delivery"
+                            android:id="@+id/spinner_delivery_to"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_toLeftOf="@+id/addShopButton"

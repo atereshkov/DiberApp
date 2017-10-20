@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,9 +13,9 @@ public class DateUtils {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
 
-    public static String getStringDateFromTimestamp(long longDate) {
+    public static String getStringDate(long timestamp) {
         return new SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault())
-                .format(new Date(longDate * 1000L));
+                .format(new Date(timestamp * 1000L));
     }
 
     public static String getStringDate(int year, int month, int day) {
@@ -38,6 +39,19 @@ public class DateUtils {
         Date date = calendar.getTime();
 
         return sdf.format(date);
+    }
+
+    public static long getTimestamp(String date) {
+        long timestamp = 0;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm", Locale.getDefault());
+            Date dateStr = sdf.parse(date);
+            timestamp = dateStr.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return timestamp;
     }
 
     public static Date localTimeToUTC(Date date) {

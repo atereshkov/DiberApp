@@ -31,7 +31,7 @@ public class Mapper {
     }
 
     public static OrderDvo mapOrderToDvo(OrderDto orderDto) {
-        String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
+        String date = DateUtils.getStringDate(orderDto.getDate());
 
         AddressDvo addressToDvo = new AddressDvo();
         if (orderDto.getAddressTo() != null) {

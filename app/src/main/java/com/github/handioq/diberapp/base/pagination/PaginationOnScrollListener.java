@@ -13,7 +13,7 @@ public class PaginationOnScrollListener extends RecyclerView.OnScrollListener {
     private LinearLayoutManager layoutManager;
     private PaginationListener paginationListener;
 
-    boolean loading = true;
+    private boolean loading = true;
     private int previousTotal = 0;
 
     public PaginationOnScrollListener(PaginationListener paginationListener, LinearLayoutManager layoutManager) {

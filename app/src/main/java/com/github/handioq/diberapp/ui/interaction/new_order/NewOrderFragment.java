@@ -25,7 +25,6 @@ import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
-import com.github.handioq.diberapp.model.dvo.ShopDvo;
 import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
 import com.github.handioq.diberapp.ui.dialog.CustomDatePickerDialog;
 import com.github.handioq.diberapp.ui.dialog.CustomTimePickerDialog;
@@ -35,19 +34,16 @@ import com.github.handioq.diberapp.util.Constants;
 import com.github.handioq.diberapp.util.DateUtils;
 import com.github.handioq.diberapp.util.Mapper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener, AddressesMvp.View, CustomDatePickerDialog.DialogListener, CustomTimePickerDialog.DialogListener {
+public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, NewShopDialog.DialogListener,
+        AddressesMvp.View, CustomDatePickerDialog.DialogListener, CustomTimePickerDialog.DialogListener {
 
     private static final String ADD_SHOP_DIALOG = "NewShopDialog";
     private static final String DATE_PICKER_DIALOG = "DatePickerDialog";
@@ -55,14 +51,14 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     private final String TAG = this.getClass().getSimpleName();
 
     private NewOrderDto orderDto = new NewOrderDto();
-    private AddressDvo selectedAddress = new AddressDvo();
-    private ShopDvo selectedShop = new ShopDvo();
+    private AddressDvo selectedFromAddress = new AddressDvo();
+    private AddressDvo selectedToAddress = new AddressDvo();
 
-    @BindView(R.id.spinner_addresses)
-    Spinner addrSpinnerView;
+    @BindView(R.id.spinner_addresses_from)
+    Spinner addressesFromSpinnerView;
 
-    @BindView(R.id.spinner_delivery)
-    Spinner shopsSpinnerView;
+    @BindView(R.id.spinner_delivery_to)
+    Spinner addressesToSpinnerView;
 
     @BindView(R.id.progress_addresses_spinner)
     ProgressBar progressBarAddresses;
@@ -98,9 +94,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     AuthPreferences authPreferences;
 
     public static NewOrderFragment newInstance() {
-        NewOrderFragment fragment = new NewOrderFragment();
-
-        return fragment;
+        return new NewOrderFragment();
     }
 
     @Override
@@ -125,7 +119,7 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         addressesPresenter.getUserAddresses(authPreferences.getUserId());
     }
 
-    private void initAddressesSpinner(List<AddressDvo> addresses) {
+    private void initAddressesToSpinner(List<AddressDvo> addresses) {
         ArrayList<String> strAddresses = new ArrayList<>();
 
         for (AddressDvo addressDvo : addresses) {
@@ -135,14 +129,13 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         ArrayAdapter<String> addressesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strAddresses);
         addressesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        addrSpinnerView.setAdapter(addressesAdapter);
-
-        addrSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        addressesToSpinnerView.setAdapter(addressesAdapter);
+        addressesToSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 for (AddressDvo address : addresses) {
                     if (address.getName().equals(parent.getItemAtPosition(position).toString())) {
-                        selectedAddress = address;
+                        selectedToAddress = address;
                         break;
                     }
                 }
@@ -154,23 +147,23 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
         });
     }
 
-    private void initShopsSpinner(List<ShopDvo> shops) {
-        ArrayList<String> strShops = new ArrayList<>();
-        for (ShopDvo shopDvo : shops) {
-            strShops.add(shopDvo.getName());
+    private void initAddressesFromSpinner(List<AddressDvo> addresses) {
+        ArrayList<String> strAddresses = new ArrayList<>();
+
+        for (AddressDvo addressDvo : addresses) {
+            strAddresses.add(addressDvo.getName());
         }
 
-        ArrayAdapter<String> shopsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strShops);
-        shopsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> addressesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, strAddresses);
+        addressesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        shopsSpinnerView.setAdapter(shopsAdapter);
-
-        shopsSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        addressesFromSpinnerView.setAdapter(addressesAdapter);
+        addressesFromSpinnerView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                for (ShopDvo shop : shops) {
-                    if (shop.getName().equals(parent.getItemAtPosition(position).toString())) {
-                        selectedShop = shop;
+                for (AddressDvo address : addresses) {
+                    if (address.getName().equals(parent.getItemAtPosition(position).toString())) {
+                        selectedFromAddress = address;
                         break;
                     }
                 }
@@ -184,25 +177,18 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
 
     @OnClick(R.id.create_order_button)
     public void onCreateOrderClick() {
-        long timestamp = 0;
-        try {
-            String dateString = dateTextView.getText().toString() + " " + timeTextView.getText().toString();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm", Locale.getDefault());
-            Date date = sdf.parse(dateString);
-            timestamp = date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        String dateString = dateTextView.getText().toString() + " " + timeTextView.getText().toString();
+        long timestamp = DateUtils.getTimestamp(dateString);
         orderDto.setDate(timestamp);
         orderDto.setDescription(descriptionEditView.getText().toString());
         orderDto.setPrice(Double.parseDouble(priceEditView.getText().toString()));
         orderDto.setStatus(Constants.STATUS_NEW);
 
-        AddressDto addressDto = Mapper.mapAddressToDto(selectedAddress);
+        AddressDto addressFromDto = Mapper.mapAddressToDto(selectedFromAddress);
+        AddressDto addressToDto = Mapper.mapAddressToDto(selectedToAddress);
 
-        orderDto.setAddressFrom(addressDto);
-        orderDto.setAddressTo(addressDto);
+        orderDto.setAddressFrom(addressFromDto);
+        orderDto.setAddressTo(addressToDto);
 
         // todo add all checks for validity of order
 
@@ -261,18 +247,19 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     @Override
     public void showLoadAddressesProgress() {
         progressBarAddresses.setVisibility(View.VISIBLE);
-        addrSpinnerView.setVisibility(View.GONE);
+        addressesFromSpinnerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoadAddressesProgress() {
         progressBarAddresses.setVisibility(View.GONE);
-        addrSpinnerView.setVisibility(View.VISIBLE);
+        addressesFromSpinnerView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setAddresses(List<AddressDvo> addresses) {
-        initAddressesSpinner(addresses);
+        initAddressesFromSpinner(addresses);
+        initAddressesToSpinner(addresses);
     }
 
     @Override

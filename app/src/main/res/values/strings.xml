@@ -37,11 +37,11 @@
     <string name="prompt_description">Description</string>
     <string name="prompt_price">Price ($)</string>
     <string name="action_create_order">Create</string>
-    <string name="delivery_address">Delivery Address</string>
+    <string name="delivery_address_from">Deliver From</string>
     <string name="order_info">Order information</string>
     <string name="shop_info">Shop information</string>
     <string name="address_info">Delivery address information</string>
-    <string name="delivery_address_from">Address from (Shop)</string>
+    <string name="delivery_address_to">Deliver To</string>
     <string name="prompt_address_from">Address from</string>
     <string name="prompt_order_name">Short name</string>
     <string name="prompt_shop_name">Shop name</string>
