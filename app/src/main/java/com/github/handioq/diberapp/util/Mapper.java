@@ -31,8 +31,7 @@ public class Mapper {
     }
 
     public static OrderDvo mapOrderToDvo(OrderDto orderDto) {
-        //String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
-        //String date = orderDto.getDate();
+        String date = DateUtils.getStringDateFromTimestamp(orderDto.getDate());
 
         AddressDvo addressToDvo = new AddressDvo();
         if (orderDto.getAddressTo() != null) {
@@ -58,7 +57,7 @@ public class Mapper {
             courierDvo = null;
         }
 
-        return new OrderDvo(orderDto.getId(), orderDto.getDate(), orderDto.getDescription(),
+        return new OrderDvo(orderDto.getId(), date, orderDto.getDescription(),
                 orderDto.getPrice(), orderDto.getStatus(), addressToDvo, addressFromDvo, courierDvo, customerDvo);
     }
 

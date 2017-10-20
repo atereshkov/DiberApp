@@ -3,7 +3,7 @@ package com.github.handioq.diberapp.model.dvo;
 public class OrderDvo {
 
     private long id;
-    private long date;
+    private String date;
     private String description;
     private Double price;
     private String status;
@@ -14,7 +14,7 @@ public class OrderDvo {
 
     public OrderDvo() { }
 
-    public OrderDvo(long id, long date, String description, Double price, String status) {
+    public OrderDvo(long id, String date, String description, Double price, String status) {
         this.id = id;
         this.date = date;
         this.description = description;
@@ -22,7 +22,7 @@ public class OrderDvo {
         this.status = status;
     }
 
-    public OrderDvo(long id, long date, String description, Double price, String status, AddressDvo addressTo, AddressDvo addressFrom, UserDvo courier, UserDvo customer) {
+    public OrderDvo(long id, String date, String description, Double price, String status, AddressDvo addressTo, AddressDvo addressFrom, UserDvo courier, UserDvo customer) {
         this.id = id;
         this.date = date;
         this.description = description;
@@ -74,11 +74,11 @@ public class OrderDvo {
         this.id = id;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

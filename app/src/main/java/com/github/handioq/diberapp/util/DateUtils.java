@@ -8,13 +8,13 @@ import java.util.TimeZone;
 
 public class DateUtils {
 
-    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
 
     public static String getStringDateFromTimestamp(long longDate) {
         return new SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault())
-                .format(new Date(longDate));
+                .format(new Date(longDate * 1000L));
     }
 
     public static String getStringDate(int year, int month, int day) {
