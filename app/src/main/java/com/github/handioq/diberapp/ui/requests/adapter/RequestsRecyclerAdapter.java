@@ -47,6 +47,7 @@ public class RequestsRecyclerAdapter extends RecyclerView.Adapter<RequestsViewHo
 
     public void clearItems() {
         this.items.clear();
+        notifyDataSetChanged();
     }
 
 }

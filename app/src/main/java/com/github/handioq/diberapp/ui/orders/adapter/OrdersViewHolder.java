@@ -34,7 +34,7 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
     TextView addressFromView;
 
     @BindView(R.id.order_to)
-    TextView orderToView;
+    TextView addressToView;
 
     @BindView(R.id.delete_button)
     ImageButton removeButtonView;
@@ -63,14 +63,10 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
         orderIdView.setText(String.valueOf(item.getId()));
         statusView.setText(item.getStatus());
         dateView.setText(String.valueOf(item.getDate()));
-        //addressFromView.setText(item.getAddress().getCountry() + ", " + item.getAddress().getAddress());
-        //orderToView.setText(item.getShop().getAddress());
+        addressFromView.setText(item.getAddressFrom().getCountry() + ", " + item.getAddressFrom().getAddress());
+        addressToView.setText(item.getAddressTo().getCountry() + ", " + item.getAddressTo().getAddress());
 
-        removeButtonView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                EventBus.getDefault().post(new RemoveOrderEvent(orderDvo));
-            }
-        });
+        removeButtonView.setOnClickListener(v -> EventBus.getDefault().post(new RemoveOrderEvent(orderDvo)));
 
         /*
         buyButtonView.setOnClickListener(new View.OnClickListener() {

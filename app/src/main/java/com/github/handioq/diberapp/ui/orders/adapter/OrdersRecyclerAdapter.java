@@ -46,5 +46,6 @@ public class OrdersRecyclerAdapter extends RecyclerView.Adapter<OrdersViewHolder
 
     public void clearItems() {
         this.items.clear();
+        notifyDataSetChanged();
     }
 }

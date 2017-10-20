@@ -46,6 +46,7 @@ public class ReviewsRecyclerAdapter extends RecyclerView.Adapter<ReviewsViewHold
 
 
     public void clearItems() {
+        notifyDataSetChanged();
         this.items.clear();
     }
 

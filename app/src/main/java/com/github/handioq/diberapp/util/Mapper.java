@@ -40,7 +40,7 @@ public class Mapper {
 
         AddressDvo addressFromDvo = new AddressDvo();
         if (orderDto.getAddressFrom() != null) {
-            addressFromDvo = mapAddressToDvo(orderDto.getAddressTo());
+            addressFromDvo = mapAddressToDvo(orderDto.getAddressFrom());
         }
 
         UserDvo customerDvo;
