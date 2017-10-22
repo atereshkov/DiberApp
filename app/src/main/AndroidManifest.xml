@@ -2,22 +2,58 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.handioq.diberapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
+        android:name=".application.DiberApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.auth.login.LoginActivity"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.orders.OrdersActivity"
+            android:launchMode="singleTask"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name=".ui.auth.registration.SignupActivity"
+            android:label="@string/activity_title_signup" />
+
+        <activity
+            android:name=".ui.interaction.new_order.NewOrderActivity"
+            android:label="@string/activity_title_new_order" />
+
+        <activity
+            android:name=".ui.addresses.AddressesActivity"
+            android:launchMode="singleTask"
+            android:label="@string/activity_title_addresses" />\
+
+        <activity
+            android:name=".ui.order.OrderActivity"
+            android:launchMode="singleTask"
+            android:label="@string/activity_title_order" />
+
+        <activity
+            android:name=".ui.request.RequestActivity"
+            android:launchMode="singleTask"
+            android:label="@string/activity_title_request" />
+
+        <activity
+            android:name=".ui.interaction.new_address.NewAddressActivity"
+            android:label="@string/activity_title_new_address" />
+
     </application>
 
 </manifest>

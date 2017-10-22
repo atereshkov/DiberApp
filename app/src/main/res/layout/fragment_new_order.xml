@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/progress_view"
+        layout="@layout/progress_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/new_order_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/new_order_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_margin_right"
+                android:layout_marginLeft="@dimen/card_margin_left"
+                android:layout_marginRight="@dimen/card_margin_right"
+                android:layout_marginStart="@dimen/card_margin_left"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/padding_xsmall"
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingStart="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_xsmall">
+
+                    <TextView
+                        android:id="@+id/order_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:layout_marginTop="@dimen/padding_normal"
+                        android:text="@string/order_info"
+                        android:textStyle="bold" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:hint="@string/prompt_order_name"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:visibility="gone" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/description_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="@string/prompt_description"
+                            android:inputType="textMultiLine" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0123456789."
+                            android:hint="@string/prompt_price"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_margin_right"
+                android:layout_marginLeft="@dimen/card_margin_left"
+                android:layout_marginRight="@dimen/card_margin_right"
+                android:layout_marginStart="@dimen/card_margin_left"
+                android:layout_marginTop="@dimen/padding_normal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/padding_xsmall"
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingStart="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_xsmall">
+
+                    <TextView
+                        android:id="@+id/delivery_address_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:layout_marginTop="@dimen/padding_normal"
+                        android:text="@string/delivery_address_from"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/spinner_addresses_from"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/addAddressButton"
+                            android:layout_toStartOf="@+id/addAddressButton" />
+
+                        <ImageButton
+                            android:id="@+id/addAddressButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_add_white_24px" />
+
+                        <!--
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_toLeftOf="@+id/spinner_addresses"
+                            android:layout_toStartOf="@+id/spinner_addresses"
+                            android:maxLines="1" />
+                        -->
+
+                        <ProgressBar
+                            android:id="@+id/progress_addresses_spinner"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/addAddressButton"
+                            android:layout_toStartOf="@+id/addAddressButton"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/address_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:layout_marginTop="@dimen/padding_normal"
+                        android:text="@string/delivery_address_to"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/spinner_delivery_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/addShopButton"
+                            android:layout_toStartOf="@+id/addShopButton" />
+
+                        <ImageButton
+                            android:id="@+id/addShopButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_add_white_24px" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_shops_spinner"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/addShopButton"
+                            android:layout_toStartOf="@+id/addShopButton"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/card_margin_right"
+                android:layout_marginLeft="@dimen/card_margin_left"
+                android:layout_marginRight="@dimen/card_margin_right"
+                android:layout_marginStart="@dimen/card_margin_left"
+                android:layout_marginTop="@dimen/padding_normal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/padding_xsmall"
+                    android:paddingEnd="@dimen/padding_normal"
+                    android:paddingLeft="@dimen/padding_normal"
+                    android:paddingRight="@dimen/padding_normal"
+                    android:paddingStart="@dimen/padding_normal"
+                    android:paddingTop="@dimen/padding_xsmall">
+
+                    <TextView
+                        android:id="@+id/date_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:layout_marginTop="@dimen/padding_normal"
+                        android:text="@string/date"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/set_date_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_date_range_white_24px" />
+
+                        <TextView
+                            android:id="@+id/date_edit_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_normal"
+                            android:layout_toLeftOf="@+id/set_date_button"
+                            android:layout_toStartOf="@+id/set_date_button"
+                            android:ems="10"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/time_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:layout_marginTop="@dimen/padding_normal"
+                        android:text="@string/time"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/time_edit_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_normal"
+                            android:layout_toLeftOf="@+id/set_time_button"
+                            android:layout_toStartOf="@+id/set_time_button"
+                            android:ems="10"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+
+                        <ImageButton
+                            android:id="@+id/set_time_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/ic_access_time_white_24px" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/create_order_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_create_order"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

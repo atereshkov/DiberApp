@@ -1,5 +1,6 @@
 package com.github.handioq.diberapp.base;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,10 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.handioq.diberapp.R;
+import com.github.handioq.diberapp.ui.addresses.AddressesActivity;
+import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
+import com.github.handioq.diberapp.ui.orders.OrdersActivity;
+import com.github.handioq.diberapp.util.AuthPreferences;
 
 import butterknife.BindView;
 
-public class BaseDrawerActivity extends BaseToolbarActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class BaseDrawerActivity extends BaseToolbarActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
@@ -27,6 +32,11 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ImageView userImageView;
     private TextView nameTextView;
+    private TextView emailTextView;
+
+    // TODO add logout button
+
+    private AuthPreferences authPreferences;
 
     @Override
     public void onContentChanged() {
@@ -37,8 +47,9 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
 
         View headerLayout = navigationView.getHeaderView(0);
 
-        //userImageView = (ImageView) headerLayout.findViewById(R.id.);
-        //nameTextView = (TextView) headerLayout.findViewById(R.id.);
+        userImageView = (ImageView) headerLayout.findViewById(R.id.imageView);
+        nameTextView = (TextView) headerLayout.findViewById(R.id.nameTextView);
+        emailTextView = (TextView) headerLayout.findViewById(R.id.emailTextView);
     }
 
     @Override
@@ -58,13 +69,22 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
         drawerLayout.closeDrawer(GravityCompat.START);
         int id = item.getItemId();
 
-        /*
-        if (id == R.id.orders) {
+        if (id == R.id.nav_orders) {
+            Intent intent = new Intent(this, OrdersActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_addresses) {
+            Intent intent = new Intent(this, AddressesActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_logout) {
+            authPreferences.logout();
 
-        } else if (id == R.id.account) {
-
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            this.finish();
         }
-        */
 
         return true;
     }
@@ -78,14 +98,15 @@ public class BaseDrawerActivity extends BaseToolbarActivity implements Navigatio
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        authPreferences = new AuthPreferences(getApplicationContext());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        // set fields
+        nameTextView.setText(authPreferences.getUserFullname());
+        emailTextView.setText(authPreferences.getUserEmail());
     }
 
 }
