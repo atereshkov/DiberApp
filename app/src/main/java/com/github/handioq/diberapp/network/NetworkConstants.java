@@ -2,7 +2,7 @@ package com.github.handioq.diberapp.network;
 
 public class NetworkConstants {
 
-    public static final String SERVER_URL = "https://pacific-forest-76418.herokuapp.com";
+    public static final String SERVER_URL = "https://diber-backend.herokuapp.com";
     //public static final String SERVER_URL = "http://private-7243c-rnsurvey.apiary-mock.com";
 
     public static final String HEADER_AUTHORIZATION = "Authorization";
