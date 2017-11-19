@@ -224,6 +224,8 @@ public class OrdersFragment extends BaseFragment implements OrdersMvp.View, Swip
         Toast.makeText(getContext(), "Error during order removing!", Toast.LENGTH_SHORT).show();
     }
 
+    // MARK: Pagination
+
     @Override
     public void onPaginationLoad(boolean state, int totalItemCount, int limit) {
         //firstPaginationLoad = state;

@@ -21,12 +21,6 @@ import butterknife.ButterKnife;
 
 class OrdersViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.order_id)
-    TextView orderIdView;
-
-    @BindView(R.id.order_status)
-    TextView statusView;
-
     @BindView(R.id.order_date)
     TextView dateView;
 
@@ -35,6 +29,9 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.order_to)
     TextView addressToView;
+
+    @BindView(R.id.order_description)
+    TextView descriptionView;
 
     @BindView(R.id.delete_button)
     ImageButton removeButtonView;
@@ -60,11 +57,10 @@ class OrdersViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final OrderDvo item) {
         orderDvo = item;
-        orderIdView.setText(String.valueOf(item.getId()));
-        statusView.setText(item.getStatus());
         dateView.setText(String.valueOf(item.getDate()));
         addressFromView.setText(item.getAddressFrom().getCountry() + ", " + item.getAddressFrom().getAddress());
         addressToView.setText(item.getAddressTo().getCountry() + ", " + item.getAddressTo().getAddress());
+        descriptionView.setText(item.getDescription());
 
         removeButtonView.setOnClickListener(v -> EventBus.getDefault().post(new RemoveOrderEvent(orderDvo)));
 
