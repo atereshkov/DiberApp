@@ -11,7 +11,7 @@ public class RequestPresenter implements RequestMvp.Presenter, RequestMvp.Model.
     private RequestMvp.Model requestModel;
     private NetworkService networkService;
 
-    private final static String TAG = "OrderPresenter";
+    private final static String TAG = "RequestPresenter";
 
     @Inject
     public RequestPresenter(NetworkService networkService) {

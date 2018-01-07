@@ -15,8 +15,10 @@ import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
+import com.github.handioq.diberapp.model.dto.RequestStatusDto;
 import com.github.handioq.diberapp.model.dvo.RequestDvo;
 import com.github.handioq.diberapp.model.dvo.ReviewDvo;
+import com.github.handioq.diberapp.ui.request.interaction.AcceptRequestMvp;
 import com.github.handioq.diberapp.ui.reviews.ReviewsMvp;
 import com.github.handioq.diberapp.ui.reviews.adapter.ReviewsRecyclerAdapter;
 
@@ -26,8 +28,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class RequestFragment extends BaseFragment implements RequestMvp.View, ReviewsMvp.View {
+public class RequestFragment extends BaseFragment implements RequestMvp.View, ReviewsMvp.View, AcceptRequestMvp.View {
 
     private static final String TAG = "RequestFragment";
     private static final String REQUEST_ID_KEY = "request";
@@ -59,6 +62,9 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
 
     @Inject
     RequestMvp.Presenter requestPresenter;
+
+    @Inject
+    AcceptRequestMvp.Presenter acceptRequestPresenter;
 
     public static RequestFragment newInstance(long requestId) {
         RequestFragment fragment = new RequestFragment();
@@ -97,6 +103,7 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
         adapter = new ReviewsRecyclerAdapter(new ArrayList<>());
         initRecycler();
 
+        acceptRequestPresenter.setView(this);
         userReviewsPresenter.setView(this);
         requestPresenter.setView(this);
         requestPresenter.getRequestDetails(requestId);
@@ -141,7 +148,6 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
 
     // UserReviews
 
-
     @Override
     public void showLoadReviewsProgress() {
 
@@ -163,4 +169,41 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
     public void showLoadReviewsError(Throwable error) {
         Log.e(TAG, error.toString());
     }
+
+    // AcceptRequestMVP
+
+    @Override
+    public void onRequestAcceptSuccess(RequestDvo request) {
+        Log.e(TAG, "Accept SUCCESS!!!");
+    }
+
+    @Override
+    public void onRequestAcceptError(Throwable e) {
+        Log.e(TAG, "Accept ERROR!!!");
+    }
+
+    @Override
+    public void showAcceptRequestProgress() {
+
+    }
+
+    @Override
+    public void hideAcceptRequestProgress() {
+
+    }
+
+    // Accept / Decline request Actions
+
+    @OnClick(R.id.button_accept)
+    public void onRequestAcceptButtonClick() {
+        Log.i(TAG, "Accept Button Click for request with id: " + requestId);
+        RequestStatusDto status = new RequestStatusDto("Accepted");
+        acceptRequestPresenter.acceptRequest(requestId, status);
+    }
+
+    @OnClick(R.id.button_decline)
+    public void onRequestDecllineButtonClick() {
+
+    }
+
 }

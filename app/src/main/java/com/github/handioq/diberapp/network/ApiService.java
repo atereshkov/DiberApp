@@ -7,6 +7,7 @@ import com.github.handioq.diberapp.model.dto.OrderDto;
 import com.github.handioq.diberapp.model.dto.PageableOrderListDto;
 import com.github.handioq.diberapp.model.dto.RegisterDto;
 import com.github.handioq.diberapp.model.dto.RequestDto;
+import com.github.handioq.diberapp.model.dto.RequestStatusDto;
 import com.github.handioq.diberapp.model.dto.ResponseDto;
 import com.github.handioq.diberapp.model.dto.ReviewDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
@@ -19,6 +20,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -41,6 +43,7 @@ public interface ApiService {
     String ORDER_REQUESTS = API_BASE_URL + "/orders/{order_id}/requests";
     String REQUEST_INFO = API_BASE_URL + "/requests/{request_id}";
     String USER_REVIEWS = API_BASE_URL + "/users/{user_id}/reviews";
+    String REQUEST_STATUS = API_BASE_URL + "/requests/{request_id}/status";
 
     @POST(LOGIN_URL)
     Observable<AuthResponseDto> login(@Query("username") String login,
@@ -97,5 +100,8 @@ public interface ApiService {
 
     @DELETE(ORDER_ID)
     Observable<ResponseDto> deleteOrder(@Path("order_id") long orderId);
+
+    @PUT(REQUEST_STATUS)
+    Observable<RequestDto> acceptRequest(@Path("request_id") long requestId, @Body RequestStatusDto requestStatusDto);
 
 }
