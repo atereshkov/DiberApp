@@ -113,8 +113,8 @@ public class NewAddressFragment extends BaseFragment implements NewAddressMvp.Vi
 
     @Override
     public void onAddressAdded(AddressDvo addressDvo) {
-        Log.i(TAG, "Shop added: " + addressDvo.toString());
-        Toast.makeText(getContext(), "Shop added!", Toast.LENGTH_LONG).show();
+        Log.i(TAG, "Address added: " + addressDvo.toString());
+        Toast.makeText(getContext(), "Address successfully added!", Toast.LENGTH_LONG).show();
         getActivity().finish();
 
         // todo send eventbus event
