@@ -68,6 +68,9 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
     @BindView(R.id.progress_view)
     ProgressBar progressView;
 
+    @BindView(R.id.requestsProgressBar)
+    ProgressBar requestProgressView;
+
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport requestsRecyclerView;
 
@@ -192,12 +195,12 @@ public class OrderFragment extends BaseFragment implements OrderMvp.View, Reques
 
     @Override
     public void showLoadRequestsProgress() {
-
+        requestProgressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadRequestsProgress() {
-
+        requestProgressView.setVisibility(View.GONE);
     }
 
     @Override

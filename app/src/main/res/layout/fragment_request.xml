@@ -113,7 +113,15 @@
             android:layout_marginBottom="4dp"
             android:text="Request" />
 
+        <ProgressBar
+            android:id="@+id/requestInteractionProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <LinearLayout
+            android:id="@+id/requestInteractionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

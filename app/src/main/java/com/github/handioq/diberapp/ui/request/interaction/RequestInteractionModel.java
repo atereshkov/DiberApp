@@ -7,20 +7,19 @@ import com.github.handioq.diberapp.util.Mapper;
 
 import rx.Subscriber;
 
-public class AcceptRequestModel implements AcceptRequestMvp.Model {
+public class RequestInteractionModel implements RequestInteractionMvp.Model {
 
     private final NetworkService networkService;
-    private AcceptRequestMvp.Model.Callback callback;
+    private RequestInteractionMvp.Model.Callback callback;
 
     private final static String TAG = "RequestModel";
 
-    public AcceptRequestModel(NetworkService networkService) {
+    public RequestInteractionModel(NetworkService networkService) {
         this.networkService = networkService;
     }
 
     @Override
     public void acceptRequest(long requestId, RequestStatusDto requestStatusDto) {
-
         networkService.getApiService()
                 .acceptRequest(requestId, requestStatusDto)
                 .map(Mapper::mapRequestToDvo)
@@ -44,7 +43,31 @@ public class AcceptRequestModel implements AcceptRequestMvp.Model {
     }
 
     @Override
-    public void setCallback(AcceptRequestMvp.Model.Callback callback) {
+    public void declineRequest(long requestId, RequestStatusDto requestStatusDto) {
+        networkService.getApiService()
+                .declineRequest(requestId, requestStatusDto)
+                .map(Mapper::mapRequestToDvo)
+                .compose(NetworkService.applyScheduler())
+                .subscribe(new Subscriber<RequestDvo>() {
+                    @Override
+                    public void onCompleted() {
+                        callback.onRequestDeclineCompleted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onRequestDeclineError(e);
+                    }
+
+                    @Override
+                    public void onNext(RequestDvo request) {
+                        callback.onRequestDeclined(request);
+                    }
+                });
+    }
+
+    @Override
+    public void setCallback(RequestInteractionMvp.Model.Callback callback) {
         this.callback = callback;
     }
 

@@ -104,4 +104,7 @@ public interface ApiService {
     @PUT(REQUEST_STATUS)
     Observable<RequestDto> acceptRequest(@Path("request_id") long requestId, @Body RequestStatusDto requestStatusDto);
 
+    @PUT(REQUEST_STATUS)
+    Observable<RequestDto> declineRequest(@Path("request_id") long requestId, @Body RequestStatusDto requestStatusDto);
+
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.handioq.diberapp.R;
 import com.github.handioq.diberapp.application.DiberApp;
@@ -18,7 +19,7 @@ import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.model.dto.RequestStatusDto;
 import com.github.handioq.diberapp.model.dvo.RequestDvo;
 import com.github.handioq.diberapp.model.dvo.ReviewDvo;
-import com.github.handioq.diberapp.ui.request.interaction.AcceptRequestMvp;
+import com.github.handioq.diberapp.ui.request.interaction.RequestInteractionMvp;
 import com.github.handioq.diberapp.ui.reviews.ReviewsMvp;
 import com.github.handioq.diberapp.ui.reviews.adapter.ReviewsRecyclerAdapter;
 
@@ -30,7 +31,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RequestFragment extends BaseFragment implements RequestMvp.View, ReviewsMvp.View, AcceptRequestMvp.View {
+public class RequestFragment extends BaseFragment implements RequestMvp.View, ReviewsMvp.View, RequestInteractionMvp.View {
 
     private static final String TAG = "RequestFragment";
     private static final String REQUEST_ID_KEY = "request";
@@ -44,6 +45,12 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
 
     @BindView(R.id.progress_view)
     ProgressBar progressView;
+
+    @BindView(R.id.requestInteractionProgressBar)
+    ProgressBar requestInteractionProgressView;
+
+    @BindView(R.id.requestInteractionLayout)
+    LinearLayout requestInteractionLayoutView;
 
     @BindView(R.id.request_courier_name)
     TextView courierNameView;
@@ -64,7 +71,7 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
     RequestMvp.Presenter requestPresenter;
 
     @Inject
-    AcceptRequestMvp.Presenter acceptRequestPresenter;
+    RequestInteractionMvp.Presenter acceptRequestPresenter;
 
     public static RequestFragment newInstance(long requestId) {
         RequestFragment fragment = new RequestFragment();
@@ -170,26 +177,42 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
         Log.e(TAG, error.toString());
     }
 
-    // AcceptRequestMVP
+    // RequestInteractionMVP:
 
     @Override
     public void onRequestAcceptSuccess(RequestDvo request) {
         Log.e(TAG, "Accept SUCCESS!!!");
+        Toast.makeText(getActivity(), "Request has been accepted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRequestAcceptError(Throwable e) {
         Log.e(TAG, "Accept ERROR!!!");
+        Toast.makeText(getActivity(), "Error during request accepting", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showAcceptRequestProgress() {
-
+    public void onRequestDeclineSuccess(RequestDvo request) {
+        Log.e(TAG, "Decline SUCCESS!!!");
+        Toast.makeText(getActivity(), "Request has been declined", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void hideAcceptRequestProgress() {
+    public void onRequestDeclineError(Throwable e) {
+        Log.e(TAG, "Decline ERROR!!!");
+        Toast.makeText(getActivity(), "Error during request declining", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void showRequestInteractionProgress() {
+        requestInteractionLayoutView.setVisibility(View.GONE);
+        requestInteractionProgressView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideRequestInteractionProgress() {
+        requestInteractionLayoutView.setVisibility(View.VISIBLE);
+        requestInteractionProgressView.setVisibility(View.GONE);
     }
 
     // Accept / Decline request Actions
@@ -203,7 +226,9 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
 
     @OnClick(R.id.button_decline)
     public void onRequestDecllineButtonClick() {
-
+        Log.i(TAG, "Decline Button Click for request with id: " + requestId);
+        RequestStatusDto status = new RequestStatusDto("Canceled by customer");
+        acceptRequestPresenter.declineRequest(requestId, status);
     }
 
 }
