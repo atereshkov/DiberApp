@@ -58,6 +58,9 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
     @BindView(R.id.request_courier_rating)
     TextView courierRatingView;
 
+    @BindView(R.id.requestStatusTextView)
+    TextView requestStatusTextView;
+
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
 
@@ -134,6 +137,22 @@ public class RequestFragment extends BaseFragment implements RequestMvp.View, Re
 
     private void bindRequestInformation(RequestDvo request) {
         courierNameView.setText(request.getCourier().getFullname());
+
+        switch (request.getStatus()) {
+            case "Canceled by courier":
+                requestStatusTextView.setText("Request has been canceled by courier");
+                requestInteractionLayoutView.setVisibility(View.GONE);
+                break;
+            case "Canceled by customer":
+                requestStatusTextView.setText("Request has been canceled by you earlier");
+                requestInteractionLayoutView.setVisibility(View.GONE);
+                break;
+            case "Accepted":
+                requestStatusTextView.setText("Request has been accepted");
+                requestInteractionLayoutView.setVisibility(View.GONE);
+                break;
+            // TODO for "Accepted state can be canceled also"
+        }
     }
 
     @Override
