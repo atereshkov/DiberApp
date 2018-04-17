@@ -16,7 +16,7 @@ import com.github.handioq.diberapp.application.DiberApp;
 import com.github.handioq.diberapp.base.BaseFragment;
 import com.github.handioq.diberapp.base.RecyclerViewEmptySupport;
 import com.github.handioq.diberapp.base.event.RemoveAddressEvent;
-import com.github.handioq.diberapp.model.dvo.AddressDvo;
+import com.github.handioq.diberapp.model.dvo.AddressListDvo;
 import com.github.handioq.diberapp.ui.addresses.adapter.AddressesRecyclerAdapter;
 import com.github.handioq.diberapp.ui.addresses.interaction.RemoveAddressMvp;
 import com.github.handioq.diberapp.ui.auth.login.LoginActivity;
@@ -28,7 +28,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -132,11 +131,11 @@ public class AddressesFragment extends BaseFragment implements AddressesMvp.View
     }
 
     @Override
-    public void setAddresses(List<AddressDvo> addresses) {
+    public void setAddresses(AddressListDvo addresses) {
         isUpdating = false;
         content.setRefreshing(false);
         if (getActivity() != null) { // check for attaching to activity
-            adapter.setItems(addresses);
+            adapter.setItems(addresses.getAddresses());
         }
     }
 

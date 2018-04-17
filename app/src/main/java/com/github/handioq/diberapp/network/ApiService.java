@@ -4,6 +4,7 @@ import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.AuthResponseDto;
 import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.OrderDto;
+import com.github.handioq.diberapp.model.dto.PageableAddressListDto;
 import com.github.handioq.diberapp.model.dto.PageableOrderListDto;
 import com.github.handioq.diberapp.model.dto.RegisterDto;
 import com.github.handioq.diberapp.model.dto.RequestDto;
@@ -79,7 +80,7 @@ public interface ApiService {
     Observable<List<ShopDto>> getUserShops(@Path("user_id") long userId);
 
     @GET(USER_ADDRESSES)
-    Observable<List<AddressDto>> getUserAddresses(@Path("user_id") long userId);
+    Observable<PageableAddressListDto> getUserAddresses(@Path("user_id") long userId);
 
     @GET(ORDER_REQUESTS)
     Observable<List<RequestDto>> getOrderRequests(@Path("order_id") long orderId);

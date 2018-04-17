@@ -24,6 +24,7 @@ import com.github.handioq.diberapp.model.dto.AddressDto;
 import com.github.handioq.diberapp.model.dto.NewOrderDto;
 import com.github.handioq.diberapp.model.dto.ShopDto;
 import com.github.handioq.diberapp.model.dvo.AddressDvo;
+import com.github.handioq.diberapp.model.dvo.AddressListDvo;
 import com.github.handioq.diberapp.model.dvo.OrderDvo;
 import com.github.handioq.diberapp.ui.addresses.AddressesMvp;
 import com.github.handioq.diberapp.ui.dialog.CustomDatePickerDialog;
@@ -257,9 +258,9 @@ public class NewOrderFragment extends BaseFragment implements NewOrderMvp.View, 
     }
 
     @Override
-    public void setAddresses(List<AddressDvo> addresses) {
-        initAddressesFromSpinner(addresses);
-        initAddressesToSpinner(addresses);
+    public void setAddresses(AddressListDvo addresses) {
+        initAddressesFromSpinner(addresses.getAddresses());
+        initAddressesToSpinner(addresses.getAddresses());
     }
 
     @Override

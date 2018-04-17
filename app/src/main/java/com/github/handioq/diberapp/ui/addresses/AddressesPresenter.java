@@ -2,10 +2,8 @@ package com.github.handioq.diberapp.ui.addresses;
 
 import android.util.Log;
 
-import com.github.handioq.diberapp.model.dvo.AddressDvo;
+import com.github.handioq.diberapp.model.dvo.AddressListDvo;
 import com.github.handioq.diberapp.network.NetworkService;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,8 +27,8 @@ public class AddressesPresenter implements AddressesMvp.Presenter, AddressesMvp.
     }
 
     @Override
-    public void onAddressesLoaded(List<AddressDvo> addresses) {
-        Log.i(TAG, "get user addresses: " + addresses.size());
+    public void onAddressesLoaded(AddressListDvo addresses) {
+        Log.i(TAG, "get user addresses: " + addresses.getAddresses().size());
 
         if (addressesView != null) {
             addressesView.setAddresses(addresses);
